@@ -3,6 +3,8 @@ import java.util.Random;
 public class Simulator {
 
     private CarQueue entranceCarQueue;
+    private CarQueue paymentCarQueue;
+    private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
 
     private int day = 0;
@@ -11,20 +13,18 @@ public class Simulator {
 
     private int tickPause = 100;
 
-    int weekDayArrivals= 50; // average number of cars per hour
-    int weekendArrivals = 90; // average number of cars per hour
+    int weekDayArrivals= 50; // average number of arriving cars per hour
+    int weekendArrivals = 90; // average number of arriving cars per hour
 
-    int enterSpeed = 3; // number of cars per minute
-    int exitSpeed = 10; // number of cars per minute
+    int enterSpeed = 3; // number of cars that can enter per minute
+    int paymentSpeed = 10; // number of cars that can pay per minute
+    int exitSpeed = 9; // number of cars that can leave per minute
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
+        paymentCarQueue = new CarQueue();
+        exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
-    }
-
-    public static void main(String[] args) {
-        Simulator sim = new Simulator();
-        sim.run();
     }
 
     public void run() {
@@ -84,13 +84,34 @@ public class Simulator {
         // Perform car park tick.
         simulatorView.tick();
 
-        // Let cars exit.
-        for (int i = 0; i < exitSpeed; i++) {
+        // Add leaving cars to the exit queue.
+        while (true) {
             Car car = simulatorView.getFirstLeavingCar();
             if (car == null) {
                 break;
             }
+            car.setIsPaying(true);
+            paymentCarQueue.addCar(car);
+        }
+
+        // Let cars pay.
+        for (int i = 0; i < paymentSpeed; i++) {
+            Car car = paymentCarQueue.removeCar();
+            if (car == null) {
+                break;
+            }
+            // TODO Handle payment.
             simulatorView.removeCarAt(car.getLocation());
+            exitCarQueue.addCar(car);
+        }
+
+        // Let cars leave.
+        for (int i = 0; i < exitSpeed; i++) {
+            Car car = exitCarQueue.removeCar();
+            if (car == null) {
+                break;
+            }
+            // Bye!
         }
 
         // Update the car park view.
