@@ -7,6 +7,8 @@ public class SimulatorView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
+    private JButton stepOneButton;
+    private JButton stepManyButton;
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.numberOfFloors = numberOfFloors;
@@ -15,11 +17,21 @@ public class SimulatorView extends JFrame {
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
         carParkView = new CarParkView();
-
         Container contentPane = getContentPane();
-        //contentPane.add(stepLabel, BorderLayout.NORTH);
-        contentPane.add(carParkView, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        stepOneButton = new JButton("1 step");
+        stepOneButton.setPreferredSize(new Dimension(250, 60));
+        stepManyButton = new JButton("100 steps");
+        stepManyButton.setPreferredSize(new Dimension(250, 60));
+
+        buttonPanel.add(stepOneButton);
+        buttonPanel.add(stepManyButton);
+        contentPane.add(buttonPanel, BorderLayout.NORTH);
+        contentPane.add(carParkView, BorderLayout.SOUTH);
+
         //contentPane.add(population, BorderLayout.SOUTH);
+
         pack();
         setVisible(true);
 
@@ -132,7 +144,8 @@ public class SimulatorView extends JFrame {
         
         private Dimension size;
         private Image carParkImage;    
-    
+
+
         /**
          * Constructor for objects of class CarPark
          */
@@ -197,6 +210,7 @@ public class SimulatorView extends JFrame {
                     20 - 1,
                     10 - 1); // TODO use dynamic size or constants
         }
+
     }
 
 }
