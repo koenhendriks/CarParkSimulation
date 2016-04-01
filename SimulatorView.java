@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
@@ -22,6 +24,31 @@ public class SimulatorView extends JFrame {
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
+
+        /**
+         * Add a window listener to the SimulatorView so we can send
+         * a confirmation to the user so we know they are sure if
+         * they want to close the Car Park Simulation
+         */
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(carParkView,
+                        "Are you sure you want to close the Car Park Simulation?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    System.exit(0); // 0 when execution went fine;
+                }
+            }
+        });
+
+        /**
+         * We only want to exit the application if the user has
+         * confirmed our message, otherwise we don't want to
+         * do anything, so we change the default close
+         */
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         updateView();
     }
