@@ -15,7 +15,7 @@ public class SimulatorView extends JFrame {
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-        
+
         carParkView = new CarParkView();
 
         Container contentPane = getContentPane();
@@ -34,8 +34,8 @@ public class SimulatorView extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showOptionDialog(carParkView,
-                        "Are you sure you want to close the Car Park Simulation?",
-                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        Language.get("confirmExit"),
+                        Language.get("confirmExitTitle"), JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == 0) {
                     System.exit(0); // 0 when execution went fine;
