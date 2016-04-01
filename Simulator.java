@@ -33,6 +33,11 @@ public class Simulator {
         }
     }
 
+    public static void main(String[] args) {
+        Simulator sim = new Simulator();
+        sim.run();
+    }
+
     private void tick() {
         // Advance the time by one minute.
         minute++;
