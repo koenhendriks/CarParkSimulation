@@ -1,16 +1,25 @@
 public abstract class Car {
 
+    // Location for the Car object.
     private Location location;
+
+    // Minutes the car has left for parking.
     private int minutesLeft;
+
+    // Boolean indicating that the car is paying.
     private boolean isPaying;
 
     /**
-     * Constructor for objects of class Car
+     * Constructor for objects of class Car.
      */
     public Car() {
 
     }
 
+    /**
+     * Getter for the location of the Car object.
+     * @return Location of the Car object.
+     */
     public Location getLocation() {
         return location;
     }
@@ -26,7 +35,7 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
-    
+
     public boolean getIsPaying() {
         return isPaying;
     }
@@ -35,6 +44,9 @@ public abstract class Car {
         this.isPaying = isPaying;
     }
 
+    /**
+     * Method for decreasing the minutes the Car object has left for parking.
+     */
     public void tick() {
         minutesLeft--;
     }

@@ -1,25 +1,44 @@
 import java.util.Random;
 
+/**
+ * Class for simulating cars parking in a car park.
+ *
+ * @author (Modified by) Joey Boum Bletterman
+ * @version 2.0
+ */
 public class Simulator {
 
+    // Queue object for entering cars.
     private CarQueue entranceCarQueue;
+
+    // Queue object for paying cars.
     private CarQueue paymentCarQueue;
+
+    // Queue object for exiting cars.
     private CarQueue exitCarQueue;
+
+    // Instance for a graphic display of the simulation.
     private SimulatorView simulatorView;
 
+    // Time intervals used by the methods in this class.
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
 
     private int tickPause = 100;
 
+    // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
 
+    // Intervals for entering, paying and exiting cars.
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
 
+    /**
+     * Constructor for the car park simulation.
+     */
     public Simulator() {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -27,17 +46,27 @@ public class Simulator {
         simulatorView = new SimulatorView(3, 6, 30);
     }
 
+    /**
+     * Method for running the simulation for a given duration.
+     */
     public void run() {
         for (int i = 0; i < 10000; i++) {
             tick();
         }
     }
 
+    /**
+     * Main method for executing the simulator.
+     * @param args for the main method
+     */
     public static void main(String[] args) {
         Simulator sim = new Simulator();
         sim.run();
     }
 
+    /**
+     * Method for executing the simulation per minute.
+     */
     private void tick() {
         // Advance the time by one minute.
         minute++;
