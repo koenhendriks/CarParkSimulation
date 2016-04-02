@@ -56,15 +56,6 @@ public class Simulator {
     }
 
     /**
-     * Main method for executing the simulator.
-     * @param args for the main method
-     */
-    public static void main(String[] args) {
-        Simulator sim = new Simulator();
-        sim.run();
-    }
-
-    /**
      * Method for executing the simulation per minute.
      */
     private void tick() {
@@ -157,5 +148,15 @@ public class Simulator {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     * Main method for executing the simulator.
+     * @param args for the main method
+     */
+    public static void main(String[] args) {
+        Simulator sim1 = new Simulator();
+        sim1.run();
     }
 }
