@@ -1,6 +1,10 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Objects;
 import java.util.Random;
 
-public class Simulator {
+public class Simulator implements ActionListener {
 
     private CarQueue entranceCarQueue;
     private CarQueue paymentCarQueue;
@@ -24,7 +28,7 @@ public class Simulator {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
-        simulatorView = new SimulatorView(3, 6, 30);
+        simulatorView = new SimulatorView(3, 6, 30, this);
     }
 
     public void run() {
@@ -35,7 +39,6 @@ public class Simulator {
 
     public static void main(String[] args) {
         Simulator sim = new Simulator();
-        sim.run();
     }
 
     private void tick() {
@@ -127,6 +130,26 @@ public class Simulator {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+        /**
+         * Here we cast the source of the event to a JButton and check
+         * the action command string to check what we need to do.
+         */
+        String command = ((JButton) actionEvent.getSource()).getActionCommand();
+
+        if(command.equals("oneStep")){
+            System.out.println("Step 1 time, button pressed!"); // Debug log
+            this.tick();
+        }else if(command.equals("manyStep")){
+            System.out.println("Step 100 times, button pressed!"); // Debug log
+            for(int i=0; i < 101; i++)
+                this.tick();
         }
     }
 }
