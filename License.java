@@ -9,7 +9,7 @@ public class License {
 
     Random random;
 
-    // different elements of a plate number
+    // Different elements of a plate number
     private String left;
     private String middle;
     private String right;
@@ -23,6 +23,12 @@ public class License {
         generateLicenseNumber();
     }
 
+    /**
+     * Generate a number for the license plate
+     *
+     * @todo Should this be a String method? Probably could use Integers here.
+     * @return String with random 2 numbers
+     */
     public String generateNumbers()
     {
         // generate number
@@ -35,6 +41,11 @@ public class License {
         return "" + rand;
     }
 
+    /**
+     * Generate a string with two random letters for the license plate
+     *
+     * @return String with two random letters
+     */
     public String generateString()
     {
         // generate string
@@ -48,6 +59,11 @@ public class License {
         return "-" + string + "-";
     }
 
+    /**
+     * Generate a valid license plate number in the format 99-XX-99
+     *
+     * @return String with a license plate number
+     */
     public String generateLicenseNumber()
     {
         return left + middle + right;
