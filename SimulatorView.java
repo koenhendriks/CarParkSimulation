@@ -9,8 +9,10 @@ public class SimulatorView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
+    private Simulator sim;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator sim) {
+
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -19,6 +21,13 @@ public class SimulatorView extends JFrame {
         carParkView = new CarParkView();
         Container contentPane = getContentPane();
 
+        /**
+         * We added the simulator class in the constructor we can
+         * assign it to a field of the view. This way we can call
+         * methods on the running simulator from the view itself
+         */
+        this.sim = sim;
+
         //Create new panel and two buttons
         JPanel buttonPanel = new JPanel();
         JButton stepOneButton = new JButton("1 step");
@@ -26,7 +35,7 @@ public class SimulatorView extends JFrame {
         stepOneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //Perform the one step
+                tick();
             }
         });
 
@@ -35,7 +44,10 @@ public class SimulatorView extends JFrame {
         stepManyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //Perform the 100 steps
+
+                for(int i = 0; i < 101; i++)
+                    tick();
+
             }
         });
 
