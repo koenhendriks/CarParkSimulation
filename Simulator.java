@@ -39,7 +39,6 @@ public class Simulator implements ActionListener {
 
     public static void main(String[] args) {
         Simulator sim = new Simulator();
-        sim.run();
     }
 
     private void tick() {
