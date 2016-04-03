@@ -19,14 +19,14 @@ public class SimulatorView extends JFrame {
         carParkView = new CarParkView();
         Container contentPane = getContentPane();
 
-        // Creates new panel that shows 2 buttons and the carparkview
+        //Create new panel and two buttons
         JPanel buttonPanel = new JPanel();
         JButton stepOneButton = new JButton("1 step");
         stepOneButton.setPreferredSize(new Dimension(250, 60));
         stepOneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                //Perform the one step
             }
         });
 
@@ -35,10 +35,11 @@ public class SimulatorView extends JFrame {
         stepManyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                //Perform the 100 steps
             }
         });
 
+        //Add buttons to panel and add panel to frame
         buttonPanel.add(stepOneButton);
         buttonPanel.add(stepManyButton);
         contentPane.add(buttonPanel, BorderLayout.NORTH);
