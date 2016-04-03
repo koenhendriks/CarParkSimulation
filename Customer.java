@@ -19,15 +19,12 @@ public class Customer {
         plate = new License();
     }
 
+    /**
+     * Gets the license plate of a customer.
+     * @return License
+     */
     public License getPlate()
     {
         return plate;
-    }
-    public static void main(String[] args) {
-        Customer john = new Customer();
-        String test = john.getPlate().generateLicenseNumber();
-        for(int i = 0; i < 20; i++) {
-            System.out.println(new Customer().getPlate().generateLicenseNumber());
-        }
     }
 }
