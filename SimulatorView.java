@@ -10,7 +10,7 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private Car[][][] cars;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator sim) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -19,25 +19,33 @@ public class SimulatorView extends JFrame {
         carParkView = new CarParkView();
         Container contentPane = getContentPane();
 
-        //Create new panel and two buttons
+        /**
+         * Create the panel and create 2 buttons
+         * to control the steps of the simulator
+         */
         JPanel buttonPanel = new JPanel();
+
         JButton stepOneButton = new JButton("1 step");
         stepOneButton.setPreferredSize(new Dimension(250, 60));
-        stepOneButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                //Perform the one step
-            }
-        });
 
         JButton stepManyButton = new JButton("100 steps");
         stepManyButton.setPreferredSize(new Dimension(250, 60));
-        stepManyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                //Perform the 100 steps
-            }
-        });
+
+        /**
+         * Here we set a string as action command on the buttons
+         * so we can fetch the string in the action listener
+         * and apply the correct action that we need to do.
+         */
+        stepOneButton.setActionCommand("oneStep");
+        stepManyButton.setActionCommand("manyStep");
+
+        /**
+         * Here we set the Simulator as the action listener for
+         * these two buttons. The Simulator implements the
+         * Action Listener interface to handle the actions.
+         */
+        stepOneButton.addActionListener(sim);
+        stepManyButton.addActionListener(sim);
 
         //Add buttons to panel and add panel to frame
         buttonPanel.add(stepOneButton);
