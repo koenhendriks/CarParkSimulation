@@ -3,9 +3,8 @@ import java.util.Queue;
 
 /**
  * Class for creating different Queue collections of Car objects.
- * The class can be used for determining cars that need to enter
- * the car park, need to pay their fee or want to exit the car
- * park.
+ * The class is used for determining cars that need to enter the
+ * car park, need to pay their fee or want to exit the car park.
  */
 public class CarQueue {
 
