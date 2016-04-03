@@ -24,7 +24,7 @@ public class Simulator {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
-        simulatorView = new SimulatorView(3, 6, 30, this);
+        simulatorView = new SimulatorView(3, 6, 30);
     }
 
     public void run() {
