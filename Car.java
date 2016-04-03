@@ -14,11 +14,23 @@ public abstract class Car {
     // Boolean indicating that the car is paying.
     private boolean isPaying;
 
+    // Customer object that belongs to this car.
+    private Customer customer;
+
     /**
      * Constructor for objects of class Car.
      */
     public Car() {
 
+    }
+
+    /**
+     * Constructor for a Car with a customer.
+     *
+     * @param customer Customer that belongs to the car.
+     */
+    public Car(Customer customer){
+        this.customer = customer;
     }
 
     /**
@@ -72,6 +84,24 @@ public abstract class Car {
      */
     public void setIsPaying(boolean isPaying) {
         this.isPaying = isPaying;
+    }
+
+    /**
+     * Get the customer belonging to this car
+     *
+     * @return customer belonging to this car
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Set the customer belonging to this car.
+     *
+     * @param customer Customer that belongs to this car.
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     /**
