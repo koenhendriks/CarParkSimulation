@@ -13,6 +13,8 @@ public abstract class Language {
         stringCollection = new HashMap<String, String>();
         stringCollection.put("confirmExit", "Are you sure you want to close the Car Park Simulation?");
         stringCollection.put("confirmExitTitle", "Exit Confirmation");
+        stringCollection.put("stepOne", "One step");
+        stringCollection.put("stepMany", "One hundred steps");
     }
 
     /**

@@ -27,10 +27,10 @@ public class SimulatorView extends JFrame {
          */
         JPanel buttonPanel = new JPanel();
 
-        JButton stepOneButton = new JButton("1 step");
+        JButton stepOneButton = new JButton(Language.get("stepOne"));
         stepOneButton.setPreferredSize(new Dimension(250, 60));
 
-        JButton stepManyButton = new JButton("100 steps");
+        JButton stepManyButton = new JButton(Language.get("stepMany"));
         stepManyButton.setPreferredSize(new Dimension(250, 60));
 
         /**
