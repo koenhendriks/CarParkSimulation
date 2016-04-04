@@ -2,6 +2,8 @@ package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 
+import java.awt.*;
+
 /**
  * Class CarParkView
  *
@@ -16,6 +18,7 @@ public class CarParkView extends AbstractView{
      */
     public CarParkView(AbstractModel model) {
         super(model);
-        setSize
+        setSize(new Dimension(800, 500));
     }
+
 }
