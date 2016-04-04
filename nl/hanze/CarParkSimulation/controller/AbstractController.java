@@ -14,7 +14,7 @@ import javax.swing.*;
 public class AbstractController extends JPanel {
 
     // A controller should have a certain instance of the AbstractModel
-    private AbstractModel model;
+    protected AbstractModel model;
 
     /**
      * Constructor of AbstractController with a model belong to this controller
