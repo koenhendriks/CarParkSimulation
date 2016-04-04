@@ -13,6 +13,13 @@ public class PassHolder extends Customer
     private boolean passHolder;
 
     /**
+     * Simple constructor of PassHolder
+     */
+    public PassHolder(){
+        super();
+    }
+
+    /**
      * Constructor of the PassHolder
      *
      * @param name String with the customer

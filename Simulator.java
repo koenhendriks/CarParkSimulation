@@ -35,6 +35,7 @@ public class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
+    int passHolderProbability = 5; // this means one in five cars will be a passholder
 
     /**
      * Constructor for the car park simulation.
@@ -87,8 +88,24 @@ public class Simulator {
 
         // Add the cars to the back of the queue.
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
-            Car car = new AdHocCar();
-            entranceCarQueue.addCar(car);
+
+
+            /**
+             * Here we create the customers where the probability
+             * is used to check if we create a passholder or a
+             * regular customer.
+             */
+            int customerChance = random.nextInt(passHolderProbability);
+
+            if(customerChance == 0){
+                Customer passHolder = new PassHolder();
+                Car car = new AdHocCar(passHolder);
+                entranceCarQueue.addCar(car);
+            }else{
+                Customer customer = new Customer();
+                Car car = new AdHocCar(customer);
+                entranceCarQueue.addCar(car);
+            }
         }
 
         // Remove car from the front of the queue and assign to a parking space.
@@ -115,8 +132,19 @@ public class Simulator {
             if (car == null) {
                 break;
             }
-            car.setIsPaying(true);
-            paymentCarQueue.addCar(car);
+
+            /**
+             * If the customer is an instance of the passholder
+             * we can skip the payment and leave the car park
+             * immediately by adding the car to the exit que.
+             */
+            if(car.getCustomer() instanceof PassHolder){
+                simulatorView.removeCarAt(car.getLocation());
+                exitCarQueue.addCar(car);
+            }else{
+                car.setIsPaying(true);
+                paymentCarQueue.addCar(car);
+            }
         }
 
         // Let cars pay.

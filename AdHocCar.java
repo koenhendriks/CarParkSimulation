@@ -3,7 +3,18 @@
  * This class has no meaningful implementation yet.
  */
 public class AdHocCar extends Car {
-    public AdHocCar() {
 
+    /**
+     * Simple Constructor of AdHocCar
+     */
+    public AdHocCar() {}
+
+    /**
+     * Constructor for AdHocCar with a customer
+     *
+     * @param customer Customer that belongs to the car.
+     */
+    public AdHocCar(Customer customer) {
+        super(customer);
     }
 }
