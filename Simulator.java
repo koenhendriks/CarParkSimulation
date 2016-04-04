@@ -189,7 +189,7 @@ public class Simulator implements ActionListener {
      */
     public static void main(String[] args) {
         Simulator sim1 = new Simulator();
-        sim1.run();
+
     }
 
 
