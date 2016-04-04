@@ -148,7 +148,7 @@ public class Simulator implements ActionListener {
             this.tick();
         }else if(command.equals("manyStep")){
             System.out.println("Step 100 times, button pressed!"); // Debug log
-            for(int i=0; i < 101; i++)
+            for(int i=0; i < 100; i++)
                 this.tick();
         }
     }
