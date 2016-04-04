@@ -10,7 +10,6 @@ public class PassHolder extends Customer
     private String name;
     private String address;
     private String city;
-    private boolean passHolder;
 
     /**
      * Constructor of the PassHolder
@@ -26,9 +25,6 @@ public class PassHolder extends Customer
         this.name = name;
         this.address = address;
         this.city = city;
-
-        // The customer is now a pass holder
-        this.passHolder = true;
     }
 
     /**
@@ -85,22 +81,4 @@ public class PassHolder extends Customer
         this.city = city;
     }
 
-    /**
-     * Check if the customer is a pass holder,
-     *
-     * @return passHolder whether the customer is a pass holder
-     */
-    public boolean isPassHolder() {
-        return passHolder;
-    }
-
-    /**
-     * Method for setting Pass Holder status.
-     *
-     * @todo Use this to implement expiration method
-     * @param passHolder Is this customer a Pass Holder?
-     */
-    public void setPassHolder(boolean passHolder) {
-        this.passHolder = passHolder;
-    }
 }
