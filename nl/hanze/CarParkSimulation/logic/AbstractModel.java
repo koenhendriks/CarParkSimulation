@@ -2,6 +2,7 @@ package nl.hanze.CarParkSimulation.logic;
 
 import nl.hanze.CarParkSimulation.view.AbstractView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +17,18 @@ public class AbstractModel {
     private List<AbstractView> views;
 
     /**
-     * Constructor for AbstractModel that expects a list with views that belong to the model that is created.
-     *
-     * @param views List of views that belong to the model
+     * Constructor for AbstractModel that creates a list with views that belong to the model that is created.
      */
-    public AbstractModel(List<AbstractView> views) {
-        this.views = views;
+    public AbstractModel() {
+        this.views = new ArrayList<AbstractView>();
+    }
+
+    /**
+     * Method to add a view to the model
+     *
+     * @param view AbstractView that belongs to the model
+     */
+    public void setView(AbstractView view) {
+        this.views.add(view);
     }
 }
