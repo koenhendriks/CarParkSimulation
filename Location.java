@@ -1,4 +1,7 @@
-
+/**
+ * This class represents a location in the car park which
+ * is on a certain floor in a certain row in a place
+ */
 public class Location {
 
     private int floor;
