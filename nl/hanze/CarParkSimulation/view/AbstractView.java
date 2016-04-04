@@ -16,7 +16,7 @@ public class AbstractView {
     /**
      * Constructor of AbstractView that expects a model belonging to this view
      *
-     * @param model
+     * @param model AbstractModel that belongs to this view
      */
     public AbstractView(AbstractModel model) {
         this.model = model;
