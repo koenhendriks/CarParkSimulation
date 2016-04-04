@@ -1,7 +1,9 @@
 package nl.hanze.CarParkSimulation.main;
 
 import nl.hanze.CarParkSimulation.controller.AbstractController;
+import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 
 import javax.swing.*;
@@ -14,11 +16,15 @@ import javax.swing.*;
  */
 public class CarParkSimulation {
 
-    private AbstractModel model;
+    private AbstractModel carParkModel;
     private JFrame screen;
     private AbstractView carParkView;
     private AbstractController carParkController;
 
     public CarParkSimulation() {
+        this.carParkModel = new CarPark();
+        this.carParkController = new Controller(carParkModel);
+        this.
+
     }
 }
