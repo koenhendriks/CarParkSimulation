@@ -16,8 +16,7 @@ public class AbstractModel {
     private List<AbstractView> views;
 
     /**
-     * Constructor for AbstractModel that expects a list with views
-     * that belong to the model that is created.
+     * Constructor for AbstractModel that expects a list with views that belong to the model that is created.
      *
      * @param views List of views that belong to the model
      */
