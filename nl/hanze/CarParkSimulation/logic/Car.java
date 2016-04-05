@@ -22,11 +22,20 @@ public abstract class Car extends AbstractModel {
 
     // Boolean indicating that the car is paying.
     private boolean isPaying;
+
+    // License for the car
+    private String license;
+
     /**
      * Constructor for objects of class Car.
      */
     public Car() {
+        License license = new License();
+        this.license = license.generateLicenseNumber();
+    }
 
+    public String getLicense() {
+        return license;
     }
 
     /**

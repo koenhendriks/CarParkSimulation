@@ -27,7 +27,6 @@ public class License extends AbstractModel {
         left = generateNumbers();
         middle = generateString();
         right = generateNumbers();
-        generateLicenseNumber();
     }
 
     /**
