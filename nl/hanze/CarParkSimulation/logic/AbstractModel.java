@@ -28,7 +28,7 @@ public class AbstractModel {
      *
      * @param view AbstractView that belongs to the model
      */
-    public void setView(AbstractView view) {
+    public void addView(AbstractView view) {
         this.views.add(view);
     }
 }
