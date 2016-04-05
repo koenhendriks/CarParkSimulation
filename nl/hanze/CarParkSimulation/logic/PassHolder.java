@@ -7,6 +7,6 @@ package nl.hanze.CarParkSimulation.logic;
  * @version 0.1 (05-04-2016)
  */
 
-public class PassHolder extends AbstractModel {
+public class PassHolder extends Car {
 
 }
