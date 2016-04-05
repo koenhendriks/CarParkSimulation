@@ -20,7 +20,7 @@ import java.awt.event.WindowEvent;
  */
 public class CarParkSimulation {
 
-    private AbstractModel carParkModel;
+    private CarPark carParkModel;
     private JFrame screen;
     private AbstractView carParkView;
     private AbstractController carParkController;
@@ -31,7 +31,7 @@ public class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark();
+        this.carParkModel = new CarPark(3,6,30);
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
 
