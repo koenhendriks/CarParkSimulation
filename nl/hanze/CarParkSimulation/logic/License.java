@@ -11,5 +11,6 @@ package nl.hanze.CarParkSimulation.logic;
  * This class creates a license plate.
  */
 
-public class License {
+public class License extends AbstractModel {
+
 }

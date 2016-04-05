@@ -12,4 +12,5 @@ import java.util.List;
  * @version 0.1 (04-04-2016)
  */
 public class CarPark extends AbstractModel{
+
 }

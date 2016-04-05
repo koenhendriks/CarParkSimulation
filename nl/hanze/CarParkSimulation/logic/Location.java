@@ -12,6 +12,6 @@ package nl.hanze.CarParkSimulation.logic;
  * is on a certain floor in a certain row in a place
  */
 
-public class Location {
+public class Location extends AbstractModel {
 
 }
