@@ -22,6 +22,7 @@ public abstract class AbstractView extends JPanel {
      */
     public AbstractView(AbstractModel model) {
         this.model = model;
+        model.addView(this);
     }
 
     public void updateView() {

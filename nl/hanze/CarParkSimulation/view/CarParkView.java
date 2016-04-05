@@ -1,6 +1,5 @@
 package nl.hanze.CarParkSimulation.view;
 
-import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.Car;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.Location;
@@ -28,28 +27,6 @@ public class CarParkView extends AbstractView{
         this.size = new Dimension(800, 500);
     }
 
-    /**
-     * Constructor of CarParkView that expects a model and the floors, rows and places.
-     *
-     * @param model AbstractModel that belongs to this view
-     * @param numberOfFloors int with the amount of floors to draw
-     * @param numberOfRows   int with the amount of rows per floor to draw
-     * @param numberOfPlaces int with the amount of places per row to draw
-     */
-    public CarParkView(AbstractModel model, int numberOfFloors, int numberOfRows, int numberOfPlaces){
-        super(model);
-
-        this.size = new Dimension(800, 500);
-    }
-
-    @Override
-    /**
-     *  Tell the GUI manager how big we would like to be.
-     */
-    public Dimension getPreferredSize() {
-        return new Dimension(800, 500);
-    }
-
     @Override
     /**
      * The car park view component needs to be redisplayed. Copy the
@@ -60,21 +37,13 @@ public class CarParkView extends AbstractView{
             return;
         }
 
-        Dimension currentSize = getSize();
-        if (size.equals(currentSize)) {
-            g.drawImage(carParkImage, 0, 0, null);
-        } else {
-            // Rescale the previous image.
-            g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
-        }
+        g.drawImage(carParkImage, 0, 0, null);
     }
 
     public void updateView() {
         // Create a new car park image if the size has changed.
-        if (!size.equals(getSize())) {
-            size = getSize();
-            carParkImage = createImage(size.width, size.height);
-        }
+        carParkImage = createImage(size.width, size.height);
+
         Graphics graphics = carParkImage.getGraphics();
 
         CarPark carPark = (CarPark) super.model;

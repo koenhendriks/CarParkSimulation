@@ -44,6 +44,8 @@ public class CarParkSimulation {
         screen.setLayout(null);
         screen.getContentPane().add(carParkView);
 
+        carParkView.setBounds(10,10,800,500);
+
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
@@ -70,6 +72,8 @@ public class CarParkSimulation {
         screen.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         screen.setVisible(true);
+
+        carParkView.updateView();
 
     }
 }

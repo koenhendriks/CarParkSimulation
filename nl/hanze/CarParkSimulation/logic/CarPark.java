@@ -29,6 +29,8 @@ public class CarPark extends AbstractModel{
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
+
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
     }
 
     /**
