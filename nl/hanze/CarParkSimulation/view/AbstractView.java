@@ -11,7 +11,7 @@ import javax.swing.*;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public class AbstractView extends JPanel {
+public abstract class AbstractView extends JPanel {
     // All views have a certain model
     protected AbstractModel model;
 
