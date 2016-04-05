@@ -1,5 +1,8 @@
 package nl.hanze.CarParkSimulation.view;
 
+import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarQueue;
+
 /**
  * Class QueueView
  *
@@ -8,5 +11,19 @@ package nl.hanze.CarParkSimulation.view;
  */
 
 public class QueueView extends AbstractView {
+
+
+    /**
+     * Constructor of AbstractView that expects a model belonging to this view
+     *
+     * @param model AbstractModel that belongs to this view
+     */
+    public QueueView(CarQueue model) {
+        super(model);
+    }
+
+    public void updateView(){
+
+    }
 
 }
