@@ -12,7 +12,7 @@ import java.util.List;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public class AbstractModel {
+public abstract class AbstractModel {
     // List of views that are linked to the model
     private List<AbstractView> views;
 
