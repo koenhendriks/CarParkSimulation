@@ -16,6 +16,7 @@ public class CarPark extends AbstractModel{
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
+    private Car[][][] cars;
 
     /**
      * Constructor of the CarPark model expecting the floors, rows and places.
@@ -28,6 +29,19 @@ public class CarPark extends AbstractModel{
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
+    }
+
+    /**
+     * Get a car from a certain location in the car park.
+     *
+     * @param location Location object where to get the car from.
+     * @return car object that is located at the given location.
+     */
+    public Car getCar(Location location) {
+        if (!checkLocation(location)) {
+            return null;
+        }
+        return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
 
     /**
