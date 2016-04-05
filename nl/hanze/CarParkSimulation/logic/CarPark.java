@@ -56,4 +56,17 @@ public class CarPark extends AbstractModel{
     public int getNumberOfPlaces() {
         return numberOfPlaces;
     }
+
+    /**
+     * Check if a location is valid in the car park.
+     *
+     * @param location Location object to check
+     * @return boolean whether location is valid
+     */
+    private boolean checkLocation(Location location) {
+        int floor = location.getFloor();
+        int row = location.getRow();
+        int place = location.getPlace();
+        return !(floor < 0 || floor >= getNumberOfFloors() || row < 0 || row > getNumberOfRows() || place < 0 || place > getNumberOfPlaces());
+    }
 }
