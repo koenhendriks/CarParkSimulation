@@ -1,6 +1,9 @@
 package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.Car;
+import nl.hanze.CarParkSimulation.logic.CarPark;
+import nl.hanze.CarParkSimulation.logic.Location;
 
 import java.awt.*;
 
@@ -16,12 +19,26 @@ public class CarParkView extends AbstractView{
     private Dimension size;
 
     /**
-     * Constructor of AbstractView that expects a model belonging to this view
+     * Constructor of CarParkView that expects a model belonging to this view
      *
      * @param model AbstractModel that belongs to this view
      */
-    public CarParkView(AbstractModel model) {
+    public CarParkView(CarPark model) {
         super(model);
+        this.size = new Dimension(800, 500);
+    }
+
+    /**
+     * Constructor of CarParkView that expects a model and the floors, rows and places.
+     *
+     * @param model AbstractModel that belongs to this view
+     * @param numberOfFloors int with the amount of floors to draw
+     * @param numberOfRows   int with the amount of rows per floor to draw
+     * @param numberOfPlaces int with the amount of places per row to draw
+     */
+    public CarParkView(AbstractModel model, int numberOfFloors, int numberOfRows, int numberOfPlaces){
+        super(model);
+
         this.size = new Dimension(800, 500);
     }
 
@@ -50,5 +67,44 @@ public class CarParkView extends AbstractView{
             // Rescale the previous image.
             g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
         }
+    }
+
+    public void updateView() {
+        // Create a new car park image if the size has changed.
+        if (!size.equals(getSize())) {
+            size = getSize();
+            carParkImage = createImage(size.width, size.height);
+        }
+        Graphics graphics = carParkImage.getGraphics();
+
+        CarPark carPark = (CarPark) super.model;
+
+        for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++) {
+            for (int row = 0; row < carPark.getNumberOfRows(); row++) {
+                for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = carPark.getCar(location);
+
+                    Color color = Color.white;
+                    if(car != null)
+                        color = Color.red;
+
+                    drawPlace(graphics, location, color);
+                }
+            }
+        }
+        repaint();
+    }
+
+    /**
+     * Paint a place on this car park view in a given color.
+     */
+    private void drawPlace(Graphics graphics, Location location, Color color) {
+        graphics.setColor(color);
+        graphics.fillRect(
+                location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
+                60 + location.getPlace() * 10,
+                20 - 1,
+                10 - 1); // TODO use dynamic size or constants
     }
 }
