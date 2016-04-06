@@ -33,8 +33,8 @@ public class CarParkSimulation {
         /**
          * Set the dimension for the application
          */
-        this.width = 900;
-        this.height = 600;
+        this.width = 1200;
+        this.height = 750;
 
         /**
          * Create the model, view and controller that
