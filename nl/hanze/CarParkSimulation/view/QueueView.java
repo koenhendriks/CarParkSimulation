@@ -46,10 +46,12 @@ public class QueueView extends AbstractView {
         int exitIndex = carPark.getExitIndex();
         int payIndex = carPark.getPayIndex();
 
-        titleLabel.setText("Carpark info:");
+        titleLabel.setText("Carpark info");
         enterLabel.setText("Used the entrance: " + entranceIndex);
         exitLabel.setText("Left the carpark: " + exitIndex);
         payLabel.setText("Paying customers: " + payIndex);
+
+        titleLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 
         titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);

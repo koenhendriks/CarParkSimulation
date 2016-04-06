@@ -28,6 +28,7 @@ public class StatisticsView extends AbstractView {
     public void updateView() {
         stats = new JLabel("Statistics");
         stats.setBounds(10,5,200,20);
+        stats.setFont(new Font("Serif", Font.PLAIN, 20));
         this.add(stats);
 
         current = new JLabel("Current revenue: ");
