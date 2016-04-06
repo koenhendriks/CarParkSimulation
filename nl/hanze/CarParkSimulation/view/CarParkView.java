@@ -26,7 +26,7 @@ public class CarParkView extends AbstractView{
      */
     public CarParkView(CarPark model) {
         super(model);
-        this.title = new JLabel("Car Park Bird View",0);
+        this.title = new JLabel("Car Park Bird View");
         this.size = new Dimension(680, 300);
     }
 
@@ -49,7 +49,7 @@ public class CarParkView extends AbstractView{
      */
     public void updateView() {
 ;
-        title.setBounds(10,10, 0, 0);
+        title.setBounds(5,5, 150,10);
         add(title);
 
         // Create a new car park image if the size has changed.
