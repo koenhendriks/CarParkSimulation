@@ -49,7 +49,7 @@ public class QueueView extends AbstractView {
         titleLabel.setText("Cars in queue");
         enterLabel.setText("Entrance: " + entrance.countCars());
         exitLabel.setText("Exit: " + exit.countCars());
-        payLabel.setText("Pay: " + exit.countCars());
+        payLabel.setText("Pay: " + pay.countCars());
 
         titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);
