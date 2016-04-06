@@ -3,6 +3,7 @@ package nl.hanze.CarParkSimulation.view;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Class for displaying statistics of the simulation.
@@ -11,6 +12,7 @@ import javax.swing.*;
  */
 public class StatisticsView extends AbstractView {
 
+    private Dimension size;
     private int parked;
     private JTextField revenue;
 
@@ -20,11 +22,19 @@ public class StatisticsView extends AbstractView {
      */
     public StatisticsView(AbstractModel model) {
         super(model);
-        revenue = new JTextField(parked);
+        this.size = new Dimension(100,100);
     }
 
-    public int checkParked(){
-        return 0;
+    /**
+     * Overloaded constructor of AbstractView that expects a model belonging to this view
+     * Dimensions can be specified in parameters
+     * @param model AbstractModel that belongs to this view
+     * @param width Width of the model
+     * @param height Height of the model
+     */
+    public StatisticsView(AbstractModel model, int width, int height) {
+        super(model);
+        this.size = new Dimension(width,height);
     }
 
     @Override
