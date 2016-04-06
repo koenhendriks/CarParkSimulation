@@ -3,6 +3,7 @@ package nl.hanze.CarParkSimulation.view;
 import nl.hanze.CarParkSimulation.logic.Car;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.Location;
+import nl.hanze.CarParkSimulation.logic.PassHolder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,10 +65,15 @@ public class CarParkView extends AbstractView{
                 for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = carPark.getCar(location);
+                    Color color;
 
-                    Color color = Color.white;
-                    if(car != null)
+                    if(car instanceof PassHolder){
+                        color = Color.blue;
+                    } else if(car != null){
                         color = Color.red;
+                    } else {
+                        color = Color.white;
+                    }
 
                     drawPlace(graphics, location, color);
                 }

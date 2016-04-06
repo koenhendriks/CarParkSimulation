@@ -153,6 +153,9 @@ public class CarPark extends AbstractModel{
             }
         }
 
+
+        this.tickCars();
+
         // Add leaving cars to the exit queue.
         while (true) {
             Car car = this.getFirstLeavingCar();
@@ -204,6 +207,23 @@ public class CarPark extends AbstractModel{
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Loop trough the car park to get all cars and call the tick method
+     */
+    private void tickCars() {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = this.getCar(location);
+                    if (car != null) {
+                        car.tick();
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -292,6 +312,7 @@ public class CarPark extends AbstractModel{
      * @return null | Car object when successfully removed, null if it failed
      */
     public Car removeCarAt(Location location) {
+        System.out.println("Auto weghalen uit plek");
         if (!this.checkLocation(location)) {
             return null;
         }
