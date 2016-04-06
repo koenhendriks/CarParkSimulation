@@ -90,6 +90,8 @@ public class CarParkSimulation {
          * Show the main screen and notify the views to update
          */
         screen.setVisible(true);
+
+        screen.setResizable(false);
         carParkModel.notifyViews();
     }
 }
