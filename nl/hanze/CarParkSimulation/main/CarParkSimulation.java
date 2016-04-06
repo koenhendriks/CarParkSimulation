@@ -59,7 +59,7 @@ public class CarParkSimulation {
         screen.getContentPane().add(carParkView);
         screen.getContentPane().add(gridView);
 
-        carParkView.setBounds(10,10,800,500);
+        carParkView.setBounds(260,10,680,300);
         gridView.setBounds(0,0,this.width,this.height);
 
         /**

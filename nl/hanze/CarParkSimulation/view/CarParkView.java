@@ -24,7 +24,7 @@ public class CarParkView extends AbstractView{
      */
     public CarParkView(CarPark model) {
         super(model);
-        this.size = new Dimension(800, 500);
+        this.size = new Dimension(680, 300);
     }
 
     @Override
@@ -75,9 +75,11 @@ public class CarParkView extends AbstractView{
      */
     private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
+        System.out.println(""+location.getRow() % 2);
         graphics.fillRect(
-                location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
-                60 + location.getPlace() * 10,
+                (location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 60 + (location.getRow() % 2) * 20) -59,
+//                (location.getFloor() * (20+this.floorOffset)) + ((location.getRow() * (20 + (((location.getRow() % 2) *20))  ))) ,
+                location.getPlace() * 10,
                 20 - 1,
                 10 - 1); // TODO use dynamic size or constants
     }
