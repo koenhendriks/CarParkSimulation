@@ -3,6 +3,7 @@ package nl.hanze.CarParkSimulation.logic;
 
 import nl.hanze.CarParkSimulation.view.AbstractView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -237,22 +238,37 @@ public class CarPark extends AbstractModel{
         }
     }
 
-    public int totalCars(){
+    /**
+     * Counts the cars that are in the car park.
+     *
+     *
+     * @return ArrayList with the first integer the amount of cars, the second the amount of passholders
+     */
+    public ArrayList<Integer> totalCars(){
         int totalCars = 0;
+        int passholderCars = 0;
+
+        ArrayList<Integer> totals = new ArrayList<>();
 
         for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
             for (int row = 0; row < this.getNumberOfRows(); row++) {
                 for (int place = 0; place < this.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = this.getCar(location);
-                    if (car != null) {
+                    if(car instanceof PassHolder){
+                        passholderCars++;
+                        totalCars++;
+                    }else if(car !=null){
                         totalCars++;
                     }
                 }
             }
         }
 
-        return totalCars;
+        totals.add(totalCars);
+        totals.add(passholderCars);
+
+        return totals;
     }
 
     /**
