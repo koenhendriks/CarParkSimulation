@@ -12,9 +12,9 @@ import java.awt.*;
  */
 public class StatisticsView extends AbstractView {
 
-    private Dimension size;
-    private int parked;
-    private JTextField revenue;
+    private JLabel stats;
+    private JLabel current;
+    private JLabel expected;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view
@@ -22,23 +22,24 @@ public class StatisticsView extends AbstractView {
      */
     public StatisticsView(AbstractModel model) {
         super(model);
-        this.size = new Dimension(100,100);
-    }
-
-    /**
-     * Overloaded constructor of AbstractView that expects a model belonging to this view
-     * Dimensions can be specified in parameters
-     * @param model AbstractModel that belongs to this view
-     * @param width Width of the model
-     * @param height Height of the model
-     */
-    public StatisticsView(AbstractModel model, int width, int height) {
-        super(model);
-        this.size = new Dimension(width,height);
     }
 
     @Override
     public void updateView() {
+        stats = new JLabel("Statistics");
+        stats.setBounds(10,5,200,20);
+        this.add(stats);
+
+        current = new JLabel("Current revenue: ");
+        current.setBounds(10,40,200,20);
+        this.add(current);
+
+        expected = new JLabel("Expected revenue: ");
+        expected.setBounds(10,60,200,20);
+        this.add(expected);
+
+
+        setVisible(true);
         super.updateView();
     }
 }

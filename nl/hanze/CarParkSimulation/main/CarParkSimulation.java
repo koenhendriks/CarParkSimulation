@@ -9,6 +9,7 @@ import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
+import nl.hanze.CarParkSimulation.view.StatisticsView;
 import nl.hanze.CarParkSimulation.view.QueueView;
 
 import javax.swing.*;
@@ -29,7 +30,9 @@ public class CarParkSimulation {
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView gridView;
+    private AbstractView statisticsView;
     private AbstractController carParkController;
+    private AbstractController start;
     private int width;
     private int height;
     private boolean running;
@@ -50,6 +53,8 @@ public class CarParkSimulation {
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carQueueModel);
+        this.statisticsView = new StatisticsView(carParkModel);
+        this.start = new Controller(carParkModel);
 
         /**
          * Create the JFrame that will display the views
@@ -64,9 +69,18 @@ public class CarParkSimulation {
          */
         screen.getContentPane().add(carParkView);
         screen.getContentPane().add(queueView);
+        screen.getContentPane().add(statisticsView);
 
-        carParkView.setBounds(260, 10, 680, 300);
-        queueView.setBounds(0, 0, 200, 200);
+        carParkView.setBounds(260,10,680,300);
+        statisticsView.setBounds(30,140, 200,100);
+        queueView.setBounds(30,10,200,120);
+
+        /**
+         * Add the controllers to the main screen
+         */
+        screen.getContentPane().add(start);
+
+        start.setBounds(30,260,200,50);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
