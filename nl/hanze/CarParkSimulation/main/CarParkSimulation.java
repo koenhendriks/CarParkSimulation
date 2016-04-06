@@ -25,7 +25,6 @@ import java.awt.event.WindowEvent;
 public class CarParkSimulation {
 
     private CarPark carParkModel;
-    private CarQueue carQueueModel;
     private JFrame screen;
     private AbstractView carParkView;
     private AbstractView queueView;
@@ -49,10 +48,9 @@ public class CarParkSimulation {
          * we need for the Car Park Simulation
          */
         this.carParkModel = new CarPark(3, 6, 30);
-        this.carQueueModel = new CarQueue();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
-        this.queueView = new QueueView(carQueueModel);
+        this.queueView = new QueueView(carParkModel);
         this.statisticsView = new StatisticsView(carParkModel);
         this.start = new Controller(carParkModel);
 
@@ -120,7 +118,6 @@ public class CarParkSimulation {
         screen.getContentPane().add(gridView);
 
         carParkModel.notifyViews();
-        carQueueModel.notifyViews();
 
         /**
          * Start running the simulation with 20 steps

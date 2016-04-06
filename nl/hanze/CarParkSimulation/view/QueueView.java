@@ -1,6 +1,7 @@
 package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.CarQueue;
 
 import javax.swing.*;
@@ -20,16 +21,14 @@ public class QueueView extends AbstractView {
     private JLabel enterLabel;
     private JLabel exitLabel;
     private JLabel payLabel;
-    private int queueSize;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view
      *
      * @param model AbstractModel that belongs to this view
      */
-    public QueueView(CarQueue model) {
+    public QueueView(CarPark model) {
         super(model);
-        queueSize = model.countCars();
 
         this.size = new Dimension(100, 100);
         this.titleLabel = new JLabel();
@@ -37,14 +36,20 @@ public class QueueView extends AbstractView {
         this.exitLabel = new JLabel();
         this.payLabel = new JLabel();
 
-        titleLabel.setText("Cars in queue");
-        enterLabel.setText("Entrance: ");
-        exitLabel.setText("Exit: ");
-        payLabel.setText("Pay: ");
-
     }
 
     public void updateView(){
+
+        CarPark carPark = (CarPark) super.model;
+
+        CarQueue entrance = carPark.getEntranceCarQueue();
+        CarQueue exit = carPark.getExitCarQueue();
+        CarQueue pay = carPark.getPaymentCarQueue();
+
+        titleLabel.setText("Cars in queue");
+        enterLabel.setText("Entrance: " + entrance.countCars());
+        exitLabel.setText("Exit: " + exit.countCars());
+        payLabel.setText("Pay: " + exit.countCars());
 
         titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);
