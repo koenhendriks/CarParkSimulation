@@ -40,6 +40,10 @@ public class CarParkView extends AbstractView{
         g.drawImage(carParkImage, 0, 0, null);
     }
 
+    /**
+     * Called by the model that belongs to this view
+     * to notify that the view should by updated
+     */
     public void updateView() {
         // Create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
