@@ -78,7 +78,7 @@ public class CarParkSimulation {
          */
         screen.getContentPane().add(start);
 
-        start.setBounds(30,260,200,50);
+        start.setBounds(30,260,910,80);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
