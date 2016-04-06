@@ -22,20 +22,24 @@ public class StatisticsView extends AbstractView {
      */
     public StatisticsView(AbstractModel model) {
         super(model);
+
+        this.stats = new JLabel();
+        this.current = new JLabel();
+        this.expected = new JLabel();
     }
 
     @Override
     public void updateView() {
-        stats = new JLabel("Statistics");
+        stats.setText("Statistics");
         stats.setBounds(10,5,200,20);
         stats.setFont(new Font("Serif", Font.PLAIN, 20));
         this.add(stats);
 
-        current = new JLabel("Current revenue: ");
+        current.setText("Current revenue: ");
         current.setBounds(10,40,200,20);
         this.add(current);
 
-        expected = new JLabel("Expected revenue: ");
+        expected.setText("Expected revenue: ");
         expected.setBounds(10,60,200,20);
         this.add(expected);
 
