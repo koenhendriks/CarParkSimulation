@@ -17,6 +17,8 @@ import java.awt.*;
 public class CarParkView extends AbstractView{
 
     private JLabel title;
+    private JLabel totalCars;
+    private JLabel totalPassholders;
     private Image carParkImage;
     private Dimension size;
 
@@ -28,6 +30,8 @@ public class CarParkView extends AbstractView{
     public CarParkView(CarPark model) {
         super(model);
         this.title = new JLabel("Car Park Bird View");
+        this.totalCars = new JLabel("Total cars: 0");
+        this.totalPassholders = new JLabel("Total passholds: 0");
         this.size = new Dimension(680, 300);
     }
 
@@ -49,16 +53,19 @@ public class CarParkView extends AbstractView{
      * to notify that the view should by updated
      */
     public void updateView() {
-;
+
+        CarPark carPark = (CarPark) super.model;
+
+        totalCars.setBounds(270,5,150,10);
         title.setBounds(10,5, 150,10);
         add(title);
+        add(totalCars);
 
         // Create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
 
         Graphics graphics = carParkImage.getGraphics();
 
-        CarPark carPark = (CarPark) super.model;
 
         for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++) {
             for (int row = 0; row < carPark.getNumberOfRows(); row++) {
