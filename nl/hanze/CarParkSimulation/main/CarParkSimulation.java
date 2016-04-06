@@ -3,6 +3,7 @@ package nl.hanze.CarParkSimulation.main;
 import nl.hanze.CarParkSimulation.controller.AbstractController;
 import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
+import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.view.AbstractView;
@@ -31,6 +32,7 @@ public class CarParkSimulation {
     private AbstractController carParkController;
     private int width;
     private int height;
+    private boolean running;
 
     public CarParkSimulation() {
         /**
@@ -43,7 +45,7 @@ public class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark(3,6,30);
+        this.carParkModel = new CarPark(3, 6, 30);
         this.carQueueModel = new CarQueue();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
@@ -54,7 +56,7 @@ public class CarParkSimulation {
          * and add these views to this JFrame
          */
         screen = new JFrame("Car Park Simulation");
-        screen.setSize(this.width,this.height);
+        screen.setSize(this.width, this.height);
         screen.setLayout(null);
 
         /**
@@ -63,8 +65,8 @@ public class CarParkSimulation {
         screen.getContentPane().add(carParkView);
         screen.getContentPane().add(queueView);
 
-        carParkView.setBounds(260,10,680,300);
-        queueView.setBounds(0,0,200,200);
+        carParkView.setBounds(260, 10, 680, 300);
+        queueView.setBounds(0, 0, 200, 200);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
@@ -99,11 +101,20 @@ public class CarParkSimulation {
         /**
          * Debug: Draw a grid with 10 by 10 squares
          */
-        this.gridView = new GridView(carParkModel,this.width,this.height);
-        gridView.setBounds(0,0,this.width,this.height);
+        this.gridView = new GridView(new AbstractModel() {}, this.width, this.height);
+        gridView.setBounds(0, 0, this.width, this.height);
         screen.getContentPane().add(gridView);
 
         carParkModel.notifyViews();
         carQueueModel.notifyViews();
+
+        /**
+         * Start running the simulation with 20 steps
+         */
+        for(int i = 0; i < 300000; i++){
+            carParkModel.tick();
+        }
     }
+
+
 }
