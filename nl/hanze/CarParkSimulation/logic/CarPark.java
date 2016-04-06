@@ -39,6 +39,10 @@ public class CarPark extends AbstractModel{
     int exitSpeed = 9; // number of cars that can leave per minute
     int passHolderProbability = 5; // this means one in five cars will be a passholder
 
+    int entranceIndex = 0;
+    int exitIndex = 0;
+    int payIndex = 0;
+
     private Car[][][] cars;
 
     /**
@@ -133,9 +137,11 @@ public class CarPark extends AbstractModel{
             if(customerChance == 0){
                 Car car = new PassHolder();
                 this.entranceCarQueue.addCar(car);
+                entranceIndex ++;
             }else{
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
+                entranceIndex ++;
             }
 
             super.notifyViews();
@@ -178,9 +184,11 @@ public class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
+                exitIndex ++;
             }else{
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
+                payIndex ++;
             }
 
             super.notifyViews();
@@ -197,6 +205,8 @@ public class CarPark extends AbstractModel{
             this.removeCarAt(car.getLocation());
             super.notifyViews();
             exitCarQueue.addCar(car);
+            exitIndex++;
+
             super.notifyViews();
         }
 
@@ -385,5 +395,15 @@ public class CarPark extends AbstractModel{
         return exitCarQueue;
     }
 
+    public int getEntranceIndex() {
+        return entranceIndex;
+    }
 
+    public int getExitIndex() {
+        return exitIndex;
+    }
+
+    public int getPayIndex() {
+        return payIndex;
+    }
 }

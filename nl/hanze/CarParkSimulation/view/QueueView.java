@@ -42,14 +42,14 @@ public class QueueView extends AbstractView {
 
         CarPark carPark = (CarPark) super.model;
 
-        CarQueue entrance = carPark.getEntranceCarQueue();
-        CarQueue exit = carPark.getExitCarQueue();
-        CarQueue pay = carPark.getPaymentCarQueue();
+        int entranceIndex = carPark.getEntranceIndex();
+        int exitIndex = carPark.getExitIndex();
+        int payIndex = carPark.getPayIndex();
 
-        titleLabel.setText("Cars in queue");
-        enterLabel.setText("Entrance: " + entrance.countCars());
-        exitLabel.setText("Exit: " + exit.countCars());
-        payLabel.setText("Pay: " + pay.countCars());
+        titleLabel.setText("Carpark info:");
+        enterLabel.setText("Used the entrance: " + entranceIndex);
+        exitLabel.setText("Left the carpark: " + exitIndex);
+        payLabel.setText("Paying customers: " + payIndex);
 
         titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);
