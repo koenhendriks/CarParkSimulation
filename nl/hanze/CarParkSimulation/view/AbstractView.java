@@ -23,6 +23,9 @@ public abstract class AbstractView extends JPanel {
     public AbstractView(AbstractModel model) {
         this.model = model;
         model.addView(this);
+
+        // We use absolute positioning so we can set the layout to null
+        setLayout(null);
     }
 
     public void updateView() {
