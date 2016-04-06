@@ -312,7 +312,6 @@ public class CarPark extends AbstractModel{
      * @return null | Car object when successfully removed, null if it failed
      */
     public Car removeCarAt(Location location) {
-        System.out.println("Auto weghalen uit plek");
         if (!this.checkLocation(location)) {
             return null;
         }
