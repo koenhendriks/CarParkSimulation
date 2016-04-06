@@ -31,6 +31,7 @@ public class QueueView extends AbstractView {
     }
 
     public void updateView(){
+
         label.setBounds(0,0,200,20);
         add(label);
 

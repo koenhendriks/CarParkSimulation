@@ -47,7 +47,6 @@ public class CarParkSimulation {
         this.carQueueModel = new CarQueue();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
-        this.gridView = new GridView(carParkModel,this.width,this.height);
         this.queueView = new QueueView(carQueueModel);
 
         /**
@@ -62,11 +61,9 @@ public class CarParkSimulation {
          * Add the views to the main screen
          */
         screen.getContentPane().add(carParkView);
-        screen.getContentPane().add(gridView);
         screen.getContentPane().add(queueView);
 
         carParkView.setBounds(260,10,680,300);
-        gridView.setBounds(0,0,this.width,this.height);
         queueView.setBounds(0,0,200,200);
         /**
          * Add a window listener to the SimulatorView so we can send
@@ -94,11 +91,19 @@ public class CarParkSimulation {
         screen.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         /**
-         * Show the main screen and notify the views to update
+         * Show the main screen, disable resizing and notify the views to update
          */
         screen.setVisible(true);
-
         screen.setResizable(false);
+
+        /**
+         * Debug: Draw a grid with 10 by 10 squares
+         */
+        this.gridView = new GridView(carParkModel,this.width,this.height);
+        gridView.setBounds(0,0,this.width,this.height);
+        screen.getContentPane().add(gridView);
+
         carParkModel.notifyViews();
+        carQueueModel.notifyViews();
     }
 }
