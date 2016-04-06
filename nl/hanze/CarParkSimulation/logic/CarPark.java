@@ -136,11 +136,16 @@ public class CarPark extends AbstractModel{
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
             }
+
+            super.notifyViews();
         }
 
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
             Car car = entranceCarQueue.removeCar();
+
+            super.notifyViews();
+
             if (car == null) {
                 break;
             }
@@ -151,8 +156,9 @@ public class CarPark extends AbstractModel{
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setMinutesLeft(stayMinutes);
             }
-        }
 
+            super.notifyViews();
+        }
 
         this.tickCars();
 
@@ -175,17 +181,22 @@ public class CarPark extends AbstractModel{
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
             }
+
+            super.notifyViews();
         }
 
         // Let cars pay.
         for (int i = 0; i < paymentSpeed; i++) {
             Car car = paymentCarQueue.removeCar();
+            super.notifyViews();
             if (car == null) {
                 break;
             }
             // TODO Handle payment.
             this.removeCarAt(car.getLocation());
+            super.notifyViews();
             exitCarQueue.addCar(car);
+            super.notifyViews();
         }
 
         // Let cars leave.
@@ -194,7 +205,7 @@ public class CarPark extends AbstractModel{
             if (car == null) {
                 break;
             }
-            // Bye!
+            super.notifyViews();
         }
 
         // Update the car park view.
@@ -224,6 +235,24 @@ public class CarPark extends AbstractModel{
                 }
             }
         }
+    }
+
+    public int totalCars(){
+        int totalCars = 0;
+
+        for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
+            for (int row = 0; row < this.getNumberOfRows(); row++) {
+                for (int place = 0; place < this.getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = this.getCar(location);
+                    if (car != null) {
+                        totalCars++;
+                    }
+                }
+            }
+        }
+
+        return totalCars;
     }
 
     /**
@@ -259,7 +288,7 @@ public class CarPark extends AbstractModel{
      * @param location Location object to check
      * @return boolean whether location is valid
      */
-    private boolean checkLocation(Location location) {
+    public boolean checkLocation(Location location) {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
@@ -324,6 +353,10 @@ public class CarPark extends AbstractModel{
         return car;
     }
 
+    public Car[][][] getCars() {
+        return cars;
+    }
+
     public CarQueue getEntranceCarQueue() {
         return entranceCarQueue;
     }
@@ -335,4 +368,6 @@ public class CarPark extends AbstractModel{
     public CarQueue getExitCarQueue() {
         return exitCarQueue;
     }
+
+
 }
