@@ -3,6 +3,7 @@ package nl.hanze.CarParkSimulation.main;
 import nl.hanze.CarParkSimulation.controller.AbstractController;
 import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
+import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.view.AbstractView;
@@ -34,6 +35,7 @@ public class CarParkSimulation {
     private AbstractController start;
     private int width;
     private int height;
+    private boolean running;
 
     public CarParkSimulation() {
         /**
@@ -46,7 +48,7 @@ public class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark(3,6,30);
+        this.carParkModel = new CarPark(3, 6, 30);
         this.carQueueModel = new CarQueue();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
@@ -59,7 +61,7 @@ public class CarParkSimulation {
          * and add these views to this JFrame
          */
         screen = new JFrame("Car Park Simulation");
-        screen.setSize(this.width,this.height);
+        screen.setSize(this.width, this.height);
         screen.setLayout(null);
 
         /**
@@ -113,11 +115,20 @@ public class CarParkSimulation {
         /**
          * Debug: Draw a grid with 10 by 10 squares
          */
-        this.gridView = new GridView(carParkModel,this.width,this.height);
-        gridView.setBounds(0,0,this.width,this.height);
+        this.gridView = new GridView(new AbstractModel() {}, this.width, this.height);
+        gridView.setBounds(0, 0, this.width, this.height);
         screen.getContentPane().add(gridView);
 
         carParkModel.notifyViews();
         carQueueModel.notifyViews();
+
+        /**
+         * Start running the simulation with 20 steps
+         */
+        for(int i = 0; i < 300000; i++){
+            carParkModel.tick();
+        }
     }
+
+
 }
