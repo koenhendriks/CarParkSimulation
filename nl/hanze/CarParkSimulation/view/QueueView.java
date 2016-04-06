@@ -3,6 +3,9 @@ package nl.hanze.CarParkSimulation.view;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarQueue;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Class QueueView
  *
@@ -12,6 +15,8 @@ import nl.hanze.CarParkSimulation.logic.CarQueue;
 
 public class QueueView extends AbstractView {
 
+    private Dimension size;
+    private JLabel label;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view
@@ -20,9 +25,19 @@ public class QueueView extends AbstractView {
      */
     public QueueView(CarQueue model) {
         super(model);
+        this.size = new Dimension(100, 100);
+        this.label = new JLabel();
+        label.setText("The queue is: ");
     }
 
     public void updateView(){
+
+        label.setBounds(0,0,200,20);
+        add(label);
+
+        setVisible(true);
+
+        super.updateView();
 
     }
 

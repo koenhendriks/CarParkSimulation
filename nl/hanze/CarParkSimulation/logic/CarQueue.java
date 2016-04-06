@@ -10,8 +10,6 @@ import java.util.Queue;
  * @version 0.1 (05-04-2016)
  */
 
-
-
 /**
  * Class for creating different Queue collections of Car objects.
  * The class is used for determining cars that need to enter the

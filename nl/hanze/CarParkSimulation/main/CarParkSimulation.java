@@ -4,10 +4,12 @@ import nl.hanze.CarParkSimulation.controller.AbstractController;
 import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.CarPark;
+import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
 import nl.hanze.CarParkSimulation.view.StatisticsView;
+import nl.hanze.CarParkSimulation.view.QueueView;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -22,8 +24,10 @@ import java.awt.event.WindowEvent;
 public class CarParkSimulation {
 
     private CarPark carParkModel;
+    private CarQueue carQueueModel;
     private JFrame screen;
     private AbstractView carParkView;
+    private AbstractView queueView;
     private AbstractView gridView;
     private AbstractView statisticsView;
     private AbstractController carParkController;
@@ -42,10 +46,11 @@ public class CarParkSimulation {
          * we need for the Car Park Simulation
          */
         this.carParkModel = new CarPark(3,6,30);
+        this.carQueueModel = new CarQueue();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
+        this.queueView = new QueueView(carQueueModel);
         this.statisticsView = new StatisticsView(carParkModel);
-        this.gridView = new GridView(carParkModel,this.width,this.height);
 
         /**
          * Create the JFrame that will display the views
@@ -59,10 +64,11 @@ public class CarParkSimulation {
          * Add the views to the main screen
          */
         screen.getContentPane().add(carParkView);
+        screen.getContentPane().add(queueView);
         screen.getContentPane().add(statisticsView);
-        screen.getContentPane().add(gridView);
 
         carParkView.setBounds(260,10,680,300);
+        queueView.setBounds(0,0,200,200);
         statisticsView.setBounds(10,10,100,30);
         gridView.setBounds(0,0,this.width,this.height);
 
@@ -92,11 +98,19 @@ public class CarParkSimulation {
         screen.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         /**
-         * Show the main screen and notify the views to update
+         * Show the main screen, disable resizing and notify the views to update
          */
         screen.setVisible(true);
-
         screen.setResizable(false);
+
+        /**
+         * Debug: Draw a grid with 10 by 10 squares
+         */
+        this.gridView = new GridView(carParkModel,this.width,this.height);
+        gridView.setBounds(0,0,this.width,this.height);
+        screen.getContentPane().add(gridView);
+
         carParkModel.notifyViews();
+        carQueueModel.notifyViews();
     }
 }
