@@ -75,7 +75,6 @@ public class CarParkView extends AbstractView{
      */
     private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
-        System.out.println(""+location.getRow() % 2);
         graphics.fillRect(
                 (location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 60 + (location.getRow() % 2) * 20) -59,
 //                (location.getFloor() * (20+this.floorOffset)) + ((location.getRow() * (20 + (((location.getRow() % 2) *20))  ))) ,
