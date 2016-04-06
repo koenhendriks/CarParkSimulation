@@ -8,6 +8,7 @@ import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
+import nl.hanze.CarParkSimulation.view.StatisticsView;
 import nl.hanze.CarParkSimulation.view.QueueView;
 
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class CarParkSimulation {
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView gridView;
+    private AbstractView statisticsView;
     private AbstractController carParkController;
     private int width;
     private int height;
@@ -48,6 +50,7 @@ public class CarParkSimulation {
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carQueueModel);
+        this.statisticsView = new StatisticsView(carParkModel);
 
         /**
          * Create the JFrame that will display the views
@@ -62,8 +65,10 @@ public class CarParkSimulation {
          */
         screen.getContentPane().add(carParkView);
         screen.getContentPane().add(queueView);
+        screen.getContentPane().add(statisticsView);
 
         carParkView.setBounds(260,10,680,300);
+        statisticsView.setBounds(0,210, 200,100);
         queueView.setBounds(10,10,200,120);
         /**
          * Add a window listener to the SimulatorView so we can send
