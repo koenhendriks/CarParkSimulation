@@ -12,7 +12,9 @@ import java.awt.*;
  */
 public class StatisticsView extends AbstractView {
 
-    private JLabel parked;
+    private JLabel stats;
+    private JLabel current;
+    private JLabel expected;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view
@@ -24,9 +26,18 @@ public class StatisticsView extends AbstractView {
 
     @Override
     public void updateView() {
-        parked = new JLabel("Current statistics:");
-        parked.setBounds(0,0,200,20);
-        this.add(parked);
+        stats = new JLabel("Statistics");
+        stats.setBounds(0,0,200,20);
+        this.add(stats);
+
+        current = new JLabel("Current revenue: ");
+        current.setBounds(0,30,200,20);
+        this.add(current);
+
+        expected = new JLabel("Expected revenue: ");
+        expected.setBounds(0,50,200,20);
+        this.add(expected);
+
 
         setVisible(true);
         super.updateView();
