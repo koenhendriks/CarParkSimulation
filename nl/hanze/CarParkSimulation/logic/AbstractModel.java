@@ -31,4 +31,14 @@ public abstract class AbstractModel {
     public void addView(AbstractView view) {
         this.views.add(view);
     }
+
+    /**
+     * Method to notify the views that belong to this model that
+     * an update is required because a change has been done.
+     */
+    public void notifyViews(){
+        for (AbstractView view : this.views) {
+            view.updateView();
+        }
+    }
 }
