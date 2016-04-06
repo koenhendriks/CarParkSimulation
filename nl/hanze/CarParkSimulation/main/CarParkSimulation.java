@@ -7,6 +7,7 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
+import nl.hanze.CarParkSimulation.view.GridView;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -23,9 +24,17 @@ public class CarParkSimulation {
     private CarPark carParkModel;
     private JFrame screen;
     private AbstractView carParkView;
+    private AbstractView gridView;
     private AbstractController carParkController;
+    private int width;
+    private int height;
 
     public CarParkSimulation() {
+        /**
+         * Set the dimension for the application
+         */
+        this.width = 900;
+        this.height = 600;
 
         /**
          * Create the model, view and controller that
@@ -34,17 +43,24 @@ public class CarParkSimulation {
         this.carParkModel = new CarPark(3,6,30);
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
+        this.gridView = new GridView(carParkModel,this.width,this.height);
 
         /**
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
         screen = new JFrame("Car Park Simulation");
-        screen.setSize(1200,750);
+        screen.setSize(this.width,this.height);
         screen.setLayout(null);
+
+        /**
+         * Add the views to the main screen
+         */
         screen.getContentPane().add(carParkView);
+        screen.getContentPane().add(gridView);
 
         carParkView.setBounds(10,10,800,500);
+        gridView.setBounds(0,0,this.width,this.height);
 
         /**
          * Add a window listener to the SimulatorView so we can send
@@ -71,9 +87,10 @@ public class CarParkSimulation {
          */
         screen.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        /**
+         * Show the main screen and notify the views to update
+         */
         screen.setVisible(true);
-
-        carParkView.updateView();
-
+        carParkModel.notifyViews();
     }
 }
