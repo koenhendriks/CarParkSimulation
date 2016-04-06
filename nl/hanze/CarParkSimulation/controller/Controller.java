@@ -15,7 +15,10 @@ import java.awt.event.ActionListener;
 public class Controller extends AbstractController implements ActionListener {
     private JLabel description;
     private JTextField input;
+    private JButton startLimit;
     private JButton start;
+    private JButton stop;
+
     /**
      * Constructor of AbstractController with a model belong to this controller
      *
@@ -26,16 +29,24 @@ public class Controller extends AbstractController implements ActionListener {
         setLayout(null);
 
         description = new JLabel("Insert number of steps: ");
-        description.setBounds(10,0,200,20);
+        description.setBounds(10,15,200,20);
         add(description);
 
         input = new JTextField("");
-        input.setBounds(10,25,75,20);
+        input.setBounds(10,40,75,20);
         add(input);
 
+        startLimit = new JButton("start");
+        startLimit.setBounds(110,40,70,20);
+        add(startLimit);
+
         start = new JButton("start");
-        start.setBounds(110,25,70,20);
+        start.setBounds(410,55,70,20);
         add(start);
+
+        stop = new JButton("stop");
+        stop.setBounds(670,55,70,20);
+        add(stop);
 
     }
 
