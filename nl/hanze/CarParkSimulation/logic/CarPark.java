@@ -328,23 +328,11 @@ public class CarPark extends AbstractModel{
         return entranceCarQueue;
     }
 
-    public void setEntranceCarQueue(CarQueue entranceCarQueue) {
-        this.entranceCarQueue = entranceCarQueue;
-    }
-
     public CarQueue getPaymentCarQueue() {
         return paymentCarQueue;
     }
 
-    public void setPaymentCarQueue(CarQueue paymentCarQueue) {
-        this.paymentCarQueue = paymentCarQueue;
-    }
-
     public CarQueue getExitCarQueue() {
         return exitCarQueue;
-    }
-
-    public void setExitCarQueue(CarQueue exitCarQueue) {
-        this.exitCarQueue = exitCarQueue;
     }
 }
