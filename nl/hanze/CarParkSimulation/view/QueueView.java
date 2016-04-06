@@ -46,7 +46,7 @@ public class QueueView extends AbstractView {
 
     public void updateView(){
 
-        titleLabel.setBounds(10, 10, 200, 20);
+        titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);
         exitLabel.setBounds(10,60,200,20);
         payLabel.setBounds(10,80,200,20);

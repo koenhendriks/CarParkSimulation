@@ -49,7 +49,7 @@ public class CarParkView extends AbstractView{
      */
     public void updateView() {
 ;
-        title.setBounds(5,5, 150,10);
+        title.setBounds(10,5, 150,10);
         add(title);
 
         // Create a new car park image if the size has changed.

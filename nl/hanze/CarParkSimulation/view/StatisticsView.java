@@ -27,15 +27,15 @@ public class StatisticsView extends AbstractView {
     @Override
     public void updateView() {
         stats = new JLabel("Statistics");
-        stats.setBounds(0,0,200,20);
+        stats.setBounds(10,5,200,20);
         this.add(stats);
 
         current = new JLabel("Current revenue: ");
-        current.setBounds(0,30,200,20);
+        current.setBounds(10,40,200,20);
         this.add(current);
 
         expected = new JLabel("Expected revenue: ");
-        expected.setBounds(0,50,200,20);
+        expected.setBounds(10,60,200,20);
         this.add(expected);
 
 

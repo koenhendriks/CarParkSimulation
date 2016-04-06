@@ -38,4 +38,8 @@ public class CarQueue extends AbstractModel {
         return queue.poll();
     }
 
+    public int countCars(){
+            return queue.size();
+    }
+
 }
