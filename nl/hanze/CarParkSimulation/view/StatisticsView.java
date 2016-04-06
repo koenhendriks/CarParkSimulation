@@ -24,8 +24,9 @@ public class StatisticsView extends AbstractView {
 
     @Override
     public void updateView() {
-        parked = new JLabel("Why is this not working?");
-        add(parked);
+        parked = new JLabel("Current statistics:");
+        parked.setBounds(0,0,200,20);
+        this.add(parked);
 
         setVisible(true);
         super.updateView();

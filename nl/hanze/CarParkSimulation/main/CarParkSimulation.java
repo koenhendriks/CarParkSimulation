@@ -69,7 +69,7 @@ public class CarParkSimulation {
 
         carParkView.setBounds(260,10,680,300);
         queueView.setBounds(0,0,200,200);
-        statisticsView.setBounds(10,10,100,30);
+        statisticsView.setBounds(0,210, 200,100);
 
         /**
          * Add a window listener to the SimulatorView so we can send
