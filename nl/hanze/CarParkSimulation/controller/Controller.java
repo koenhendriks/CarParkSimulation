@@ -21,6 +21,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton start;
     private JButton stop;
     public static final CarParkSimulation simulation = CarParkSimulationRunner.getSimulation();
+    public static boolean running;
 
     /**
      * Constructor of AbstractController with a model belong to this controller
@@ -58,7 +59,7 @@ public class Controller extends AbstractController implements ActionListener {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         System.out.println("start");
-                        simulation.setRunning(true);
+                        setRunning(true);
                     }
                 }
         );
@@ -71,12 +72,28 @@ public class Controller extends AbstractController implements ActionListener {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         System.out.println("stop");
-                        simulation.setRunning(false);
+                        setRunning(false);
                     }
                 }
         );
         add(stop);
 
+    }
+
+    /**
+     * Boolean getter for running condition.
+     * @return boolean if running
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Boolean setter for running condition.
+     * @param running running condition
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 
     @Override

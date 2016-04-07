@@ -31,10 +31,10 @@ public class CarParkSimulation {
     private AbstractView gridView;
     private AbstractView statisticsView;
     private AbstractController carParkController;
-    private AbstractController start;
+    private AbstractController controller;
     private int width;
     private int height;
-    private boolean running;
+    public static boolean running;
     private int steps;
 
     public CarParkSimulation() {
@@ -56,7 +56,7 @@ public class CarParkSimulation {
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
         this.statisticsView = new StatisticsView(carParkModel);
-        this.start = new Controller(carParkModel);
+        this.controller = new Controller(carParkModel);
 
         /**
          * Create the JFrame that will display the views
@@ -80,9 +80,9 @@ public class CarParkSimulation {
         /**
          * Add the controllers to the main screen
          */
-        screen.getContentPane().add(start);
+        screen.getContentPane().add(controller);
 
-        start.setBounds(30,260,910,80);
+        controller.setBounds(30,260,910,80);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
@@ -126,8 +126,7 @@ public class CarParkSimulation {
         /**
          * Start running the simulation with 300000 steps
          */
-        running = true;
-        while(running == true) {
+        while(isRunning() == true) {
             for (int i = 0; i < steps; i++) {
                 carParkModel.tick();
             }
@@ -156,13 +155,5 @@ public class CarParkSimulation {
      */
     public boolean isRunning() {
         return running;
-    }
-
-    /**
-     * Boolean setter for running condition.
-     * @param running running condition
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
     }
 }
