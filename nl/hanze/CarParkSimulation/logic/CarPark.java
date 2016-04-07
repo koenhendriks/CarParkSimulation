@@ -194,7 +194,6 @@ public class CarPark extends AbstractModel{
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
                 payPassIndex ++;
-                totalPassholderIndex++;
                 exitIndex ++;
             }else{
                 car.setIsPaying(true);
