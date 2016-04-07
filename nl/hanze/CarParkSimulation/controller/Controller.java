@@ -17,11 +17,13 @@ import java.awt.event.ActionListener;
  */
 public class Controller extends AbstractController implements ActionListener {
     private JLabel description;
+    private JLabel speedLabel;
     private JTextField input;
+    private JTextField speedField;
     private JButton startLimit;
+    private JButton speedButton;
     private JButton startButton;
     private JButton stopButton;
-    private static boolean running;
 
     /**
      * Constructor of AbstractController with a model belong to this controller
@@ -35,32 +37,44 @@ public class Controller extends AbstractController implements ActionListener {
 
         setLayout(null);
 
+        // custom step counter
         description = new JLabel("Insert number of steps: ");
-        description.setBounds(10,15,200,20);
+        description.setBounds(10,0,200,20);
         add(description);
 
         input = new JTextField("1");
-        input.setBounds(10,40,75,20);
+        input.setBounds(10,20,75,20);
         add(input);
 
         startLimit = new JButton("Start");
-        startLimit.setBounds(110,40,70,20);
+        startLimit.setBounds(110,20,70,20);
         startLimit.addActionListener(this);
         add(startLimit);
 
+        // custom speed counter
+        speedLabel = new JLabel("Size of minute in milliseconds: ");
+        speedLabel.setBounds(10,45,200,20);
+        add(speedLabel);
+
+        speedField = new JTextField("1000");
+        speedField.setBounds(10,65,75,20);
+        add(speedField);
+
+        speedButton = new JButton("Set");
+        speedButton.setBounds(110,65,70,20);
+        speedButton.addActionListener(this);
+        add(speedButton);
+
+        // start and stop
         startButton = new JButton("Start");
-        startButton.setBounds(410,55,70,20);
+        startButton.setBounds(410,60,70,20);
         startButton.addActionListener(this);
         add(startButton);
 
         stopButton = new JButton("Stop");
-        stopButton.setBounds(670,55,70,20);
+        stopButton.setBounds(670,60,70,20);
         stopButton.addActionListener(this);
         add(stopButton);
-
-        running = true;
-
-
     }
 
     private void startPressed() {
@@ -77,6 +91,18 @@ public class Controller extends AbstractController implements ActionListener {
             int steps = Integer.parseInt(input.getText());
 
             setSteps(steps);
+
+        } catch (NumberFormatException e){
+            // TODO notify user that the field is not a number!
+        }
+    }
+
+    private void speedPressed(){
+
+        try{
+            int speed = Integer.parseInt(speedField.getText());
+
+            CarParkSimulation.simulationSpeed = speed;
 
         } catch (NumberFormatException e){
             // TODO notify user that the field is not a number!
@@ -104,6 +130,8 @@ public class Controller extends AbstractController implements ActionListener {
             this.stopPressed();
         } else if(actionEvent.getSource() == startLimit){
             this.startStepPressed();
+        } else if(actionEvent.getSource() == speedButton){
+            this.speedPressed();
         }
 
     }

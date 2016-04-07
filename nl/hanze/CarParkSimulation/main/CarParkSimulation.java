@@ -40,7 +40,7 @@ public final class CarParkSimulation {
      * The simulations speed means the amount of miliseconds
      * it takes to simulate 1 minute in the car park.
      */
-    private static int simulationSpeed = 1000;
+    public static int simulationSpeed = 1000;
 
     public static boolean running;
 
@@ -92,7 +92,7 @@ public final class CarParkSimulation {
          */
         screen.getContentPane().add(controller);
 
-        controller.setBounds(30,260,910,80);
+        controller.setBounds(30,250,910,90);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
