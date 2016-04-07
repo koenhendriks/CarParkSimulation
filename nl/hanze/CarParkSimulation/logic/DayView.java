@@ -16,7 +16,8 @@ public class DayView extends AbstractView {
     private Dimension size;
 
     private JLabel titleLabel;
-    private JLabel time;
+    private JLabel minutes;
+    private JLabel hour;
     private JLabel day;
     private JLabel week;
     private JLabel year;
@@ -34,7 +35,8 @@ public class DayView extends AbstractView {
          * Create labels
          */
         this.titleLabel = new JLabel();
-        this.time = new JLabel();
+        this.minutes = new JLabel();
+        this.hour = new JLabel();
         this.day = new JLabel();
         this.week = new JLabel();
         this.year = new JLabel();
@@ -48,16 +50,18 @@ public class DayView extends AbstractView {
          * Set the location for the labels
          */
         titleLabel.setBounds(10, 5, 200, 20);
-        time.setBounds(10,40,200,20);
-        day.setBounds(10,60,200,20);
-        week.setBounds(10,80,200,20);
-        year.setBounds(10,100,200,20);
+        minutes.setBounds(10,40,200,20);
+        hour.setBounds(10,60,200,20);
+        day.setBounds(10,80,200,20);
+        week.setBounds(10,100,200,20);
+        year.setBounds(10,120,200,20);
 
         /**
          * Add the labels to the view
          */
         add(titleLabel);
-        add(time);
+        add(minutes);
+        add(hour);
         add(day);
         add(week);
         add(year);
@@ -69,6 +73,15 @@ public class DayView extends AbstractView {
     }
 
     public void updateView(){
+
+        minutes.setText("Minutes: ");
+        hour.setText("Hours: ");
+        day.setText("Days: ");
+        week.setText("Weeks: ");
+        year.setText("Years: ");
+
+        setVisible(true);
+        super.updateView();
 
     }
 }
