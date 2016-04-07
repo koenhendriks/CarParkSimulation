@@ -1,5 +1,6 @@
 package nl.hanze.CarParkSimulation.view;
 
+import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 
@@ -53,7 +54,7 @@ public class StatisticsView extends AbstractView {
          * Set the text and the font for the title
          */
         stats.setFont(new Font("Serif", Font.PLAIN, 20));
-        stats.setText("Statistics");
+        stats.setText(Language.get("stats"));
 
         /**
          * Add the labels to the view
@@ -76,8 +77,8 @@ public class StatisticsView extends AbstractView {
         /**
          * Set the text in the view with an euro sign and the current and expected revenue.
          */
-        current.setText("Current revenue: "+ this.euro + (this.currentRevenue / 100 ));
-        expected.setText("Expected revenue: "+ this.euro + (this.expectedRevenue / 100));
+        current.setText(Language.get("current")+ this.euro + (this.currentRevenue / 100 ));
+        expected.setText(Language.get("expected")+ this.euro + (this.expectedRevenue / 100));
 
         setVisible(true);
         super.updateView();

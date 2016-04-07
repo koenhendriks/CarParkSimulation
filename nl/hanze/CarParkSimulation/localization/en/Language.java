@@ -52,6 +52,11 @@ public abstract class Language {
         stringCollection.put("left","Left the carpark: ");
         stringCollection.put("payCash","Paid with cash: ");
         stringCollection.put("payPass","Paid with pass: ");
+
+        // statistics view
+        stringCollection.put("stats","Statistics");
+        stringCollection.put("current","Current revenue: ");
+        stringCollection.put("expected","Expected revenue: ");
     }
 
     /**
