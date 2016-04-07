@@ -39,6 +39,13 @@ public abstract class Language {
         // simulation
         stringCollection.put("title","Car Park Simulation");
 
+        // car park view
+        stringCollection.put("birdView","Car Park Bird View");
+        stringCollection.put("cars0","Total cars: 0");
+        stringCollection.put("pass0","Total passholds: 0");
+        stringCollection.put("cars","Total cars: ");
+        stringCollection.put("pass","Total Passholders: ");
+
     }
 
     /**

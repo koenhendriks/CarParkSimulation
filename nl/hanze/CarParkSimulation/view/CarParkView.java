@@ -1,5 +1,6 @@
 package nl.hanze.CarParkSimulation.view;
 
+import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.Car;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.Location;
@@ -29,9 +30,9 @@ public class CarParkView extends AbstractView{
      */
     public CarParkView(CarPark model) {
         super(model);
-        this.title = new JLabel("Car Park Bird View");
-        this.totalCars = new JLabel("Total cars: 0");
-        this.totalPassholders = new JLabel("Total passholds: 0");
+        this.title = new JLabel(Language.get("birdView"));
+        this.totalCars = new JLabel(Language.get("cars0"));
+        this.totalPassholders = new JLabel(Language.get("pass0"));
         this.size = new Dimension(680, 300);
 
         /**
@@ -70,8 +71,8 @@ public class CarParkView extends AbstractView{
 
         CarPark carPark = (CarPark) super.model;
 
-        totalCars.setText("Total cars: "+ carPark.getTotalCarIndex());
-        totalPassholders.setText("Total Passholders: "+carPark.getTotalPassholderIndex());
+        totalCars.setText(Language.get("cars")+ carPark.getTotalCarIndex());
+        totalPassholders.setText(Language.get("pass")+carPark.getTotalPassholderIndex());
 
         // Create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
