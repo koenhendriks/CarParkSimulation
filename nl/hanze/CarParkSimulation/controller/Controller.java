@@ -4,6 +4,7 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
+import nl.hanze.CarParkSimulation.localization.en.Language;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -38,40 +39,40 @@ public class Controller extends AbstractController implements ActionListener {
         setLayout(null);
 
         // custom step counter
-        description = new JLabel("Insert number of steps: ");
+        description = new JLabel(Language.get("insertSteps"));
         description.setBounds(10,0,200,20);
         add(description);
 
-        input = new JTextField("1");
+        input = new JTextField(Language.get("input"));
         input.setBounds(10,20,75,20);
         add(input);
 
-        startLimit = new JButton("Start");
+        startLimit = new JButton(Language.get("startLimit"));
         startLimit.setBounds(110,20,70,20);
         startLimit.addActionListener(this);
         add(startLimit);
 
         // custom speed counter
-        speedLabel = new JLabel("Size of minute in milliseconds: ");
+        speedLabel = new JLabel(Language.get("speedLabel"));
         speedLabel.setBounds(10,45,200,20);
         add(speedLabel);
 
-        speedField = new JTextField("1000");
+        speedField = new JTextField(Language.get("speedField"));
         speedField.setBounds(10,65,75,20);
         add(speedField);
 
-        speedButton = new JButton("Set");
+        speedButton = new JButton(Language.get("speedButton"));
         speedButton.setBounds(110,65,70,20);
         speedButton.addActionListener(this);
         add(speedButton);
 
         // start and stop
-        startButton = new JButton("Start");
+        startButton = new JButton(Language.get("startButton"));
         startButton.setBounds(410,60,70,20);
         startButton.addActionListener(this);
         add(startButton);
 
-        stopButton = new JButton("Stop");
+        stopButton = new JButton(Language.get("stopButton"));
         stopButton.setBounds(670,60,70,20);
         stopButton.addActionListener(this);
         add(stopButton);

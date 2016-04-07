@@ -17,6 +17,16 @@ public abstract class Language {
         stringCollection.put("confirmExitTitle", "Exit Confirmation");
         stringCollection.put("stepOne", "One step");
         stringCollection.put("stepMany", "One hundred steps");
+
+        // controller
+        stringCollection.put("insertSteps","Insert steps: ");
+        stringCollection.put("input","1");
+        stringCollection.put("startLimit","Start");
+        stringCollection.put("speedLabel","Size of minute in milliseconds: ");
+        stringCollection.put("speedField","1000");
+        stringCollection.put("speedButton","Set");
+        stringCollection.put("startButton","Start");
+        stringCollection.put("stopButton","Stop");
     }
 
     /**
