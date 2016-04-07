@@ -120,7 +120,7 @@ public class CarParkSimulation {
         carParkModel.notifyViews();
 
         /**
-         * Start running the simulation with 20 steps
+         * Start running the simulation with 300000 steps
          */
         for(int i = 0; i < 300000; i++){
             carParkModel.tick();
