@@ -42,40 +42,17 @@ public class Controller extends AbstractController implements ActionListener {
 
         startLimit = new JButton("start");
         startLimit.setBounds(110,40,70,20);
-        startLimit.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        System.out.println("startLimit");
-                    }
-                }
-        );
+        startLimit.addActionListener(this);
         add(startLimit);
 
         start = new JButton("start");
         start.setBounds(410,55,70,20);
-        start.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        System.out.println("start");
-                        setRunning(true);
-                    }
-                }
-        );
+        start.addActionListener(this);
         add(start);
 
         stop = new JButton("stop");
         stop.setBounds(670,55,70,20);
-        stop.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        System.out.println("stop");
-                        setRunning(false);
-                    }
-                }
-        );
+        stop.addActionListener(this);
         add(stop);
 
     }
