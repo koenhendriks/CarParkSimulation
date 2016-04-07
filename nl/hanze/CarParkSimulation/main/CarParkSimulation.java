@@ -124,7 +124,7 @@ public class CarParkSimulation {
         carParkModel.notifyViews();
 
         /**
-         * Start running the simulation with 20 steps
+         * Start running the simulation with 300000 steps
          */
         running = true;
         while(running == true) {

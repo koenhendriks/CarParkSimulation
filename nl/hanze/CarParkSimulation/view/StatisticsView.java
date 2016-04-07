@@ -23,26 +23,39 @@ public class StatisticsView extends AbstractView {
     public StatisticsView(AbstractModel model) {
         super(model);
 
+        /**
+         * Create the labels
+         */
         this.stats = new JLabel();
         this.current = new JLabel();
         this.expected = new JLabel();
+
+        /**
+         * Set the location for the labels
+         */
+        stats.setBounds(10,5,200,20);
+        current.setBounds(10,40,200,20);
+        expected.setBounds(10,60,200,20);
+
+        /**
+         * Set the text and the font for the title
+         */
+        stats.setFont(new Font("Serif", Font.PLAIN, 20));
+        stats.setText("Statistics");
+
+        /**
+         * Add the labels to the view
+         */
+        this.add(expected);
+        this.add(current);
+        this.add(stats);
     }
 
     @Override
     public void updateView() {
-        stats.setText("Statistics");
-        stats.setBounds(10,5,200,20);
-        stats.setFont(new Font("Serif", Font.PLAIN, 20));
-        this.add(stats);
 
         current.setText("Current revenue: ");
-        current.setBounds(10,40,200,20);
-        this.add(current);
-
         expected.setText("Expected revenue: ");
-        expected.setBounds(10,60,200,20);
-        this.add(expected);
-
 
         setVisible(true);
         super.updateView();
