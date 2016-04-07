@@ -70,8 +70,8 @@ public class CarParkView extends AbstractView{
 
         CarPark carPark = (CarPark) super.model;
 
-        totalCars.setText("Total cars: "+ carPark.totalCars().get(0));
-        totalPassholders.setText("Total Passholders: "+carPark.totalCars().get(1));
+        totalCars.setText("Total cars: "+ carPark.getTotalCarIndex());
+        totalPassholders.setText("Total Passholders: "+carPark.getTotalPassholderIndex());
 
         // Create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
@@ -110,7 +110,6 @@ public class CarParkView extends AbstractView{
         graphics.setColor(color);
         graphics.fillRect(
                 (location.getFloor() * 260 + (1 + (int) Math.floor(location.getRow() * 0.5)) * 60 + (location.getRow() % 2) * 20) -59,
-//                (location.getFloor() * (20+this.floorOffset)) + ((location.getRow() * (20 + (((location.getRow() % 2) *20))  ))) ,
                 location.getPlace() * 10 + 30,
                 20 - 1,
                 10 - 1); // TODO use dynamic size or constants
