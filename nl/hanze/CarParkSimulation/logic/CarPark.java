@@ -144,11 +144,13 @@ public class CarPark extends AbstractModel{
             if(customerChance == 0){
                 Car car = new PassHolder();
                 this.entranceCarQueue.addCar(car);
+                totalPassholderIndex++;
             }else{
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
             }
             entranceIndex ++;
+            totalCarIndex ++;
 
             super.notifyViews();
         }
@@ -190,6 +192,7 @@ public class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
+                totalPassholderIndex++;
                 exitIndex ++;
             }else{
                 car.setIsPaying(true);
@@ -211,7 +214,6 @@ public class CarPark extends AbstractModel{
             this.removeCarAt(car.getLocation());
             super.notifyViews();
             exitCarQueue.addCar(car);
-            exitIndex++;
 
             super.notifyViews();
         }
@@ -222,6 +224,14 @@ public class CarPark extends AbstractModel{
             if (car == null) {
                 break;
             }
+
+            if(car instanceof PassHolder){
+                totalPassholderIndex--;
+            }
+
+            totalCarIndex--;
+            exitIndex++;
+
             super.notifyViews();
         }
 
@@ -379,5 +389,13 @@ public class CarPark extends AbstractModel{
 
     public int getPayIndex() {
         return payIndex;
+    }
+
+    public int getTotalCarIndex() {
+        return totalCarIndex;
+    }
+
+    public int getTotalPassholderIndex() {
+        return totalPassholderIndex;
     }
 }
