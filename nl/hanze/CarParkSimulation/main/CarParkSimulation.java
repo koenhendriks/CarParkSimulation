@@ -73,6 +73,9 @@ public class CarParkSimulation {
         screen.getContentPane().add(queueView);
         screen.getContentPane().add(statisticsView);
 
+        /**
+         * Set the location of the views on the screen
+         */
         carParkView.setBounds(260,10,680,300);
         statisticsView.setBounds(30,140, 200,100);
         queueView.setBounds(30,10,200,120);
@@ -121,13 +124,11 @@ public class CarParkSimulation {
         gridView.setBounds(0, 0, this.width, this.height);
         screen.getContentPane().add(gridView);
 
-        carParkModel.notifyViews();
-
         /**
          * Start running the simulation with 300000 steps
          */
         running = true;
-        while(running == true) {
+        while(running) {
             carParkModel.tick(true);
         }
     }

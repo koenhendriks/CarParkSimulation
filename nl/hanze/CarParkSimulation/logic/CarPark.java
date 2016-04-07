@@ -100,6 +100,7 @@ public class CarPark extends AbstractModel{
      * @param pause boolean whether we should pause after a step
      */
     public void tick(boolean pause) {
+
         // Advance the time by one minute.
         this.minute++;
         while (this.minute > 59) {
