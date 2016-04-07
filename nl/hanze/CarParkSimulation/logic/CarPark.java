@@ -137,12 +137,11 @@ public class CarPark extends AbstractModel{
             if(customerChance == 0){
                 Car car = new PassHolder();
                 this.entranceCarQueue.addCar(car);
-                entranceIndex ++;
             }else{
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
-                entranceIndex ++;
             }
+            entranceIndex ++;
 
             super.notifyViews();
         }
