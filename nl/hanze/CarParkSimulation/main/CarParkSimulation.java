@@ -6,6 +6,7 @@ import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.CarQueue;
+import nl.hanze.CarParkSimulation.logic.DayView;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
@@ -28,6 +29,7 @@ public final class CarParkSimulation {
     private JFrame screen;
     private AbstractView carParkView;
     private AbstractView queueView;
+    private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView statisticsView;
     private AbstractController carParkController;
@@ -62,6 +64,7 @@ public final class CarParkSimulation {
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
+        this.dayView = new DayView(carParkModel);
         this.statisticsView = new StatisticsView(carParkModel);
         this.controller = new Controller(carParkModel);
 
@@ -77,6 +80,7 @@ public final class CarParkSimulation {
          * Add the views to the main screen
          */
         screen.getContentPane().add(carParkView);
+        screen.getContentPane().add(dayView);
         screen.getContentPane().add(queueView);
         screen.getContentPane().add(statisticsView);
 
@@ -86,6 +90,8 @@ public final class CarParkSimulation {
         carParkView.setBounds(260,10,680,300);
         statisticsView.setBounds(30,140, 200,100);
         queueView.setBounds(30,10,200,120);
+        dayView.setBounds(970,10,200, 150);
+
 
         /**
          * Add the controllers to the main screen
