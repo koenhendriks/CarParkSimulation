@@ -21,6 +21,8 @@ public class StatisticsView extends AbstractView {
     private int currentRevenue;
     private int expectedRevenue;
 
+    String euro = "\u20ac";
+
     /**
      * Constructor of AbstractView that expects a model belonging to this view
      * @param model AbstractModel that belongs to this view
@@ -31,7 +33,7 @@ public class StatisticsView extends AbstractView {
         /**
          * Set the parking price in cents
          */
-        this.parkingPrice = 10;
+        this.parkingPrice = 200;
 
         /**
          * Create the labels
@@ -64,13 +66,18 @@ public class StatisticsView extends AbstractView {
     @Override
     public void updateView() {
 
+        /**
+         * Get the time of a car parked and multiply this with the price of an hour
+         */
         CarPark carPark = (CarPark) super.model;
-        this.currentRevenue = (carPark.getTotalMinutes() * parkingPrice);
-        //this.expectedRevenue = (carPark.getStayMinutes() * parkingPrice);
+        this.currentRevenue = ((carPark.getTotalMinutes() / 60) * parkingPrice);
+        this.expectedRevenue = ((((carPark.getInMinutes() / 60) * parkingPrice)) - this.currentRevenue);
 
-
-        current.setText("Current revenue: "+ (this.currentRevenue / 100 ));
-        expected.setText("Expected revenue: ");
+        /**
+         * Set the text in the view with an euro sign and the current and expected revenue.
+         */
+        current.setText("Current revenue: "+ this.euro + (this.currentRevenue / 100 ));
+        expected.setText("Expected revenue: "+ this.euro + (this.expectedRevenue / 100));
 
         setVisible(true);
         super.updateView();

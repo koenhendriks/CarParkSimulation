@@ -46,6 +46,7 @@ public class CarPark extends AbstractModel{
 
     int stayMinutes;
     int totalMinutes;
+    int inMinutes;
 
     private Car[][][] cars;
 
@@ -165,6 +166,7 @@ public class CarPark extends AbstractModel{
                 this.parkCar(freeLocation, car);
                 this.stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setMinutesLeft(this.stayMinutes);
+                this.inMinutes = inMinutes + stayMinutes;
             }
 
             super.notifyViews();
@@ -422,5 +424,9 @@ public class CarPark extends AbstractModel{
 
     public int getTotalMinutes() {
         return totalMinutes;
+    }
+
+    public int getInMinutes() {
+        return inMinutes;
     }
 }
