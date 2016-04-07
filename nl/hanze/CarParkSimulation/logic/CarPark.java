@@ -34,9 +34,15 @@ public class CarPark extends AbstractModel{
 
     int entranceIndex = 0;
     int exitIndex = 0;
-    int payIndex = 0;
+    int payCashIndex = 0;
+    int payPassIndex = 0;
     int totalCarIndex = 0;
     int totalPassholderIndex = 0;
+
+    int stayMinutes;
+    int totalMinutes;
+    int inMinutes;
+
 
     private Car[][][] cars;
 
@@ -162,8 +168,9 @@ public class CarPark extends AbstractModel{
             Location freeLocation = this.getFirstFreeLocation();
             if (freeLocation != null) {
                 this.parkCar(freeLocation, car);
-                int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                car.setMinutesLeft(stayMinutes);
+                this.stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                car.setMinutesLeft(this.stayMinutes);
+                this.inMinutes = inMinutes + stayMinutes;
             }
 
             super.notifyViews();
@@ -186,12 +193,13 @@ public class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
+                payPassIndex ++;
                 totalPassholderIndex++;
                 exitIndex ++;
             }else{
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
-                payIndex ++;
+                payCashIndex ++;
             }
 
             super.notifyViews();
@@ -225,6 +233,7 @@ public class CarPark extends AbstractModel{
 
             totalCarIndex--;
             exitIndex++;
+            this.totalMinutes = this.totalMinutes + this.stayMinutes;
 
             super.notifyViews();
         }
@@ -373,8 +382,24 @@ public class CarPark extends AbstractModel{
         return exitIndex;
     }
 
-    public int getPayIndex() {
-        return payIndex;
+    public int getPayPassIndex() {
+        return payPassIndex;
+    }
+
+    public int getPayCashIndex() {
+        return payCashIndex;
+    }
+
+    public int getStayMinutes() {
+        return stayMinutes;
+    }
+
+    public int getTotalMinutes() {
+        return totalMinutes;
+    }
+
+    public int getInMinutes() {
+        return inMinutes;
     }
 
     public int getTotalCarIndex() {

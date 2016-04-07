@@ -15,13 +15,17 @@ import java.awt.*;
 public class QueueView extends AbstractView {
 
     private Dimension size;
+
     private JLabel titleLabel;
     private JLabel enterLabel;
     private JLabel exitLabel;
-    private JLabel payLabel;
+    private JLabel payCashLabel;
+    private JLabel payPassLabel;
+
     private int entranceIndex;
     private int exitIndex;
-    private int payIndex;
+    private int payCashIndex;
+    private int payPassIndex;
 
 
     /**
@@ -40,7 +44,8 @@ public class QueueView extends AbstractView {
         this.titleLabel = new JLabel();
         this.enterLabel = new JLabel();
         this.exitLabel = new JLabel();
-        this.payLabel = new JLabel();
+        this.payCashLabel = new JLabel();
+        this.payPassLabel = new JLabel();
 
         /**
          * Set font for title label
@@ -53,7 +58,8 @@ public class QueueView extends AbstractView {
         titleLabel.setBounds(10, 5, 200, 20);
         enterLabel.setBounds(10,40,200,20);
         exitLabel.setBounds(10,60,200,20);
-        payLabel.setBounds(10,80,200,20);
+        payCashLabel.setBounds(10,80,200,20);
+        payPassLabel.setBounds(10,100,200,20);
 
         /**
          * Add the labels to the view
@@ -61,7 +67,8 @@ public class QueueView extends AbstractView {
         add(titleLabel);
         add(enterLabel);
         add(exitLabel);
-        add(payLabel);
+        add(payCashLabel);
+        add(payPassLabel);
 
         /**
          * Set the title
@@ -78,11 +85,13 @@ public class QueueView extends AbstractView {
 
         entranceIndex = carPark.getEntranceIndex();
         exitIndex = carPark.getExitIndex();
-        payIndex = carPark.getPayIndex();
+        payCashIndex = carPark.getPayCashIndex();
+        payPassIndex = carPark.getPayPassIndex();
 
         enterLabel.setText("Used the entrance: " + entranceIndex);
         exitLabel.setText("Left the carpark: " + exitIndex);
-        payLabel.setText("Paying customers: " + payIndex);
+        payCashLabel.setText("Paid with cash: " + payCashIndex);
+        payPassLabel.setText("Paid with pass: " + payPassIndex);
 
         setVisible(true);
         super.updateView();
