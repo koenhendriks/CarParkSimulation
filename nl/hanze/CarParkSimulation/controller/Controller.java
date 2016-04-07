@@ -1,6 +1,8 @@
 package nl.hanze.CarParkSimulation.controller;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.main.CarParkSimulation;
+import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,8 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton startLimit;
     private JButton start;
     private JButton stop;
+    public static final CarParkSimulation simulation = CarParkSimulationRunner.getSimulation();
+    public static boolean running;
 
     /**
      * Constructor of AbstractController with a model belong to this controller
@@ -38,16 +42,35 @@ public class Controller extends AbstractController implements ActionListener {
 
         startLimit = new JButton("start");
         startLimit.setBounds(110,40,70,20);
+        startLimit.addActionListener(this);
         add(startLimit);
 
         start = new JButton("start");
         start.setBounds(410,55,70,20);
+        start.addActionListener(this);
         add(start);
 
         stop = new JButton("stop");
         stop.setBounds(670,55,70,20);
+        stop.addActionListener(this);
         add(stop);
 
+    }
+
+    /**
+     * Boolean getter for running condition.
+     * @return boolean if running
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Boolean setter for running condition.
+     * @param running running condition
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 
     @Override

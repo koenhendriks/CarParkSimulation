@@ -1,10 +1,5 @@
 package nl.hanze.CarParkSimulation.logic;
 
-
-import nl.hanze.CarParkSimulation.view.AbstractView;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -43,10 +38,13 @@ public class CarPark extends AbstractModel{
     int exitIndex = 0;
     int payCashIndex = 0;
     int payPassIndex = 0;
+    int totalCarIndex = 0;
+    int totalPassholderIndex = 0;
 
     int stayMinutes;
     int totalMinutes;
     int inMinutes;
+
 
     private Car[][][] cars;
 
@@ -102,7 +100,12 @@ public class CarPark extends AbstractModel{
         return false;
     }
 
-    public void tick() {
+    /**
+     * Run a simulation step
+     *
+     * @param pause boolean whether we should pause after a step
+     */
+    public void tick(boolean pause) {
         // Advance the time by one minute.
         this.minute++;
         while (this.minute > 59) {
@@ -142,11 +145,13 @@ public class CarPark extends AbstractModel{
             if(customerChance == 0){
                 Car car = new PassHolder();
                 this.entranceCarQueue.addCar(car);
+                totalPassholderIndex++;
             }else{
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
             }
             entranceIndex ++;
+            totalCarIndex ++;
 
             super.notifyViews();
         }
@@ -190,6 +195,7 @@ public class CarPark extends AbstractModel{
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
                 payPassIndex ++;
+                totalPassholderIndex++;
                 exitIndex ++;
             }else{
                 car.setIsPaying(true);
@@ -211,7 +217,6 @@ public class CarPark extends AbstractModel{
             this.removeCarAt(car.getLocation());
             super.notifyViews();
             exitCarQueue.addCar(car);
-            exitIndex++;
 
             super.notifyViews();
         }
@@ -222,18 +227,27 @@ public class CarPark extends AbstractModel{
             if (car == null) {
                 break;
             }
+
+            if(car instanceof PassHolder){
+                totalPassholderIndex--;
+            }
+
+            totalCarIndex--;
+            exitIndex++;
             this.totalMinutes = this.totalMinutes + this.stayMinutes;
+
             super.notifyViews();
         }
 
         // Update the car park view.
         super.notifyViews();
 
-        // Pause.
-        try {
-            Thread.sleep(tickPause);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(pause){
+            try {
+                Thread.sleep(tickPause);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -253,39 +267,6 @@ public class CarPark extends AbstractModel{
                 }
             }
         }
-    }
-
-    /**
-     * Counts the cars that are in the car park.
-     *
-     *
-     * @return ArrayList with the first integer the amount of cars, the second the amount of passholders
-     */
-    public ArrayList<Integer> totalCars(){
-        int totalCars = 0;
-        int passholderCars = 0;
-
-        ArrayList<Integer> totals = new ArrayList<>();
-
-        for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
-            for (int row = 0; row < this.getNumberOfRows(); row++) {
-                for (int place = 0; place < this.getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = this.getCar(location);
-                    if(car instanceof PassHolder){
-                        passholderCars++;
-                        totalCars++;
-                    }else if(car !=null){
-                        totalCars++;
-                    }
-                }
-            }
-        }
-
-        totals.add(totalCars);
-        totals.add(passholderCars);
-
-        return totals;
     }
 
     /**
@@ -428,5 +409,13 @@ public class CarPark extends AbstractModel{
 
     public int getInMinutes() {
         return inMinutes;
+    }
+
+    public int getTotalCarIndex() {
+        return totalCarIndex;
+    }
+
+    public int getTotalPassholderIndex() {
+        return totalPassholderIndex;
     }
 }
