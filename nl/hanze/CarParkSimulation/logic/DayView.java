@@ -1,5 +1,6 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 
 import javax.swing.*;
@@ -69,16 +70,16 @@ public class DayView extends AbstractView {
         /**
          * Set the title
          */
-        titleLabel.setText("Running time");
+        titleLabel.setText(Language.get("runTime"));
     }
 
     public void updateView(){
 
-        minutes.setText("Minutes: ");
-        hour.setText("Hours: ");
-        day.setText("Days: ");
-        week.setText("Weeks: ");
-        year.setText("Years: ");
+        minutes.setText(Language.get("min"));
+        hour.setText(Language.get("hrs"));
+        day.setText(Language.get("day"));
+        week.setText(Language.get("wks"));
+        year.setText(Language.get("yrs"));
 
         setVisible(true);
         super.updateView();

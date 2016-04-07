@@ -27,6 +27,15 @@ public abstract class Language {
         stringCollection.put("speedButton","Set");
         stringCollection.put("startButton","Start");
         stringCollection.put("stopButton","Stop");
+
+        // day view
+        stringCollection.put("runTime","Running time");
+        stringCollection.put("min","Minutes: ");
+        stringCollection.put("hrs","Hours: ");
+        stringCollection.put("day","Days: ");
+        stringCollection.put("wks","Weeks: ");
+        stringCollection.put("yrs","Years: ");
+
     }
 
     /**
