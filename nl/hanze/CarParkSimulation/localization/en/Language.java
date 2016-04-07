@@ -36,6 +36,9 @@ public abstract class Language {
         stringCollection.put("wks","Weeks: ");
         stringCollection.put("yrs","Years: ");
 
+        // simulation
+        stringCollection.put("title","Car Park Simulation");
+
     }
 
     /**

@@ -72,7 +72,7 @@ public final class CarParkSimulation {
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
-        screen = new JFrame("Car Park Simulation");
+        screen = new JFrame(Language.get("title"));
         screen.setSize(this.width, this.height);
         screen.setLayout(null);
 
