@@ -1,6 +1,7 @@
 package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarPark;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +17,21 @@ public class StatisticsView extends AbstractView {
     private JLabel current;
     private JLabel expected;
 
+    private int parkingPrice;
+    private int currentRevenue;
+    private int expectedRevenue;
+
     /**
      * Constructor of AbstractView that expects a model belonging to this view
      * @param model AbstractModel that belongs to this view
      */
     public StatisticsView(AbstractModel model) {
         super(model);
+
+        /**
+         * Set the parking price in cents
+         */
+        this.parkingPrice = 10;
 
         /**
          * Create the labels
@@ -54,7 +64,12 @@ public class StatisticsView extends AbstractView {
     @Override
     public void updateView() {
 
-        current.setText("Current revenue: ");
+        CarPark carPark = (CarPark) super.model;
+        this.currentRevenue = (carPark.getTotalMinutes() * parkingPrice);
+        //this.expectedRevenue = (carPark.getStayMinutes() * parkingPrice);
+
+
+        current.setText("Current revenue: "+ (this.currentRevenue / 100 ));
         expected.setText("Expected revenue: ");
 
         setVisible(true);
