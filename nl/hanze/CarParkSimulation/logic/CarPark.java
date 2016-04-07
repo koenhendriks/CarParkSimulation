@@ -42,6 +42,8 @@ public class CarPark extends AbstractModel{
     int entranceIndex = 0;
     int exitIndex = 0;
     int payIndex = 0;
+    int totalCarIndex = 0;
+    int totalPassholderIndex = 0;
 
     private Car[][][] cars;
 
@@ -97,7 +99,12 @@ public class CarPark extends AbstractModel{
         return false;
     }
 
-    public void tick() {
+    /**
+     * Run a simulation step
+     *
+     * @param pause boolean whether we should pause after a step
+     */
+    public void tick(boolean pause) {
         // Advance the time by one minute.
         this.minute++;
         while (this.minute > 59) {
@@ -222,11 +229,12 @@ public class CarPark extends AbstractModel{
         // Update the car park view.
         super.notifyViews();
 
-        // Pause.
-        try {
-            Thread.sleep(tickPause);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(pause){
+            try {
+                Thread.sleep(tickPause);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -246,39 +254,6 @@ public class CarPark extends AbstractModel{
                 }
             }
         }
-    }
-
-    /**
-     * Counts the cars that are in the car park.
-     *
-     *
-     * @return ArrayList with the first integer the amount of cars, the second the amount of passholders
-     */
-    public ArrayList<Integer> totalCars(){
-        int totalCars = 0;
-        int passholderCars = 0;
-
-        ArrayList<Integer> totals = new ArrayList<>();
-
-        for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
-            for (int row = 0; row < this.getNumberOfRows(); row++) {
-                for (int place = 0; place < this.getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = this.getCar(location);
-                    if(car instanceof PassHolder){
-                        passholderCars++;
-                        totalCars++;
-                    }else if(car !=null){
-                        totalCars++;
-                    }
-                }
-            }
-        }
-
-        totals.add(totalCars);
-        totals.add(passholderCars);
-
-        return totals;
     }
 
     /**
