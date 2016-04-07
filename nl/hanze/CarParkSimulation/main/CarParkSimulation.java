@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public class CarParkSimulation {
+public final class CarParkSimulation {
 
     private CarPark carParkModel;
     private JFrame screen;
@@ -35,6 +35,14 @@ public class CarParkSimulation {
     private int width;
     private int height;
     private int steps;
+
+    /**
+     * The simulations speed means the amount of miliseconds
+     * it takes to simulate 1 minute in the car park.
+     */
+    private static int simulationSpeed = 1000;
+
+    public static boolean running;
 
     public CarParkSimulation() {
         // set default number of steps
@@ -127,6 +135,19 @@ public class CarParkSimulation {
          * Initialize views
          */
         carParkView.updateView();
+
+        running = true;
+
+        while(true){
+            if (running) {
+                carParkModel.tick(true);
+            }
+            try{
+                Thread.sleep(simulationSpeed);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

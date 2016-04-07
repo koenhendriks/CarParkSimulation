@@ -22,8 +22,6 @@ public class CarPark extends AbstractModel{
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
-
     // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
@@ -233,14 +231,6 @@ public class CarPark extends AbstractModel{
 
         // Update the car park view.
         super.notifyViews();
-
-        if(pause){
-            try {
-                Thread.sleep(tickPause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
