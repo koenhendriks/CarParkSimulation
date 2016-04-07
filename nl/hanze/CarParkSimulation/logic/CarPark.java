@@ -1,10 +1,5 @@
 package nl.hanze.CarParkSimulation.logic;
 
-
-import nl.hanze.CarParkSimulation.view.AbstractView;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
