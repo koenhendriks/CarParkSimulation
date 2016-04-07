@@ -1,6 +1,8 @@
 package nl.hanze.CarParkSimulation.controller;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.main.CarParkSimulation;
+import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton startLimit;
     private JButton start;
     private JButton stop;
+    public static final CarParkSimulation simulation = CarParkSimulationRunner.getSimulation();
 
     /**
      * Constructor of AbstractController with a model belong to this controller
@@ -38,14 +41,40 @@ public class Controller extends AbstractController implements ActionListener {
 
         startLimit = new JButton("start");
         startLimit.setBounds(110,40,70,20);
+        startLimit.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        System.out.println("startLimit");
+                    }
+                }
+        );
         add(startLimit);
 
         start = new JButton("start");
         start.setBounds(410,55,70,20);
+        start.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        System.out.println("start");
+                        simulation.setRunning(true);
+                    }
+                }
+        );
         add(start);
 
         stop = new JButton("stop");
         stop.setBounds(670,55,70,20);
+        stop.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        System.out.println("stop");
+                        simulation.setRunning(false);
+                    }
+                }
+        );
         add(stop);
 
     }

@@ -126,7 +126,8 @@ public class CarParkSimulation {
         /**
          * Start running the simulation with 300000 steps
          */
-        for(int i = 0; i < steps; i++){
+        running = true;
+        while(running == true) {
             carParkModel.tick(true);
         }
     }
@@ -147,5 +148,19 @@ public class CarParkSimulation {
         this.steps = steps;
     }
 
+    /**
+     * Boolean getter for running condition.
+     * @return boolean if running
+     */
+    public boolean isRunning() {
+        return running;
+    }
 
+    /**
+     * Boolean setter for running condition.
+     * @param running running condition
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
 }
