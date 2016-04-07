@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public class CarParkSimulation {
+public final class CarParkSimulation {
 
     private CarPark carParkModel;
     private JFrame screen;
@@ -34,8 +34,15 @@ public class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
-    public static boolean running;
     private int steps;
+
+    /**
+     * The simulations speed means the amount of miliseconds
+     * it takes to simulate 1 minute in the car park.
+     */
+    private static int simulationSpeed = 1000;
+
+    public static boolean running;
 
     public CarParkSimulation() {
         // set default number of steps
@@ -73,6 +80,9 @@ public class CarParkSimulation {
         screen.getContentPane().add(queueView);
         screen.getContentPane().add(statisticsView);
 
+        /**
+         * Set the location of the views on the screen
+         */
         carParkView.setBounds(260,10,680,300);
         statisticsView.setBounds(30,140, 200,100);
         queueView.setBounds(30,10,200,120);
@@ -121,14 +131,22 @@ public class CarParkSimulation {
         gridView.setBounds(0, 0, this.width, this.height);
         screen.getContentPane().add(gridView);
 
-        carParkModel.notifyViews();
-
         /**
-         * Start running the simulation with 300000 steps
+         * Initialize views
          */
+        carParkView.updateView();
+
         running = true;
-        while(running) {
-            carParkModel.tick(true);
+
+        while(true){
+            if (running) {
+                carParkModel.tick(true);
+            }
+            try{
+                Thread.sleep(simulationSpeed);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -148,19 +166,4 @@ public class CarParkSimulation {
         this.steps = steps;
     }
 
-    /**
-     * Boolean getter for running condition.
-     * @return boolean if running
-     */
-    public boolean isRunning() {
-        return running;
-    }
-
-    /**
-     * Boolean setter for running condition.
-     * @param running running condition
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
 }
