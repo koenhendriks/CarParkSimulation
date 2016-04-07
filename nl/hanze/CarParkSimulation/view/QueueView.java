@@ -1,5 +1,6 @@
 package nl.hanze.CarParkSimulation.view;
 
+import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 
 import javax.swing.*;
@@ -73,7 +74,7 @@ public class QueueView extends AbstractView {
         /**
          * Set the title
          */
-        titleLabel.setText("Carpark info");
+        titleLabel.setText(Language.get("info"));
     }
 
     /**
@@ -88,10 +89,10 @@ public class QueueView extends AbstractView {
         payCashIndex = carPark.getPayCashIndex();
         payPassIndex = carPark.getPayPassIndex();
 
-        enterLabel.setText("Used the entrance: " + entranceIndex);
-        exitLabel.setText("Left the carpark: " + exitIndex);
-        payCashLabel.setText("Paid with cash: " + payCashIndex);
-        payPassLabel.setText("Paid with pass: " + payPassIndex);
+        enterLabel.setText(Language.get("used") + entranceIndex);
+        exitLabel.setText(Language.get("left") + exitIndex);
+        payCashLabel.setText(Language.get("payCash") + payCashIndex);
+        payPassLabel.setText(Language.get("payPass") + payPassIndex);
 
         setVisible(true);
         super.updateView();

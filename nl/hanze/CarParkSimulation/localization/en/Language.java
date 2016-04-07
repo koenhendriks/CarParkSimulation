@@ -46,6 +46,12 @@ public abstract class Language {
         stringCollection.put("cars","Total cars: ");
         stringCollection.put("pass","Total Passholders: ");
 
+        // queue view
+        stringCollection.put("info","Carpark info");
+        stringCollection.put("used","Used the entrance: ");
+        stringCollection.put("left","Left the carpark: ");
+        stringCollection.put("payCash","Paid with cash: ");
+        stringCollection.put("payPass","Paid with pass: ");
     }
 
     /**
