@@ -35,8 +35,12 @@ public class CarParkSimulation {
     private int width;
     private int height;
     private boolean running;
+    private int steps;
 
     public CarParkSimulation() {
+        // set default number of steps
+        steps = 300000;
+
         /**
          * Set the dimension for the application
          */
@@ -122,9 +126,25 @@ public class CarParkSimulation {
         /**
          * Start running the simulation with 300000 steps
          */
-        for(int i = 0; i < 300000; i++){
+        for(int i = 0; i < steps; i++){
             carParkModel.tick();
         }
+    }
+
+    /**
+     * Getter for steps
+     * @return the amount of steps the simulation executes
+     */
+    public int getSteps() {
+        return steps;
+    }
+
+    /**
+     * Setter for steps
+     * @param steps the amount of steps the simulation executes
+     */
+    public void setSteps(int steps) {
+        this.steps = steps;
     }
 
 
