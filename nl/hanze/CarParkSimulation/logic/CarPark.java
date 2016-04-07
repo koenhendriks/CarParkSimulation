@@ -41,7 +41,11 @@ public class CarPark extends AbstractModel{
 
     int entranceIndex = 0;
     int exitIndex = 0;
-    int payIndex = 0;
+    int payCashIndex = 0;
+    int payPassIndex = 0;
+
+    int stayMinutes;
+    int totalMinutes;
 
     private Car[][][] cars;
 
@@ -159,8 +163,9 @@ public class CarPark extends AbstractModel{
             Location freeLocation = this.getFirstFreeLocation();
             if (freeLocation != null) {
                 this.parkCar(freeLocation, car);
-                int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                car.setMinutesLeft(stayMinutes);
+                this.stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                car.setMinutesLeft(this.stayMinutes);
+                this.totalMinutes = this.totalMinutes + this.stayMinutes;
             }
 
             super.notifyViews();
@@ -183,11 +188,12 @@ public class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
+                payPassIndex ++;
                 exitIndex ++;
             }else{
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
-                payIndex ++;
+                payCashIndex ++;
             }
 
             super.notifyViews();
@@ -402,7 +408,19 @@ public class CarPark extends AbstractModel{
         return exitIndex;
     }
 
-    public int getPayIndex() {
-        return payIndex;
+    public int getPayCashIndex() {
+        return payCashIndex;
+    }
+
+    public int getPayPassIndex() {
+        return payPassIndex;
+    }
+
+    public int getStayMinutes() {
+        return stayMinutes;
+    }
+
+    public int getTotalMinutes() {
+        return totalMinutes;
     }
 }
