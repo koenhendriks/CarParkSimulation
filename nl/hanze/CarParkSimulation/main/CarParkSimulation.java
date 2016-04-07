@@ -126,6 +126,7 @@ public class CarParkSimulation {
         /**
          * Start running the simulation with 20 steps
          */
+        running = true;
         while(running == true) {
             for (int i = 0; i < steps; i++) {
                 carParkModel.tick();
