@@ -34,7 +34,6 @@ public class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
-    public static boolean running;
     private int steps;
 
     public CarParkSimulation() {
@@ -125,12 +124,9 @@ public class CarParkSimulation {
         screen.getContentPane().add(gridView);
 
         /**
-         * Start running the simulation with 300000 steps
+         * Initialize views
          */
-        running = true;
-        while(running) {
-            carParkModel.tick(true);
-        }
+        carParkView.updateView();
     }
 
     /**
@@ -149,19 +145,4 @@ public class CarParkSimulation {
         this.steps = steps;
     }
 
-    /**
-     * Boolean getter for running condition.
-     * @return boolean if running
-     */
-    public boolean isRunning() {
-        return running;
-    }
-
-    /**
-     * Boolean setter for running condition.
-     * @param running running condition
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
 }

@@ -1,6 +1,7 @@
 package nl.hanze.CarParkSimulation.controller;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
 
@@ -20,8 +21,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton startLimit;
     private JButton start;
     private JButton stop;
-    public static final CarParkSimulation simulation = CarParkSimulationRunner.getSimulation();
-    public static boolean running;
+    private static boolean running;
 
     /**
      * Constructor of AbstractController with a model belong to this controller
@@ -55,22 +55,19 @@ public class Controller extends AbstractController implements ActionListener {
         stop.addActionListener(this);
         add(stop);
 
+        running = true;
     }
 
     /**
-     * Boolean getter for running condition.
-     * @return boolean if running
+     * Start running the simulation with 300000 steps
      */
-    public boolean isRunning() {
-        return running;
-    }
+    private void run(){
 
-    /**
-     * Boolean setter for running condition.
-     * @param running running condition
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
+        CarPark carPark = (CarPark) super.model;
+
+        while(running) {
+            carPark.tick(true);
+        }
     }
 
     @Override
