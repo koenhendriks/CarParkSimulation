@@ -18,6 +18,12 @@ public abstract class Language {
         stringCollection.put("stepOne", "One step");
         stringCollection.put("stepMany", "One hundred steps");
 
+        // menu
+        stringCollection.put("fileMenu","File");
+        stringCollection.put("exitItem","Exit");
+        stringCollection.put("helpMenu","Help");
+        stringCollection.put("aboutItem","About...");
+
         // controller
         stringCollection.put("insertSteps","Insert steps: ");
         stringCollection.put("input","1");

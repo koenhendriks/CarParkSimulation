@@ -89,15 +89,15 @@ public final class CarParkSimulation {
         screen.add(menubar);
 
         // file menu
-        fileMenu = new JMenu("File");
+        fileMenu = new JMenu(Language.get("fileMenu"));
         menubar.add(fileMenu);
-        exitItem = new JMenuItem("Exit");
+        exitItem = new JMenuItem(Language.get("exitItem"));
         fileMenu.add(exitItem);
 
         // help menu
-        helpMenu = new JMenu("Help");
+        helpMenu = new JMenu(Language.get("helpMenu"));
         menubar.add(helpMenu);
-        aboutItem = new JMenuItem("About...");
+        aboutItem = new JMenuItem(Language.get("aboutItem"));
         helpMenu.add(aboutItem);
 
         menubar.setBounds(0,0,1200,20);
