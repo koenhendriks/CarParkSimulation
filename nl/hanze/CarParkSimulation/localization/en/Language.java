@@ -30,13 +30,13 @@ public abstract class Language {
 
         // day view
         stringCollection.put("runTime","Time Info");
-        stringCollection.put("startTime", "Simulating since: ");
+        stringCollection.put("runningTime","Simulation is running:");
+        stringCollection.put("startTime", "Simulating since:");
         stringCollection.put("currentTime", "Current time in simulation:");
-        stringCollection.put("min","Minutes: ");
-        stringCollection.put("hrs","Hours: ");
-        stringCollection.put("day","Days: ");
-        stringCollection.put("wks","Weeks: ");
-        stringCollection.put("yrs","Years: ");
+        stringCollection.put("mins"," minutes");
+        stringCollection.put("hrs"," hours");
+        stringCollection.put("days"," days");
+        stringCollection.put("wks"," weeks");
 
         // simulation
         stringCollection.put("title","Car Park Simulation");

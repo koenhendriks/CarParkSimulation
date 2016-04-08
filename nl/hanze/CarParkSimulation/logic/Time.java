@@ -2,6 +2,8 @@ package nl.hanze.CarParkSimulation.logic;
 
 import javax.swing.*;
 import java.util.Calendar;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Calendar.DAY_OF_WEEK;
 import static java.util.Calendar.MINUTE;
@@ -19,7 +21,8 @@ public final class Time extends AbstractModel {
     private String startTime;
 
     public Time() {
-        this.startCalendar = this.runningCalendar = Calendar.getInstance();
+        this.startCalendar = Calendar.getInstance();
+        this.runningCalendar = Calendar.getInstance();
         this.startTime = this.getStringFromCalendar(this.startCalendar);
     }
 
@@ -54,14 +57,68 @@ public final class Time extends AbstractModel {
         return this.getStringFromCalendar(this.runningCalendar);
     }
 
-    public int getMinute() {
-        return this.runningCalendar.get(MINUTE);
+    /**
+     * Here we get both calendar objects as milliseconds. We can then calculate the
+     * amount of milliseconds that differ between the start and current time.
+     *
+     * @return long with the amount that the calendars differ in milliseconds
+     */
+    public long runningDifference() {
+        return Math.abs(this.runningCalendar.getTimeInMillis() - this.startCalendar.getTimeInMillis());
     }
 
+    /**
+     * Here we turn the difference in milliseconds into days
+     *
+     * @return String that shows the amount of days that passed
+     */
+    public String getRunningDays(){
+        return Objects.toString(TimeUnit.MILLISECONDS.toDays(runningDifference()),null);
+    }
+
+    /**
+     * Here we turn the difference in milliseconds into hours
+     *
+     * @return String that shows the amount of hours that passed
+     */
+    public String getRunningHours(){
+        return Objects.toString(TimeUnit.MILLISECONDS.toHours(runningDifference()),null);
+    }
+
+    /**
+     * Here we turn the difference in milliseconds into minutes
+     *
+     * @return String that shows the amount of minutes that passed
+     */
+    public String getRunningMinutes(){
+        return Objects.toString(TimeUnit.MILLISECONDS.toMinutes(runningDifference()),null);
+    }
+
+    /**
+     * To get the amount of weeks we just get the days and see if we can
+     * divide it by 7. If we floor this number we get the amount of weeks
+     *
+     * @return String that shows the amount of weeks that passed
+     */
+    public String getRunningWeeks(){
+        long days = TimeUnit.MILLISECONDS.toDays(runningDifference());
+        return Objects.toString((int) Math.floor(days/7),null);
+    }
+
+    /**
+     * Get the formatted start time string
+     *
+     * @return String with time and date in nice human format
+     */
     public String getStartTime() {
         return startTime;
     }
 
+    /**
+     * Boolean to check if its weekend
+     *
+     * @return boolean if its weekend
+     */
     public boolean isWeekend(){
         return this.runningCalendar.get(DAY_OF_WEEK) <= 5;
     }

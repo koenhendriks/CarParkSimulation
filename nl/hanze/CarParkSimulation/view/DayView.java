@@ -20,12 +20,17 @@ public class DayView extends AbstractView {
 
     private JLabel titleLabel;
     private JLabel minutes;
-    private JLabel hour;
-    private JLabel day;
+    private JLabel hours;
+    private JLabel days;
+    private JLabel weeks;
     private JLabel startTime;
     private JLabel startTimeString;
     private JLabel currentTime;
     private JLabel simulationTime;
+    private JLabel runningTime;
+    private JLabel weekend;
+    private JLabel weekendFalse;
+    private JLabel weekendTrue;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view
@@ -42,13 +47,17 @@ public class DayView extends AbstractView {
          * Create labels
          */
         this.titleLabel = new JLabel();
+        this.hours = new JLabel();
         this.minutes = new JLabel();
-        this.hour = new JLabel();
-        this.day = new JLabel();
+        this.days = new JLabel();
+        this.weeks = new JLabel();
+        this.runningTime = new JLabel();
         this.startTime = new JLabel();
         this.startTimeString = new JLabel();
         this.currentTime = new JLabel();
         this.simulationTime = new JLabel();
+        this.weekendTrue = new JLabel();
+        this.weekendFalse = new JLabel();
 
         /**
          * Set font for title label
@@ -63,6 +72,7 @@ public class DayView extends AbstractView {
         startTimeString = new JLabel(time.getStartTime());
         currentTime = new JLabel(Language.get("currentTime"));
         simulationTime = new JLabel(time.getStartTime());
+        runningTime = new JLabel(Language.get("runningTime"));
 
 
         /**
@@ -76,9 +86,11 @@ public class DayView extends AbstractView {
         currentTime.setBounds(10, 100, 200, 20);
         simulationTime.setBounds(10,120,200,20);
 
-        minutes.setBounds(10,270,200,20);
-        hour.setBounds(10,290,200,20);
-        day.setBounds(10,310,200,20);
+        runningTime.setBounds(10,160,200,20);
+        minutes.setBounds(10,180,200,20);
+        hours.setBounds(10,200,200,20);
+        days.setBounds(10,220,200,20);
+        weeks.setBounds(10,240,200,20);
 
         /**
          * Add the labels to the view
@@ -88,9 +100,11 @@ public class DayView extends AbstractView {
         add(startTimeString);
         add(currentTime);
         add(simulationTime);
+        add(runningTime);
         add(minutes);
-        add(hour);
-        add(day);
+        add(hours);
+        add(days);
+        add(weeks);
     }
 
     public void updateView(){
@@ -99,12 +113,13 @@ public class DayView extends AbstractView {
 
         simulationTime.setText(time.getCurrentTime());
 
-        minutes.setText(Language.get("min")+time.getMinute());
-        hour.setText(Language.get("hrs"));
-        day.setText(Language.get("day"));
+        minutes.setText(time.getRunningMinutes()+Language.get("mins"));
+        hours.setText(time.getRunningHours()+Language.get("hrs"));
+        days.setText(time.getRunningDays()+Language.get("days"));
+        weeks.setText(time.getRunningWeeks()+Language.get("wks"));
+
 
         setVisible(true);
         super.updateView();
-
     }
 }
