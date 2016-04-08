@@ -26,7 +26,6 @@ import java.awt.event.WindowEvent;
 public final class CarParkSimulation {
 
     private CarPark carParkModel;
-    private JFrame screen;
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
@@ -36,6 +35,7 @@ public final class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
+    public static final JFrame screen = new JFrame(Language.get("title"));
 
     // the menu
     public static final JMenuBar menubar = new JMenuBar();
@@ -64,7 +64,6 @@ public final class CarParkSimulation {
          * we need for the Car Park Simulation
          */
         this.carParkModel = new CarPark(3, 6, 30);
-        this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
         this.dayView = new DayView(carParkModel);
@@ -75,7 +74,6 @@ public final class CarParkSimulation {
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
-        screen = new JFrame(Language.get("title"));
         screen.setSize(this.width, this.height);
         screen.setLayout(null);
 

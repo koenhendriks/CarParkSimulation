@@ -83,11 +83,21 @@ public class Controller extends AbstractController implements ActionListener {
     }
 
     private void exitPressed() {
-        System.out.println("EXIT");
+        int confirm = JOptionPane.showOptionDialog(CarParkSimulation.screen,
+                Language.get("confirmExit"),
+                Language.get("confirmExitTitle"), JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (confirm == 0) {
+            System.exit(0); // 0 when execution went fine;
         }
+    }
 
     private void aboutPressed() {
-        System.out.println("ABOUT");
+        JOptionPane.showMessageDialog(CarParkSimulation.screen,
+                Language.get("title") + "\n" +
+                        Language.get("version"),
+                "About " + Language.get("title"),
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void startPressed() {
