@@ -41,8 +41,6 @@ public class DayView extends AbstractView {
         this.minutes = new JLabel();
         this.hour = new JLabel();
         this.day = new JLabel();
-        this.week = new JLabel();
-        this.year = new JLabel();
 
         /**
          * Set font for title label
@@ -56,9 +54,6 @@ public class DayView extends AbstractView {
         minutes.setBounds(10,40,200,20);
         hour.setBounds(10,60,200,20);
         day.setBounds(10,80,200,20);
-        week.setBounds(10,100,200,20);
-        year.setBounds(10,120,200,20);
-
         /**
          * Add the labels to the view
          */
@@ -66,8 +61,6 @@ public class DayView extends AbstractView {
         add(minutes);
         add(hour);
         add(day);
-        add(week);
-        add(year);
 
         /**
          * Set the title
@@ -77,11 +70,11 @@ public class DayView extends AbstractView {
 
     public void updateView(){
 
-        minutes.setText(Language.get("min"));
-        hour.setText(Language.get("hrs"));
-        day.setText(Language.get("day"));
-        week.setText(Language.get("wks"));
-        year.setText(Language.get("yrs"));
+        Time time = (Time) super.model;
+
+        minutes.setText(Language.get("min")+time.getMinute());
+        hour.setText(Language.get("hrs")+time.getHour());
+        day.setText(Language.get("day")+time.getDay());
 
         setVisible(true);
         super.updateView();
