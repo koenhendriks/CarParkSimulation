@@ -71,14 +71,14 @@ public class StatisticsView extends AbstractView {
          * Get the time of a car parked and multiply this with the price of an hour
          */
         CarPark carPark = (CarPark) super.model;
-        this.currentRevenue = ((carPark.getTotalMinutes() / 60) * parkingPrice);
-        this.expectedRevenue = ((((carPark.getInMinutes() / 60) * parkingPrice)) - this.currentRevenue);
+        this.currentRevenue = (((carPark.getTotalMinutes() / 60) * parkingPrice) / 100);
+        this.expectedRevenue = (((carPark.getInMinutes() / 60) * parkingPrice) / 100);
 
         /**
          * Set the text in the view with an euro sign and the current and expected revenue.
          */
-        current.setText(Language.get("current")+ this.euro + (this.currentRevenue / 100 ));
-        expected.setText(Language.get("expected")+ this.euro + (this.expectedRevenue / 100));
+        current.setText(Language.get("current")+ this.euro + (this.currentRevenue));
+        expected.setText(Language.get("expected")+ this.euro + (this.expectedRevenue));
 
         setVisible(true);
         super.updateView();
