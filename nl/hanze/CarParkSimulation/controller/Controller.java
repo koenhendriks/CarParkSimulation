@@ -3,7 +3,6 @@ package nl.hanze.CarParkSimulation.controller;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
-import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 
 import javax.swing.*;
@@ -33,8 +32,6 @@ public class Controller extends AbstractController implements ActionListener {
      */
     public Controller(AbstractModel model) {
         super(model);
-
-        CarPark carPark = (CarPark) super.model;
 
         setLayout(null);
 
@@ -119,7 +116,7 @@ public class Controller extends AbstractController implements ActionListener {
         CarPark carPark = (CarPark) super.model;
 
         for(int i =0; i < steps; i++)
-            carPark.tick(false);
+            carPark.tick();
     }
 
     @Override

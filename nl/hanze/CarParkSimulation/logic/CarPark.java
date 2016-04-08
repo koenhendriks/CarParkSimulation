@@ -18,6 +18,7 @@ public class CarPark extends AbstractModel{
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
+`    private int minuteCount = 0;
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
@@ -100,24 +101,13 @@ public class CarPark extends AbstractModel{
 
     /**
      * Run a simulation step
-     *
-     * @param pause boolean whether we should pause after a step
      */
-    public void tick(boolean pause) {
+    public void tick() {
 
-        // Advance the time by one minute.
-        this.minute++;
-        while (this.minute > 59) {
-            this.minute -= 60;
-            this.hour++;
-        }
-        while (this.hour > 23) {
-            this.hour -= 24;
-            this.day++;
-        }
-        while (this.day > 6) {
-            this.day -= 7;
-        }
+        this.minuteCount++;
+        this.minute = this.minuteCount % 60;
+        this.hour = (int) Math.floor((minute / 60) % 24);
+        this.day = (int) Math.floor((minute / 1440) % 7);
 
         Random random = new Random();
 
