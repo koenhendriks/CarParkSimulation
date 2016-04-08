@@ -36,7 +36,13 @@ public final class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
-    private int steps;
+
+    // the menu
+    public static final JMenuBar menubar = new JMenuBar();
+    public static final JMenu fileMenu = new JMenu(Language.get("fileMenu"));
+    public static final JMenu helpMenu = new JMenu(Language.get("helpMenu"));
+    public static final JMenuItem exitItem = new JMenuItem(Language.get("exitItem"));
+    public static final JMenuItem aboutItem = new JMenuItem(Language.get("aboutItem"));
 
     /**
      * The simulations speed means the amount of miliseconds
@@ -47,9 +53,6 @@ public final class CarParkSimulation {
     public static boolean running;
 
     public CarParkSimulation() {
-        // set default number of steps
-        steps = 300000;
-
         /**
          * Set the dimension for the application
          */
@@ -77,6 +80,23 @@ public final class CarParkSimulation {
         screen.setLayout(null);
 
         /**
+         * Add the menu to the frame
+         */
+        // add the menu bar
+        screen.add(menubar);
+
+        // add the file menu and items
+        menubar.add(fileMenu);
+        fileMenu.add(exitItem);
+
+        // add the help menu and items
+        menubar.add(helpMenu);
+        helpMenu.add(aboutItem);
+
+        menubar.setBounds(0,0,1200,20);
+        menubar.setVisible(true);
+
+        /**
          * Add the views to the main screen
          */
         screen.getContentPane().add(carParkView);
@@ -87,10 +107,10 @@ public final class CarParkSimulation {
         /**
          * Set the location of the views on the screen
          */
-        carParkView.setBounds(260,10,680,300);
-        statisticsView.setBounds(30,140, 200,100);
-        queueView.setBounds(30,10,200,120);
-        dayView.setBounds(970,10,200, 150);
+        carParkView.setBounds(260,30,680,300);
+        statisticsView.setBounds(30,160, 200,100);
+        queueView.setBounds(30,30,200,120);
+        dayView.setBounds(970,30,200, 150);
 
 
         /**
@@ -98,7 +118,7 @@ public final class CarParkSimulation {
          */
         screen.getContentPane().add(controller);
 
-        controller.setBounds(30,250,910,90);
+        controller.setBounds(30,270,910,90);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
@@ -155,21 +175,4 @@ public final class CarParkSimulation {
             }
         }
     }
-
-    /**
-     * Getter for steps
-     * @return the amount of steps the simulation executes
-     */
-    public int getSteps() {
-        return steps;
-    }
-
-    /**
-     * Setter for steps
-     * @param steps the amount of steps the simulation executes
-     */
-    public void setSteps(int steps) {
-        this.steps = steps;
-    }
-
 }
