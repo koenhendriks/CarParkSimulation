@@ -20,6 +20,9 @@ public abstract class Car extends AbstractModel {
     // Minutes the car has left for parking.
     private int minutesLeft;
 
+    // Minutes the car is staying in the carpark
+    private int stayMinutes;
+
     // Boolean indicating that the car is paying.
     private boolean isPaying;
 
@@ -89,6 +92,22 @@ public abstract class Car extends AbstractModel {
      */
     public void setIsPaying(boolean isPaying) {
         this.isPaying = isPaying;
+    }
+
+    /**
+     * The amount of time a car stays in the carpark
+     * @return
+     */
+    public int getStayMinutes() {
+        return stayMinutes;
+    }
+
+    /**
+     * Set the amount of time a car stays in the carpak
+     * @param stayMinutes
+     */
+    public void setStayMinutes(int stayMinutes) {
+        this.stayMinutes = stayMinutes;
     }
 
     /**
