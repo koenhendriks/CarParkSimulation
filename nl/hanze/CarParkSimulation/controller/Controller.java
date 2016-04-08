@@ -38,6 +38,10 @@ public class Controller extends AbstractController implements ActionListener {
 
         setLayout(null);
 
+        // menu
+        CarParkSimulation.aboutItem.addActionListener(this);
+        CarParkSimulation.exitItem.addActionListener(this);
+
         // custom step counter
         description = new JLabel(Language.get("insertSteps"));
         description.setBounds(10,0,200,20);
@@ -76,6 +80,14 @@ public class Controller extends AbstractController implements ActionListener {
         stopButton.setBounds(670,60,70,20);
         stopButton.addActionListener(this);
         add(stopButton);
+    }
+
+    private void exitPressed() {
+        System.out.println("EXIT");
+        }
+
+    private void aboutPressed() {
+        System.out.println("ABOUT");
     }
 
     private void startPressed() {
@@ -133,6 +145,10 @@ public class Controller extends AbstractController implements ActionListener {
             this.startStepPressed();
         } else if(actionEvent.getSource() == speedButton){
             this.speedPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.exitItem){
+            this.exitPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.aboutItem) {
+           this.aboutPressed();
         }
 
     }

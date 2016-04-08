@@ -27,11 +27,6 @@ public final class CarParkSimulation {
 
     private CarPark carParkModel;
     private JFrame screen;
-    private JMenuBar menubar;
-    private JMenu fileMenu;
-    private JMenu helpMenu;
-    private JMenuItem exitItem;
-    private JMenuItem aboutItem;
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
@@ -42,6 +37,13 @@ public final class CarParkSimulation {
     private int width;
     private int height;
     private int steps;
+
+    // the menu
+    public static final JMenuBar menubar = new JMenuBar();
+    public static final JMenu fileMenu = new JMenu(Language.get("fileMenu"));
+    public static final JMenu helpMenu = new JMenu(Language.get("helpMenu"));
+    public static final JMenuItem exitItem = new JMenuItem(Language.get("exitItem"));
+    public static final JMenuItem aboutItem = new JMenuItem(Language.get("aboutItem"));
 
     /**
      * The simulations speed means the amount of miliseconds
@@ -84,20 +86,15 @@ public final class CarParkSimulation {
         /**
          * Add the menu to the frame
          */
-        // menubar
-        menubar = new JMenuBar();
+        // add the menu bar
         screen.add(menubar);
 
-        // file menu
-        fileMenu = new JMenu(Language.get("fileMenu"));
+        // add the file menu and items
         menubar.add(fileMenu);
-        exitItem = new JMenuItem(Language.get("exitItem"));
         fileMenu.add(exitItem);
 
-        // help menu
-        helpMenu = new JMenu(Language.get("helpMenu"));
+        // add the help menu and items
         menubar.add(helpMenu);
-        aboutItem = new JMenuItem(Language.get("aboutItem"));
         helpMenu.add(aboutItem);
 
         menubar.setBounds(0,0,1200,20);
@@ -198,5 +195,4 @@ public final class CarParkSimulation {
     public void setSteps(int steps) {
         this.steps = steps;
     }
-
 }
