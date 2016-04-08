@@ -39,9 +39,9 @@ public class CarPark extends AbstractModel{
     int totalCarIndex = 0;
     int totalPassholderIndex = 0;
 
-    int stayMinutes;
-    int totalMinutes;
     int inMinutes;
+    int totalMinutes;
+    int stayMinutes;
 
 
     private Car[][][] cars;
@@ -168,9 +168,10 @@ public class CarPark extends AbstractModel{
             Location freeLocation = this.getFirstFreeLocation();
             if (freeLocation != null) {
                 this.parkCar(freeLocation, car);
-                this.stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                car.setMinutesLeft(this.stayMinutes);
-                this.inMinutes = inMinutes + stayMinutes;
+                int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                car.setStayMinutes(stayMinutes);
+                this.stayMinutes = car.getStayMinutes();
+                car.setMinutesLeft(stayMinutes);
             }
 
             super.notifyViews();
@@ -194,7 +195,6 @@ public class CarPark extends AbstractModel{
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
                 payPassIndex ++;
-                exitIndex ++;
             }else{
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
@@ -230,10 +230,9 @@ public class CarPark extends AbstractModel{
                 totalPassholderIndex--;
             }
 
+            totalMinutes = totalMinutes + stayMinutes;
             totalCarIndex--;
             exitIndex++;
-            this.totalMinutes = this.totalMinutes + this.stayMinutes;
-
             super.notifyViews();
         }
 
@@ -246,44 +245,19 @@ public class CarPark extends AbstractModel{
      * Loop trough the car park to get all cars and call the tick method
      */
     private void tickCars() {
+        this.inMinutes = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = this.getCar(location);
                     if (car != null) {
+                        this.inMinutes = this.inMinutes + car.getStayMinutes();
                         car.tick();
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Get number of floors
-     *
-     * @return int number of floors in the car park
-     */
-    public int getNumberOfFloors() {
-        return numberOfFloors;
-    }
-
-    /**
-     * Get number of rows
-     *
-     * @return int number of rows in the car park
-     */
-    public int getNumberOfRows() {
-        return numberOfRows;
-    }
-
-    /**
-     * Get number of places
-     *
-     * @return int number of places in the car park
-     */
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
     }
 
     /**
@@ -389,10 +363,6 @@ public class CarPark extends AbstractModel{
         return payCashIndex;
     }
 
-    public int getStayMinutes() {
-        return stayMinutes;
-    }
-
     public int getTotalMinutes() {
         return totalMinutes;
     }
@@ -407,5 +377,32 @@ public class CarPark extends AbstractModel{
 
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Get number of floors
+     *
+     * @return int number of floors in the car park
+     */
+    public int getNumberOfFloors() {
+        return numberOfFloors;
+    }
+
+    /**
+     * Get number of rows
+     *
+     * @return int number of rows in the car park
+     */
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    /**
+     * Get number of places
+     *
+     * @return int number of places in the car park
+     */
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
     }
 }
