@@ -73,8 +73,8 @@ public class DayView extends AbstractView {
         Time time = (Time) super.model;
 
         minutes.setText(Language.get("min")+time.getMinute());
-        hour.setText(Language.get("hrs")+time.getHour());
-        day.setText(Language.get("day")+time.getDay());
+        hour.setText(Language.get("hrs"));
+        day.setText(Language.get("day"));
 
         setVisible(true);
         super.updateView();

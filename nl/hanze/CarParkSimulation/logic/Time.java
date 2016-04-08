@@ -2,6 +2,9 @@ package nl.hanze.CarParkSimulation.logic;
 
 import java.util.Calendar;
 
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.MINUTE;
+
 /**
  * Class Time
  *
@@ -10,41 +13,29 @@ import java.util.Calendar;
  */
 public final class Time extends AbstractModel {
 
-    private int day;
-    private int hour;
-    private int minute;
-
+    private Calendar startCal;
     private Calendar cal;
 
     public Time() {
+
+        this.startCal = Calendar.getInstance();
         this.cal = Calendar.getInstance();
-
-        this.day = 0;
-        this.hour = 0;
-        this.minute = 0;
     }
 
-    public int getDay() {
-        return day;
-    }
+    /**
+     * Tick the minute away
+     */
+    public void tick() {
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
+        cal.add(MINUTE,+1);
+        super.notifyViews();
     }
 
     public int getMinute() {
-        return minute;
+        return cal.get(MINUTE);
     }
 
-    public void setMinute(int minute) {
-        this.minute = minute;
+    public boolean isWeekend(){
+        return cal.get(DAY_OF_WEEK) <= 5;
     }
 }

@@ -61,8 +61,8 @@ public final class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark(3, 6, 30);
         this.timeModel = new Time();
+        this.carParkModel = new CarPark(3, 6, 30,timeModel);
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
