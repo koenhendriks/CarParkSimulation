@@ -33,10 +33,10 @@ public abstract class Language {
         stringCollection.put("runningTime","Simulation is running:");
         stringCollection.put("startTime", "Simulating since:");
         stringCollection.put("currentTime", "Current time in simulation:");
-        stringCollection.put("mins"," minutes");
-        stringCollection.put("hrs"," hours");
-        stringCollection.put("days"," days");
-        stringCollection.put("wks"," weeks");
+        stringCollection.put("mins","In minutes: ");
+        stringCollection.put("hrs","In hours: ");
+        stringCollection.put("days","In days: ");
+        stringCollection.put("wks","In Weeks: ");
 
         // simulation
         stringCollection.put("title","Car Park Simulation");

@@ -113,10 +113,10 @@ public class DayView extends AbstractView {
 
         simulationTime.setText(time.getCurrentTime());
 
-        minutes.setText(time.getRunningMinutes()+Language.get("mins"));
-        hours.setText(time.getRunningHours()+Language.get("hrs"));
-        days.setText(time.getRunningDays()+Language.get("days"));
-        weeks.setText(time.getRunningWeeks()+Language.get("wks"));
+        minutes.setText(Language.get("mins")+time.getRunningMinutes());
+        hours.setText(Language.get("hrs")+time.getRunningHours());
+        days.setText(Language.get("days")+time.getRunningDays());
+        weeks.setText(Language.get("wks")+time.getRunningWeeks());
 
 
         setVisible(true);
