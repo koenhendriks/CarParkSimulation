@@ -5,8 +5,8 @@ import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
-import nl.hanze.CarParkSimulation.logic.CarQueue;
-import nl.hanze.CarParkSimulation.logic.DayView;
+import nl.hanze.CarParkSimulation.logic.Time;
+import nl.hanze.CarParkSimulation.view.DayView;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
@@ -26,6 +26,7 @@ import java.awt.event.WindowEvent;
 public final class CarParkSimulation {
 
     private CarPark carParkModel;
+    private Time timeModel;
     private JFrame screen;
     private AbstractView carParkView;
     private AbstractView queueView;
@@ -61,10 +62,11 @@ public final class CarParkSimulation {
          * we need for the Car Park Simulation
          */
         this.carParkModel = new CarPark(3, 6, 30);
+        this.timeModel = new Time();
         this.carParkController = new Controller(carParkModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
-        this.dayView = new DayView(carParkModel);
+        this.dayView = new DayView(timeModel);
         this.statisticsView = new StatisticsView(carParkModel);
         this.controller = new Controller(carParkModel);
 
@@ -141,12 +143,13 @@ public final class CarParkSimulation {
          * Initialize views
          */
         carParkView.updateView();
+        timeModel.notifyViews();
 
         running = true;
 
         while(true){
             if (running) {
-                carParkModel.tick(true);
+                carParkModel.tick();
             }
             try{
                 Thread.sleep(simulationSpeed);

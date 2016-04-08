@@ -1,6 +1,8 @@
-package nl.hanze.CarParkSimulation.logic;
+package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.localization.en.Language;
+import nl.hanze.CarParkSimulation.logic.CarPark;
+import nl.hanze.CarParkSimulation.logic.Time;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 
 import javax.swing.*;
@@ -28,7 +30,7 @@ public class DayView extends AbstractView {
      *
      * @param model AbstractModel that belongs to this view
      */
-    public DayView(CarPark model) {
+    public DayView(Time model) {
         super(model);
         this.size = new Dimension(100, 100);
 
