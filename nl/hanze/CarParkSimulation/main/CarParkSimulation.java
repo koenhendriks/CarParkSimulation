@@ -92,7 +92,7 @@ public final class CarParkSimulation {
         carParkView.setBounds(260,10,680,300);
         statisticsView.setBounds(30,140, 200,100);
         queueView.setBounds(30,10,200,120);
-        dayView.setBounds(970,10,200, 150);
+        dayView.setBounds(970,10,200,330);
 
 
         /**

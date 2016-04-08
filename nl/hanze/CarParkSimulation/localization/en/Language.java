@@ -29,7 +29,9 @@ public abstract class Language {
         stringCollection.put("stopButton","Stop");
 
         // day view
-        stringCollection.put("runTime","Running time");
+        stringCollection.put("runTime","Time Info");
+        stringCollection.put("startTime", "Simulating since: ");
+        stringCollection.put("currentTime", "Current time in simulation:");
         stringCollection.put("min","Minutes: ");
         stringCollection.put("hrs","Hours: ");
         stringCollection.put("day","Days: ");
