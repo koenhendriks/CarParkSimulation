@@ -36,7 +36,6 @@ public final class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
-    private int steps;
 
     // the menu
     public static final JMenuBar menubar = new JMenuBar();
@@ -54,9 +53,6 @@ public final class CarParkSimulation {
     public static boolean running;
 
     public CarParkSimulation() {
-        // set default number of steps
-        steps = 300000;
-
         /**
          * Set the dimension for the application
          */
@@ -178,21 +174,5 @@ public final class CarParkSimulation {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Getter for steps
-     * @return the amount of steps the simulation executes
-     */
-    public int getSteps() {
-        return steps;
-    }
-
-    /**
-     * Setter for steps
-     * @param steps the amount of steps the simulation executes
-     */
-    public void setSteps(int steps) {
-        this.steps = steps;
     }
 }
