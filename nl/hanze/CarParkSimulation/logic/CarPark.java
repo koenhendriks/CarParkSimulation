@@ -18,7 +18,7 @@ public class CarPark extends AbstractModel{
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-`    private int minuteCount = 0;
+    private int minuteCount = 0;
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
