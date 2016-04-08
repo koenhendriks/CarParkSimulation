@@ -12,11 +12,14 @@ public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
     static
     {
+        // general
         stringCollection = new HashMap<String, String>();
         stringCollection.put("confirmExit", "Are you sure you want to close the Car Park Simulation?");
         stringCollection.put("confirmExitTitle", "Exit Confirmation");
         stringCollection.put("stepOne", "One step");
         stringCollection.put("stepMany", "One hundred steps");
+        stringCollection.put("yes", "Yes");
+        stringCollection.put("no", "No");
 
         // controller
         stringCollection.put("insertSteps","Insert steps: ");
@@ -37,6 +40,7 @@ public abstract class Language {
         stringCollection.put("hrs","In hours: ");
         stringCollection.put("days","In days: ");
         stringCollection.put("wks","In Weeks: ");
+        stringCollection.put("weekend","Weekend?");
 
         // simulation
         stringCollection.put("title","Car Park Simulation");

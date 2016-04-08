@@ -56,6 +56,7 @@ public class DayView extends AbstractView {
         this.startTimeString = new JLabel();
         this.currentTime = new JLabel();
         this.simulationTime = new JLabel();
+        this.weekend = new JLabel();
         this.weekendTrue = new JLabel();
         this.weekendFalse = new JLabel();
 
@@ -73,7 +74,9 @@ public class DayView extends AbstractView {
         currentTime = new JLabel(Language.get("currentTime"));
         simulationTime = new JLabel(time.getStartTime());
         runningTime = new JLabel(Language.get("runningTime"));
-
+        weekend = new JLabel(Language.get("weekend"));
+        weekendFalse = new JLabel(Language.get("no"));
+        weekendTrue = new JLabel(Language.get("yes"));
 
         /**
          * Set the location for the labels
@@ -91,6 +94,9 @@ public class DayView extends AbstractView {
         hours.setBounds(10,200,200,20);
         days.setBounds(10,220,200,20);
         weeks.setBounds(10,240,200,20);
+        weekend.setBounds(10,280,200,20);
+        weekendFalse.setBounds(10,300,200,20);
+        weekendTrue.setBounds(10,300,200,20);
 
         /**
          * Add the labels to the view
@@ -105,6 +111,9 @@ public class DayView extends AbstractView {
         add(hours);
         add(days);
         add(weeks);
+        add(weekend);
+        add(weekendTrue);
+        add(weekendFalse);
     }
 
     public void updateView(){
@@ -118,6 +127,13 @@ public class DayView extends AbstractView {
         days.setText(Language.get("days")+time.getRunningDays());
         weeks.setText(Language.get("wks")+time.getRunningWeeks());
 
+        if(time.isWeekend()) {
+            weekendFalse.setVisible(false);
+            weekendTrue.setVisible(true);
+        }else {
+            weekendTrue.setVisible(false);
+            weekendFalse.setVisible(true);
+        }
 
         setVisible(true);
         super.updateView();
