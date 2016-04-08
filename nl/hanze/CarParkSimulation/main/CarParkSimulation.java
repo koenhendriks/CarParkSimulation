@@ -5,8 +5,8 @@ import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
-import nl.hanze.CarParkSimulation.logic.CarQueue;
-import nl.hanze.CarParkSimulation.logic.DayView;
+import nl.hanze.CarParkSimulation.logic.Time;
+import nl.hanze.CarParkSimulation.view.DayView;
 import nl.hanze.CarParkSimulation.view.AbstractView;
 import nl.hanze.CarParkSimulation.view.CarParkView;
 import nl.hanze.CarParkSimulation.view.GridView;
@@ -26,12 +26,12 @@ import java.awt.event.WindowEvent;
 public final class CarParkSimulation {
 
     private CarPark carParkModel;
+    private Time timeModel;
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView statisticsView;
-    private AbstractController carParkController;
     private AbstractController controller;
     private int width;
     private int height;
@@ -63,10 +63,11 @@ public final class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark(3, 6, 30);
+        this.timeModel = new Time();
+        this.carParkModel = new CarPark(3, 6, 30,timeModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
-        this.dayView = new DayView(carParkModel);
+        this.dayView = new DayView(timeModel);
         this.statisticsView = new StatisticsView(carParkModel);
         this.controller = new Controller(carParkModel);
 
@@ -108,7 +109,7 @@ public final class CarParkSimulation {
         carParkView.setBounds(260,30,680,300);
         statisticsView.setBounds(30,160, 200,100);
         queueView.setBounds(30,30,200,120);
-        dayView.setBounds(970,30,200, 150);
+        dayView.setBounds(970,30,200, 330);
 
 
         /**
@@ -159,12 +160,13 @@ public final class CarParkSimulation {
          * Initialize views
          */
         carParkView.updateView();
+        timeModel.notifyViews();
 
         running = true;
 
         while(true){
             if (running) {
-                carParkModel.tick(true);
+                carParkModel.tick();
             }
             try{
                 Thread.sleep(simulationSpeed);

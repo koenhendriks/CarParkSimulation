@@ -12,6 +12,7 @@ public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
     static
     {
+        // general
         stringCollection = new HashMap<String, String>();
 
         // main strings
@@ -20,6 +21,8 @@ public abstract class Language {
         stringCollection.put("confirmExitTitle", "Exit Confirmation");
         stringCollection.put("stepOne", "One step");
         stringCollection.put("stepMany", "One hundred steps");
+        stringCollection.put("yes", "Yes");
+        stringCollection.put("no", "No");
 
         // menu
         stringCollection.put("fileMenu","File");
@@ -38,12 +41,15 @@ public abstract class Language {
         stringCollection.put("stopButton","Stop");
 
         // day view
-        stringCollection.put("runTime","Running time");
-        stringCollection.put("min","Minutes: ");
-        stringCollection.put("hrs","Hours: ");
-        stringCollection.put("day","Days: ");
-        stringCollection.put("wks","Weeks: ");
-        stringCollection.put("yrs","Years: ");
+        stringCollection.put("runTime","Time Info");
+        stringCollection.put("runningTime","Simulation is running:");
+        stringCollection.put("startTime", "Simulating since:");
+        stringCollection.put("currentTime", "Current time in simulation:");
+        stringCollection.put("mins","In minutes: ");
+        stringCollection.put("hrs","In hours: ");
+        stringCollection.put("days","In days: ");
+        stringCollection.put("wks","In Weeks: ");
+        stringCollection.put("weekend","Weekend?");
 
         // simulation
         stringCollection.put("title","Car Park Simulation");

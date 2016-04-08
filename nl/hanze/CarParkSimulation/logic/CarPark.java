@@ -18,9 +18,7 @@ public class CarPark extends AbstractModel{
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-    private int day = 0;
-    private int hour = 0;
-    private int minute = 0;
+    private Time time;
 
     // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
@@ -39,9 +37,9 @@ public class CarPark extends AbstractModel{
     int totalCarIndex = 0;
     int totalPassholderIndex = 0;
 
-    int inMinutes;
-    int totalMinutes;
     int stayMinutes;
+    int totalMinutes;
+    int inMinutes;
 
 
     private Car[][][] cars;
@@ -52,11 +50,14 @@ public class CarPark extends AbstractModel{
      * @param numberOfFloors int with the amount of floors to draw
      * @param numberOfRows   int with the amount of rows per floor to draw
      * @param numberOfPlaces int with the amount of places per row to draw
+     * @param time Time model that we use to keep track and progress the time
      */
-    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces, Time time) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
+
+        this.time = time;
 
         this.entranceCarQueue = new CarQueue();
         this.paymentCarQueue = new CarQueue();
@@ -100,29 +101,15 @@ public class CarPark extends AbstractModel{
 
     /**
      * Run a simulation step
-     *
-     * @param pause boolean whether we should pause after a step
      */
-    public void tick(boolean pause) {
+    public void tick() {
 
-        // Advance the time by one minute.
-        this.minute++;
-        while (this.minute > 59) {
-            this.minute -= 60;
-            this.hour++;
-        }
-        while (this.hour > 23) {
-            this.hour -= 24;
-            this.day++;
-        }
-        while (this.day > 6) {
-            this.day -= 7;
-        }
+        time.tick();
 
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = this.day < 5
+        int averageNumberOfCarsPerHour = time.isWeekend()
                 ? this.weekDayArrivals
                 : this.weekendArrivals;
 
@@ -261,6 +248,33 @@ public class CarPark extends AbstractModel{
     }
 
     /**
+     * Get number of floors
+     *
+     * @return int number of floors in the car park
+     */
+    public int getNumberOfFloors() {
+        return numberOfFloors;
+    }
+
+    /**
+     * Get number of rows
+     *
+     * @return int number of rows in the car park
+     */
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    /**
+     * Get number of places
+     *
+     * @return int number of places in the car park
+     */
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    /**
      * Check if a location is valid in the car park.
      *
      * @param location Location object to check
@@ -377,32 +391,5 @@ public class CarPark extends AbstractModel{
 
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
-    }
-
-    /**
-     * Get number of floors
-     *
-     * @return int number of floors in the car park
-     */
-    public int getNumberOfFloors() {
-        return numberOfFloors;
-    }
-
-    /**
-     * Get number of rows
-     *
-     * @return int number of rows in the car park
-     */
-    public int getNumberOfRows() {
-        return numberOfRows;
-    }
-
-    /**
-     * Get number of places
-     *
-     * @return int number of places in the car park
-     */
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
     }
 }
