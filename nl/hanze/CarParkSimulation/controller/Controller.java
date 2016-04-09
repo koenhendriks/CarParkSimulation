@@ -84,7 +84,6 @@ public class Controller extends AbstractController implements ActionListener {
 
     private void resetPressed() {
         CarParkSimulation.resetSimulation();
-        System.out.println("RESET");
     }
 
     private void exitPressed() {
