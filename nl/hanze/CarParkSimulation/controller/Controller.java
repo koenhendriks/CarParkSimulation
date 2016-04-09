@@ -4,6 +4,8 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.localization.en.Language;
+import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
+import nl.hanze.CarParkSimulation.view.StatisticsView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,8 +38,9 @@ public class Controller extends AbstractController implements ActionListener {
         setLayout(null);
 
         // menu
-        CarParkSimulation.aboutItem.addActionListener(this);
+        CarParkSimulation.resetItem.addActionListener(this);
         CarParkSimulation.exitItem.addActionListener(this);
+        CarParkSimulation.aboutItem.addActionListener(this);
 
         // custom step counter
         description = new JLabel(Language.get("insertSteps"));
@@ -77,6 +80,11 @@ public class Controller extends AbstractController implements ActionListener {
         stopButton.setBounds(670,60,70,20);
         stopButton.addActionListener(this);
         add(stopButton);
+    }
+
+    private void resetPressed() {
+        CarParkSimulation.resetSimulation();
+        System.out.println("RESET");
     }
 
     private void exitPressed() {
@@ -156,6 +164,8 @@ public class Controller extends AbstractController implements ActionListener {
             this.exitPressed();
         } else if(actionEvent.getSource() == CarParkSimulation.aboutItem) {
            this.aboutPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.resetItem) {
+            this.resetPressed();
         }
 
     }

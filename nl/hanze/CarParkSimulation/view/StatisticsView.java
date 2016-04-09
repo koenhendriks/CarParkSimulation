@@ -83,4 +83,9 @@ public class StatisticsView extends AbstractView {
         setVisible(true);
         super.updateView();
     }
+
+    public void resetStats(){
+        currentRevenue = 0;
+        expectedRevenue = 0;
+    }
 }

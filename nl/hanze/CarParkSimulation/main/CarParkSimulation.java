@@ -25,13 +25,13 @@ import java.awt.event.WindowEvent;
  */
 public final class CarParkSimulation {
 
-    private CarPark carParkModel;
+    private static CarPark carParkModel;
     private Time timeModel;
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
     private AbstractView gridView;
-    private AbstractView statisticsView;
+    private static StatisticsView statisticsView;
     private AbstractController controller;
     private int width;
     private int height;
@@ -178,5 +178,11 @@ public final class CarParkSimulation {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void resetSimulation(){
+        carParkModel.resetPark();
+        statisticsView.resetStats();
+
     }
 }

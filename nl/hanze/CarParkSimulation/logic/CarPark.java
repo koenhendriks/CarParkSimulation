@@ -1,5 +1,7 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.view.QueueView;
+
 import java.util.Random;
 
 /**
@@ -10,13 +12,13 @@ import java.util.Random;
  */
 public class CarPark extends AbstractModel{
 
-    private int numberOfFloors;
-    private int numberOfRows;
-    private int numberOfPlaces;
+    private static int numberOfFloors;
+    private static int numberOfRows;
+    private static int numberOfPlaces;
 
-    private CarQueue entranceCarQueue;
-    private CarQueue paymentCarQueue;
-    private CarQueue exitCarQueue;
+    private static CarQueue entranceCarQueue;
+    private static CarQueue paymentCarQueue;
+    private static CarQueue exitCarQueue;
 
     private Time time;
 
@@ -391,5 +393,21 @@ public class CarPark extends AbstractModel{
 
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Reset methods for the park.
+     */
+    public void resetPark(){
+        this.numberOfFloors = 3;
+        this.numberOfRows = 6;
+        this.numberOfPlaces = 30;
+
+        this.entranceCarQueue = new CarQueue();
+        this.paymentCarQueue = new CarQueue();
+        this.exitCarQueue = new CarQueue();
+
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+        super.notifyViews();
     }
 }
