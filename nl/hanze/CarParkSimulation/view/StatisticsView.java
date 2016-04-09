@@ -87,5 +87,6 @@ public class StatisticsView extends AbstractView {
     public void resetStats(){
         currentRevenue = 0;
         expectedRevenue = 0;
+        updateView();
     }
 }

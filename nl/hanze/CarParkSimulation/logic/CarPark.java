@@ -399,6 +399,10 @@ public class CarPark extends AbstractModel{
      * Reset methods for the park.
      */
     public void resetPark(){
+        this.stayMinutes = 0;
+        this.totalMinutes = 0;
+        this.inMinutes = 0;
+
         this.numberOfFloors = 3;
         this.numberOfRows = 6;
         this.numberOfPlaces = 30;
