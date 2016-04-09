@@ -26,6 +26,7 @@ public abstract class Language {
 
         // menu
         stringCollection.put("fileMenu","File");
+        stringCollection.put("resetItem","Reset");
         stringCollection.put("exitItem","Exit");
         stringCollection.put("helpMenu","Help");
         stringCollection.put("aboutItem","About...");

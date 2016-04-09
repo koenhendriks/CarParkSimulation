@@ -41,6 +41,7 @@ public final class CarParkSimulation {
     public static final JMenuBar menubar = new JMenuBar();
     public static final JMenu fileMenu = new JMenu(Language.get("fileMenu"));
     public static final JMenu helpMenu = new JMenu(Language.get("helpMenu"));
+    public static final JMenuItem resetItem = new JMenuItem(Language.get("resetItem"));
     public static final JMenuItem exitItem = new JMenuItem(Language.get("exitItem"));
     public static final JMenuItem aboutItem = new JMenuItem(Language.get("aboutItem"));
 
@@ -86,7 +87,10 @@ public final class CarParkSimulation {
 
         // add the file menu and items
         menubar.add(fileMenu);
+        fileMenu.add(resetItem);
+        fileMenu.add(new JSeparator());
         fileMenu.add(exitItem);
+
 
         // add the help menu and items
         menubar.add(helpMenu);
