@@ -96,6 +96,9 @@ public class QueueView extends AbstractView {
 
         setVisible(true);
         super.updateView();
+    }
+
+    public void resetQueue(){
 
     }
 

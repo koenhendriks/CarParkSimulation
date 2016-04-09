@@ -183,6 +183,5 @@ public final class CarParkSimulation {
     public static void resetSimulation(){
         carParkModel.resetPark();
         statisticsView.resetStats();
-
     }
 }
