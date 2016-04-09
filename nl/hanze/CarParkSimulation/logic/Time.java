@@ -122,4 +122,10 @@ public final class Time extends AbstractModel {
     public boolean isWeekend(){
         return this.runningCalendar.get(DAY_OF_WEEK) == Calendar.SATURDAY || this.runningCalendar.get(DAY_OF_WEEK) == Calendar.SUNDAY;
     }
+
+    public void resetTime(){
+        this.startCalendar = Calendar.getInstance();
+        this.runningCalendar = Calendar.getInstance();
+        this.startTime = this.getStringFromCalendar(this.startCalendar);
+    }
 }

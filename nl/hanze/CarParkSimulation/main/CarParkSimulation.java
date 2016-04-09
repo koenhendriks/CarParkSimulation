@@ -26,7 +26,7 @@ import java.awt.event.WindowEvent;
 public final class CarParkSimulation {
 
     private static CarPark carParkModel;
-    private Time timeModel;
+    private static Time timeModel;
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
@@ -183,5 +183,6 @@ public final class CarParkSimulation {
     public static void resetSimulation(){
         carParkModel.resetPark();
         statisticsView.resetStats();
+        timeModel.resetTime();
     }
 }
