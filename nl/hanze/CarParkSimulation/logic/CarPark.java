@@ -396,7 +396,7 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Reset methods for the park.
+     * Reset method for the park.
      */
     public void resetPark(){
         // reset time
@@ -409,6 +409,9 @@ public class CarPark extends AbstractModel{
         exitIndex = 0;
         payCashIndex = 0;
         payPassIndex = 0;
+
+        totalCarIndex = 0;
+        totalPassholderIndex = 0;
 
         // reset park
         this.numberOfFloors = 3;
