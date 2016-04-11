@@ -1,12 +1,19 @@
+package nl.hanze.CarParkSimulation.logic;
+
+/**
+ * Class License
+ *
+ * @author Ruben Buisman
+ * @version 0.1 (05-04-2016)
+ */
+
 import java.util.Random;
 
 /**
- * Class for generating License plate objects.
- * @author Joey Boum Bletterman
- * @version 0.2 (2/4/2016)
+ * This class creates a license plate.
  */
-public class License {
 
+public class License extends AbstractModel {
     Random random;
 
     // Different elements of a plate number
@@ -20,7 +27,6 @@ public class License {
         left = generateNumbers();
         middle = generateString();
         right = generateNumbers();
-        generateLicenseNumber();
     }
 
     /**
