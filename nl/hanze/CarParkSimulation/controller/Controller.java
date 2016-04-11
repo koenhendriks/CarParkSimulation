@@ -4,24 +4,28 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.localization.en.Language;
-import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
-import nl.hanze.CarParkSimulation.view.StatisticsView;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Class Controller
+ * This class is used to add controllers to views in the view package.
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public class Controller extends AbstractController implements ActionListener {
-    private JLabel description;
+public class Controller extends AbstractController implements ActionListener
+{
+    // labels for steps and speed
+    private JLabel insertSteps;
     private JLabel speedLabel;
-    private JTextField input;
+
+    // fields for steps and speed
+    private JTextField stepsField;
     private JTextField speedField;
+
+    // buttons for steps, speed, starting and stopping
     private JButton startLimit;
     private JButton speedButton;
     private JButton startButton;
@@ -43,13 +47,13 @@ public class Controller extends AbstractController implements ActionListener {
         CarParkSimulation.aboutItem.addActionListener(this);
 
         // custom step counter
-        description = new JLabel(Language.get("insertSteps"));
-        description.setBounds(10,0,200,20);
-        add(description);
+        insertSteps = new JLabel(Language.get("insertSteps"));
+        insertSteps.setBounds(10,0,200,20);
+        add(insertSteps);
 
-        input = new JTextField(Language.get("input"));
-        input.setBounds(10,20,75,20);
-        add(input);
+        stepsField = new JTextField(Language.get("input"));
+        stepsField.setBounds(10,20,75,20);
+        add(stepsField);
 
         startLimit = new JButton(Language.get("startLimit"));
         startLimit.setBounds(110,20,70,20);
@@ -82,10 +86,16 @@ public class Controller extends AbstractController implements ActionListener {
         add(stopButton);
     }
 
+    /**
+     * Method for action definition of Reset item.
+     */
     private void resetPressed() {
         CarParkSimulation.resetSimulation();
     }
 
+    /**
+     * Method for action definition of Exit item.
+     */
     private void exitPressed() {
         int confirm = JOptionPane.showOptionDialog(CarParkSimulation.screen,
                 Language.get("confirmExit"),
@@ -96,6 +106,9 @@ public class Controller extends AbstractController implements ActionListener {
         }
     }
 
+    /**
+     * Method for action definition of About item.
+     */
     private void aboutPressed() {
         JOptionPane.showMessageDialog(CarParkSimulation.screen,
                 Language.get("title") + "\n" +
@@ -104,18 +117,27 @@ public class Controller extends AbstractController implements ActionListener {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Method for action definition of start button.
+     */
     private void startPressed() {
         CarParkSimulation.running = true;
     }
 
+    /**
+     * Method for action definition of stop button.
+     */
     private void stopPressed() {
         CarParkSimulation.running = false;
     }
 
+    /**
+     * Method for action definition of startStep button.
+     */
     private void startStepPressed(){
 
         try{
-            int steps = Integer.parseInt(input.getText());
+            int steps = Integer.parseInt(stepsField.getText());
 
             setSteps(steps);
 
@@ -124,6 +146,9 @@ public class Controller extends AbstractController implements ActionListener {
         }
     }
 
+    /**
+     * Method for action definition of speed button.
+     */
     private void speedPressed(){
 
         try{
@@ -137,9 +162,9 @@ public class Controller extends AbstractController implements ActionListener {
     }
 
     /**
-     * Set steps in the simulator
+     * Method for setting steps in the simulator.
      *
-     * @param steps amount of steps we should do
+     * @param steps Amount of steps we should make.
      */
     private void setSteps(int steps) {
         CarPark carPark = (CarPark) super.model;
@@ -148,6 +173,10 @@ public class Controller extends AbstractController implements ActionListener {
             carPark.tick();
     }
 
+    /**
+     * Method for performing actions.
+     * @param actionEvent The action we are listening for.
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 

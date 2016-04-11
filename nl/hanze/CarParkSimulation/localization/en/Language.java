@@ -16,7 +16,6 @@ public abstract class Language {
         stringCollection = new HashMap<String, String>();
 
         // main strings
-        stringCollection.put("version","version 1.0");
         stringCollection.put("confirmExit", "Are you sure you want to close the Car Park Simulation?");
         stringCollection.put("confirmExitTitle", "Exit Confirmation");
         stringCollection.put("stepOne", "One step");
@@ -30,6 +29,13 @@ public abstract class Language {
         stringCollection.put("exitItem","Exit");
         stringCollection.put("helpMenu","Help");
         stringCollection.put("aboutItem","About...");
+        stringCollection.put("version","version 1.0 \n" +
+                "\n" +
+                "Written by:\n" +
+                "Koen Hendriks,\n" +
+                "Ruben Buisman,\n" +
+                "Robin Meles,\n" +
+                "Joey Boum Bletterman.");
 
         // controller
         stringCollection.put("insertSteps","Insert steps: ");
