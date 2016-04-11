@@ -12,14 +12,19 @@ import java.awt.*;
 /**
  * Class CarParkView
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * This is the view of the actual car park.
+ *
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public class CarParkView extends AbstractView{
-
+public class CarParkView extends AbstractView
+{
+    // title, cars and pass holder labels
     private JLabel title;
     private JLabel totalCars;
     private JLabel totalPassholders;
+
+    // image of the car park
     private Image carParkImage;
     private Dimension size;
 
@@ -35,26 +40,23 @@ public class CarParkView extends AbstractView{
         this.totalPassholders = new JLabel(Language.get("pass0"));
         this.size = new Dimension(680, 300);
 
-        /**
-         * Set location of the labels
-         */
+        // set location of the labels
         totalPassholders.setBounds(500,5,250,10);
         totalCars.setBounds(270,5,150,10);
         title.setBounds(10,5, 150,10);
 
-        /**
-         * Add the labels to the view
-         */
+        // add the labels to the view
         add(title);
         add(totalCars);
         add(totalPassholders);
     }
 
-    @Override
+
     /**
      * The car park view component needs to be redisplayed. Copy the
      * internal image to SCREEN.
      */
+    @Override
     public void paintComponent(Graphics g) {
         if (carParkImage == null) {
             return;
@@ -67,6 +69,7 @@ public class CarParkView extends AbstractView{
      * Called by the model that belongs to this view
      * to notify that the view should by updated
      */
+    @Override
     public void updateView() {
 
         CarPark carPark = (CarPark) super.model;
@@ -89,9 +92,11 @@ public class CarParkView extends AbstractView{
 
                     if(car instanceof PassHolder){
                         color = Color.blue;
-                    } else if(car != null){
+                    }
+                    else if(car != null){
                         color = Color.red;
-                    } else {
+                    }
+                    else {
                         color = Color.white;
                     }
 
