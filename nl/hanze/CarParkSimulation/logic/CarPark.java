@@ -1,7 +1,5 @@
 package nl.hanze.CarParkSimulation.logic;
 
-import nl.hanze.CarParkSimulation.view.QueueView;
-
 import java.util.Random;
 
 /**
