@@ -453,9 +453,6 @@ public final class CarPark extends AbstractModel{
 
                 cars++;
 
-                if(car instanceof PassHolder) {
-                    addPassIndex();
-                }
             }
         }
         return cars;
