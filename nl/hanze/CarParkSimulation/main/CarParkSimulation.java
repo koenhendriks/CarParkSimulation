@@ -6,12 +6,7 @@ import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.logic.Time;
-import nl.hanze.CarParkSimulation.view.DayView;
-import nl.hanze.CarParkSimulation.view.AbstractView;
-import nl.hanze.CarParkSimulation.view.CarParkView;
-import nl.hanze.CarParkSimulation.view.GridView;
-import nl.hanze.CarParkSimulation.view.StatisticsView;
-import nl.hanze.CarParkSimulation.view.QueueView;
+import nl.hanze.CarParkSimulation.view.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -54,6 +49,7 @@ public final class CarParkSimulation
     private AbstractView queueView;
     private AbstractView dayView;
     private AbstractView gridView;
+    private AbstractView alternateStatiscticsView;
     private static StatisticsView statisticsView;
 
     // the controller
@@ -73,10 +69,13 @@ public final class CarParkSimulation
          */
         this.timeModel = new Time();
         this.carParkModel = new CarPark(3, 6, 30,timeModel);
+
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
         this.dayView = new DayView(timeModel);
         this.statisticsView = new StatisticsView(carParkModel);
+        this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
+
         this.controller = new Controller(carParkModel);
 
         /*
@@ -107,12 +106,14 @@ public final class CarParkSimulation
         SCREEN.getContentPane().add(dayView);
         SCREEN.getContentPane().add(queueView);
         SCREEN.getContentPane().add(statisticsView);
+        SCREEN.getContentPane().add(alternateStatiscticsView);
 
         // set the location of the views on the SCREEN
         carParkView.setBounds(260,30,680,300);
         statisticsView.setBounds(30,160, 200,100);
         queueView.setBounds(30,30,200,120);
         dayView.setBounds(970,30,200, 330);
+        alternateStatiscticsView.setBounds(260,390,680,70);
 
 
         // add the controllers to the main SCREEN

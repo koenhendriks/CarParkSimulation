@@ -38,8 +38,9 @@ public class CarPark extends AbstractModel
     int exitIndex = 0;
     int payCashIndex = 0;
     int payPassIndex = 0;
-    int totalCarIndex = 0;
-    int totalPassholderIndex = 0;
+
+    public static int totalCarIndex = 0;
+    public static int totalPassholderIndex = 0;
 
     // duration variables
     int stayMinutes;
