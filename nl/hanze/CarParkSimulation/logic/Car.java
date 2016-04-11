@@ -2,9 +2,10 @@ package nl.hanze.CarParkSimulation.logic;
 
 /**
  * Class Car
+ * This class can can be extended on the AdHocCar class.
  *
- * @author Ruben Buisman
- * @version 0.1 (04-04-2016)
+ * @author Ruben Buisman, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
 
 /**

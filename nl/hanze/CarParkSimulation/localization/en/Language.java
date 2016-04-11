@@ -19,7 +19,7 @@ public abstract class Language
     static
     {
         // this is the hash map
-        stringCollection = new HashMap<String, String>();
+        stringCollection = new HashMap<>();
 
         // main strings
         stringCollection.put("confirmExit", "Are you sure you want to close the Car Park Simulation?");
