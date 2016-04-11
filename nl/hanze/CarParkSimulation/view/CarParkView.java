@@ -38,7 +38,7 @@ public class CarParkView extends AbstractView
         this.title = new JLabel(Language.get("birdView"));
         this.totalCars = new JLabel(Language.get("cars0"));
         this.totalPassholders = new JLabel(Language.get("pass0"));
-        this.size = new Dimension(680, 300);
+        this.size = new Dimension(680, 330);
 
         // set location of the labels
         totalPassholders.setBounds(500,5,250,10);
@@ -74,7 +74,7 @@ public class CarParkView extends AbstractView
 
         CarPark carPark = (CarPark) super.model;
 
-        totalCars.setText(Language.get("cars")+ carPark.getTotalCarIndex());
+        totalCars.setText(Language.get("cars")+ carPark.getTotalCars());
         totalPassholders.setText(Language.get("pass")+carPark.getTotalPassholderIndex());
 
         // Create a new car park image if the size has changed.

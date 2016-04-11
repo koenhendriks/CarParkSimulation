@@ -50,7 +50,7 @@ public final class CarParkSimulation
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
-    private static StatisticsView statisticsView;
+    private StatisticsView statisticsView;
 
     // the controller
     private AbstractController controller;
@@ -63,12 +63,12 @@ public final class CarParkSimulation
         this.width = 1200;
         this.height = 750;
 
-        /*
+        /**
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.timeModel = new Time();
-        this.carParkModel = new CarPark(3, 6, 30,timeModel);
+        timeModel = new Time();
+        carParkModel = new CarPark(3, 6, 30,timeModel);
 
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
@@ -78,7 +78,7 @@ public final class CarParkSimulation
 
         this.controller = new Controller(carParkModel);
 
-        /*
+        /**
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
@@ -109,18 +109,17 @@ public final class CarParkSimulation
         SCREEN.getContentPane().add(alternateStatiscticsView);
 
         // set the location of the views on the SCREEN
-        carParkView.setBounds(260,30,680,300);
+        carParkView.setBounds(260,30,680,330);
         statisticsView.setBounds(30,160, 200,100);
         queueView.setBounds(30,30,200,120);
         dayView.setBounds(970,30,200, 330);
-        alternateStatiscticsView.setBounds(260,390,680,70);
 
 
         // add the controllers to the main SCREEN
         SCREEN.getContentPane().add(controller);
-        controller.setBounds(30,270,910,90);
+        controller.setBounds(30,300,910,90);
 
-        /*
+        /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
          * they want to close the Car Park Simulation.

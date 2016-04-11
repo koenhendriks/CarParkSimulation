@@ -2,7 +2,6 @@ package nl.hanze.CarParkSimulation.logic;
 
 /**
  * Class Car
- * This class can can be extended on the AdHocCar class.
  *
  * @author Ruben Buisman, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
@@ -37,6 +36,10 @@ public abstract class Car extends AbstractModel
     public Car() {
         License license = new License();
         this.license = license.generateLicenseNumber();
+    }
+
+    public String getLicense() {
+        return license;
     }
 
     /**
@@ -94,9 +97,8 @@ public abstract class Car extends AbstractModel
     }
 
     /**
-     * Getter for the amount of minutes a car is staying in the car park.
-     *
-     * @return int The amount of minutes the car is staying.
+     * The amount of time a car stays in the carpark
+     * @return
      */
     public int getStayMinutes() {
         return stayMinutes;
@@ -109,6 +111,7 @@ public abstract class Car extends AbstractModel
      */
     public void setStayMinutes(int stayMinutes) {
         this.stayMinutes = stayMinutes;
+        this.setMinutesLeft(stayMinutes);
     }
 
     /**
@@ -116,6 +119,17 @@ public abstract class Car extends AbstractModel
      */
     public void tick() {
         minutesLeft--;
+        if (this.getMinutesLeft() <= 0 && !this.getIsPaying()) {
+            if(this instanceof PassHolder){
+                CarPark.removeCarAt(this.getLocation());
+                CarPark.exitCar(this);
+                CarPark.addPassIndex();
+            }else{
+                this.setIsPaying(true);
+                CarPark.payCar(this);
+                CarPark.addCashIndex();
+            }
+        }
     }
 
 }
