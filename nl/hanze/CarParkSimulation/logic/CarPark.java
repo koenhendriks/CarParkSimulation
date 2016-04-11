@@ -110,7 +110,6 @@ public class CarPark extends AbstractModel
     /**
      * Method for running a simulation step.
      */
-
     public void tick() {
         time.tick();
 
