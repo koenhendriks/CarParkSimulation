@@ -28,9 +28,11 @@ public class AlternateStatisticsView extends AbstractView
     public AlternateStatisticsView(AbstractModel model) {
         super(model);
 
+        CarPark carPark = (CarPark) super.model;
+
         // indices
-        totalCars = CarPark.totalCarIndex;
-        passholders = CarPark.totalPassholderIndex;
+        totalCars = carPark.getTotalCars();
+        passholders = carPark.getTotalPassholderIndex();
         regular = totalCars - passholders;
 
         // bar 1
