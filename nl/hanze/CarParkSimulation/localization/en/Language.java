@@ -11,7 +11,8 @@ import java.util.HashMap;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.1 (5-4-2016)
  */
-public abstract class Language {
+public abstract class Language
+{
     private static HashMap<String, String> stringCollection = null;
 
     // the entire body must be static
