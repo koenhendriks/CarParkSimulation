@@ -97,7 +97,7 @@ public class Controller extends AbstractController implements ActionListener
      * Method for action definition of Exit item.
      */
     private void exitPressed() {
-        int confirm = JOptionPane.showOptionDialog(CarParkSimulation.screen,
+        int confirm = JOptionPane.showOptionDialog(CarParkSimulation.SCREEN,
                 Language.get("confirmExit"),
                 Language.get("confirmExitTitle"), JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -110,7 +110,7 @@ public class Controller extends AbstractController implements ActionListener
      * Method for action definition of About item.
      */
     private void aboutPressed() {
-        JOptionPane.showMessageDialog(CarParkSimulation.screen,
+        JOptionPane.showMessageDialog(CarParkSimulation.SCREEN,
                 Language.get("title") + "\n" +
                         Language.get("version"),
                 "About " + Language.get("title"),

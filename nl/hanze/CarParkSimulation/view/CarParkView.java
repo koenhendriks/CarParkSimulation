@@ -53,7 +53,7 @@ public class CarParkView extends AbstractView{
     @Override
     /**
      * The car park view component needs to be redisplayed. Copy the
-     * internal image to screen.
+     * internal image to SCREEN.
      */
     public void paintComponent(Graphics g) {
         if (carParkImage == null) {
