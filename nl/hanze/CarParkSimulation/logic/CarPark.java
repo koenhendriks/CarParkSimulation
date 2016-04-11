@@ -414,11 +414,22 @@ public final class CarPark extends AbstractModel{
         return inMinutes;
     }
 
-    public int getTotalCarIndex() {
-        return totalCarIndex;
+    public int getTotalCars() {
+        int cars = 0;
+        for (Car car : carLocationMap.values()) {
+            if(car != null){
+
+                cars++;
+
+                if(car instanceof PassHolder) {
+                    addPassIndex();
+                }
+            }
+        }
+        return cars;
     }
 
-    public int getTotalPassholderIndex() {
+    public int getTotalPassholderIndex(){
         return totalPassholderIndex;
     }
 
