@@ -6,20 +6,24 @@ import java.util.Random;
 
 /**
  * Class CarPark
+ * This class can generate an instance of a car park.
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public class CarPark extends AbstractModel{
-
+public class CarPark extends AbstractModel
+{
+    // car park specifications
     private static int numberOfFloors;
     private static int numberOfRows;
     private static int numberOfPlaces;
 
+    // car queue types
     private static CarQueue entranceCarQueue;
     private static CarQueue paymentCarQueue;
     private static CarQueue exitCarQueue;
 
+    // time object
     private Time time;
 
     // Number of arriving cars per hour.
@@ -39,22 +43,26 @@ public class CarPark extends AbstractModel{
     int totalCarIndex = 0;
     int totalPassholderIndex = 0;
 
+    // duration variables
     int stayMinutes;
     int totalMinutes;
     int inMinutes;
 
-
+    // the array of cars
     private Car[][][] cars;
+
+    int t = 0;
 
     /**
      * Constructor of the CarPark model expecting the floors, rows and places.
      *
-     * @param numberOfFloors int with the amount of floors to draw
-     * @param numberOfRows   int with the amount of rows per floor to draw
-     * @param numberOfPlaces int with the amount of places per row to draw
-     * @param time Time model that we use to keep track and progress the time
+     * @param numberOfFloors int with the amount of floors to draw.
+     * @param numberOfRows   int with the amount of rows per floor to draw.
+     * @param numberOfPlaces int with the amount of places per row to draw.
+     * @param time Time model that we use to keep track and progress the time.
      */
     public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces, Time time) {
+
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -85,8 +93,8 @@ public class CarPark extends AbstractModel{
      * Park a car in a certain location in the car park.
      *
      * @param location Location object where to put the car.
-     * @param car Car object
-     * @return boolean whether car is successfully placed or not
+     * @param car Car object.
+     * @return boolean whether car is successfully placed or not.
      */
     public boolean parkCar(Location location, Car car) {
         if (!this.checkLocation(location)) {
@@ -102,10 +110,10 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Run a simulation step
+     * Method for running a simulation step.
      */
-    public void tick() {
 
+    public void tick() {
         time.tick();
 
         Random random = new Random();
@@ -123,18 +131,19 @@ public class CarPark extends AbstractModel{
         // Add the cars to the back of the queue.
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
 
-            /**
+            /*
              * Here we create the customers where the probability
              * is used to check if we create a passholder or a
              * regular customer.
              */
             int customerChance = random.nextInt(this.passHolderProbability);
 
-            if(customerChance == 0){
+            if (customerChance == 0){
                 Car car = new PassHolder();
                 this.entranceCarQueue.addCar(car);
                 totalPassholderIndex++;
-            }else{
+            }
+            else {
                 Car car = new AdHocCar();
                 this.entranceCarQueue.addCar(car);
             }
@@ -171,20 +180,21 @@ public class CarPark extends AbstractModel{
         // Add leaving cars to the exit queue.
         while (true) {
             Car car = this.getFirstLeavingCar();
-            if (car == null) {
+            if(car == null) {
                 break;
             }
 
-            /**
+            /*
              * If the customer is an instance of the passholder
              * we can skip the payment and leave the car park
              * immediately by adding the car to the exit que.
              */
-            if(car instanceof PassHolder){
+            if (car instanceof PassHolder){
                 this.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
                 payPassIndex ++;
-            }else{
+            }
+            else {
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
                 payCashIndex ++;
@@ -231,7 +241,7 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Loop trough the car park to get all cars and call the tick method
+     * Loop trough the car park to get all cars and call the tick method.
      */
     private void tickCars() {
         this.inMinutes = 0;
@@ -250,27 +260,27 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Get number of floors
+     * Get number of floors.
      *
-     * @return int number of floors in the car park
+     * @return int number of floors in the car park.
      */
     public int getNumberOfFloors() {
         return numberOfFloors;
     }
 
     /**
-     * Get number of rows
+     * Get number of rows.
      *
-     * @return int number of rows in the car park
+     * @return int number of rows in the car park.
      */
     public int getNumberOfRows() {
         return numberOfRows;
     }
 
     /**
-     * Get number of places
+     * Get number of places.
      *
-     * @return int number of places in the car park
+     * @return int number of places in the car park.
      */
     public int getNumberOfPlaces() {
         return numberOfPlaces;
@@ -279,8 +289,8 @@ public class CarPark extends AbstractModel{
     /**
      * Check if a location is valid in the car park.
      *
-     * @param location Location object to check
-     * @return boolean whether location is valid
+     * @param location Location object to check.
+     * @return boolean whether location is valid.
      */
     public boolean checkLocation(Location location) {
         int floor = location.getFloor();
@@ -292,7 +302,7 @@ public class CarPark extends AbstractModel{
     /**
      * Gets the first free parking place that is available in the car park.
      *
-     * @return null | Location object when free place is found, otherwise null
+     * @return null | Location object when free place is found, otherwise null.
      */
     public Location getFirstFreeLocation() {
         for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
@@ -311,7 +321,7 @@ public class CarPark extends AbstractModel{
     /**
      * Get the first leaving car in the parking garage.
      *
-     * @return null | Car object when a leaving car is found, otherwise null
+     * @return null | Car object when a leaving car is found, otherwise null.
      */
     public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
@@ -347,50 +357,66 @@ public class CarPark extends AbstractModel{
         return car;
     }
 
-    public Car[][][] getCars() {
-        return cars;
-    }
-
-    public CarQueue getEntranceCarQueue() {
-        return entranceCarQueue;
-    }
-
-    public CarQueue getPaymentCarQueue() {
-        return paymentCarQueue;
-    }
-
-    public CarQueue getExitCarQueue() {
-        return exitCarQueue;
-    }
-
+    /**
+     * Getter for the entrance index.
+     * @return int entrance index.
+     */
     public int getEntranceIndex() {
         return entranceIndex;
     }
 
+    /**
+     * Getter for the exit index.
+     * @return int exit index.
+     */
     public int getExitIndex() {
         return exitIndex;
     }
 
+    /**
+     * Getter for the pay pass index.
+     * @return int pay pass index
+     */
     public int getPayPassIndex() {
         return payPassIndex;
     }
 
+    /**
+     * Getter for the pay cash index.
+     * @return int pay cash index.
+     */
     public int getPayCashIndex() {
         return payCashIndex;
     }
 
+    /**
+     * Getter for the total amount of minutes.
+     * @return int total minutes
+     */
     public int getTotalMinutes() {
         return totalMinutes;
     }
 
+    /**
+     * Getter for inMinutes.
+     * @return int inMinutes.
+     */
     public int getInMinutes() {
         return inMinutes;
     }
 
+    /**
+     * Getter for the total car index.
+     * @return int total car.
+     */
     public int getTotalCarIndex() {
         return totalCarIndex;
     }
 
+    /**
+     * Getter for the total pass holder index.
+     * @return int total pass holder index.
+     */
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
     }
