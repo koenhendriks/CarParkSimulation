@@ -51,8 +51,6 @@ public class CarPark extends AbstractModel
     // the array of cars
     private Car[][][] cars;
 
-    int t = 0;
-
     /**
      * Constructor of the CarPark model expecting the floors, rows and places.
      *
