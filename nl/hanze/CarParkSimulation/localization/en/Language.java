@@ -7,12 +7,17 @@ import java.util.HashMap;
  * the Front end of the project. If we want to change the
  * language or change a sentence we can do it here. The
  * HashMap stores all the strings with a defined code.
+ *
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.1 (5-4-2016)
  */
 public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
+
+    // the entire body must be static
     static
     {
-        // general
+        // this is the hash map
         stringCollection = new HashMap<String, String>();
 
         // main strings
@@ -23,7 +28,7 @@ public abstract class Language {
         stringCollection.put("yes", "Yes");
         stringCollection.put("no", "No");
 
-        // menu
+        // menu strings
         stringCollection.put("fileMenu","File");
         stringCollection.put("resetItem","Reset");
         stringCollection.put("exitItem","Exit");
@@ -37,7 +42,7 @@ public abstract class Language {
                 "Robin Meles,\n" +
                 "Joey Boum Bletterman.");
 
-        // controller
+        // controller strings
         stringCollection.put("insertSteps","Insert steps: ");
         stringCollection.put("input","1");
         stringCollection.put("startLimit","Start");
@@ -47,7 +52,7 @@ public abstract class Language {
         stringCollection.put("startButton","Start");
         stringCollection.put("stopButton","Stop");
 
-        // day view
+        // day view strings
         stringCollection.put("runTime","Time Info");
         stringCollection.put("runningTime","Simulation is running:");
         stringCollection.put("startTime", "Simulating since:");
@@ -58,24 +63,24 @@ public abstract class Language {
         stringCollection.put("wks","In Weeks: ");
         stringCollection.put("weekend","Weekend?");
 
-        // simulation
+        // simulation strings
         stringCollection.put("title","Car Park Simulation");
 
-        // car park view
+        // car park view strings
         stringCollection.put("birdView","Car Park Bird View");
         stringCollection.put("cars0","Total cars: 0");
         stringCollection.put("pass0","Total passholds: 0");
         stringCollection.put("cars","Total cars: ");
         stringCollection.put("pass","Total Passholders: ");
 
-        // queue view
+        // queue view strings
         stringCollection.put("info","Carpark info");
         stringCollection.put("used","Used the entrance: ");
         stringCollection.put("left","Left the carpark: ");
         stringCollection.put("payCash","Paid with cash: ");
         stringCollection.put("payPass","Paid with pass: ");
 
-        // statistics view
+        // statistics view strings
         stringCollection.put("stats","Statistics");
         stringCollection.put("current","Current revenue: ");
         stringCollection.put("expected","Expected revenue: ");
