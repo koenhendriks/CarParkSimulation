@@ -64,12 +64,12 @@ public final class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.timeModel = new Time();
-        this.carParkModel = new CarPark(3, 6, 30,timeModel);
+        timeModel = new Time();
+        carParkModel = new CarPark(3, 6, 30,timeModel);
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
         this.dayView = new DayView(timeModel);
-        this.statisticsView = new StatisticsView(carParkModel);
+        statisticsView = new StatisticsView(carParkModel);
         this.controller = new Controller(carParkModel);
 
         /**
@@ -110,7 +110,7 @@ public final class CarParkSimulation {
         /**
          * Set the location of the views on the screen
          */
-        carParkView.setBounds(260,30,680,300);
+        carParkView.setBounds(260,30,680,330);
         statisticsView.setBounds(30,160, 200,100);
         queueView.setBounds(30,30,200,120);
         dayView.setBounds(970,30,200, 330);
@@ -121,7 +121,7 @@ public final class CarParkSimulation {
          */
         screen.getContentPane().add(controller);
 
-        controller.setBounds(30,270,910,90);
+        controller.setBounds(30,300,910,90);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if

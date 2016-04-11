@@ -103,18 +103,30 @@ public abstract class Car extends AbstractModel {
     }
 
     /**
-     * Set the amount of time a car stays in the carpak
+     * Set the amount of time a car stays in the carpark
      * @param stayMinutes
      */
     public void setStayMinutes(int stayMinutes) {
         this.stayMinutes = stayMinutes;
+        this.setMinutesLeft(stayMinutes);
     }
 
     /**
-     * Method for decreasing the minutes the Car object has left for parking.
+     * Method for simulating a minute on a car.
      */
     public void tick() {
         minutesLeft--;
+        if (this.getMinutesLeft() <= 0 && !this.getIsPaying()) {
+            if(this instanceof PassHolder){
+                CarPark.removeCarAt(this.getLocation());
+                CarPark.exitCar(this);
+                CarPark.addPassIndex();
+            }else{
+                this.setIsPaying(true);
+                CarPark.payCar(this);
+                CarPark.addCashIndex();
+            }
+        }
     }
 
 }
