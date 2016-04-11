@@ -50,7 +50,7 @@ public final class CarParkSimulation
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
-    private StatisticsView statisticsView;
+    private static StatisticsView statisticsView;
 
     // the controller
     private AbstractController controller;
@@ -73,7 +73,7 @@ public final class CarParkSimulation
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
         this.dayView = new DayView(timeModel);
-        this.statisticsView = new StatisticsView(carParkModel);
+        statisticsView = new StatisticsView(carParkModel);
         this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
 
         this.controller = new Controller(carParkModel);
