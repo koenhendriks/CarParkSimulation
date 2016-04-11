@@ -3,22 +3,20 @@ package nl.hanze.CarParkSimulation.logic;
 /**
  * Class Location
  *
- * @author Ruben Buisman
- * @version 0.1 (05-04-2016)
- */
-
-/**
  * This class represents a location in the car park which
- * is on a certain floor in a certain row in a place
+ * is on a certain floor in a certain row in a place.
+ *
+ * @author Ruben Buisman, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-
-public class Location extends AbstractModel {
+public class Location extends AbstractModel
+{
     private int floor;
     private int row;
     private int place;
 
     /**
-     * Constructor for objects of class Location
+     * Constructor for objects of class Location.
      */
     public Location(int floor, int row, int place) {
         this.floor = floor;
@@ -28,7 +26,10 @@ public class Location extends AbstractModel {
 
     /**
      * Implement content equality.
+     *
+     * @return boolean true or false.
      */
+    @Override
     public boolean equals(Object obj) {
         if(obj instanceof Location) {
             Location other = (Location) obj;
@@ -41,8 +42,10 @@ public class Location extends AbstractModel {
 
     /**
      * Return a string of the form floor,row,place.
+     *
      * @return A string representation of the location.
      */
+    @Override
     public String toString() {
         return floor + "," + row + "," + place;
     }
@@ -51,13 +54,17 @@ public class Location extends AbstractModel {
      * Use the 10 bits for each of the floor, row and place
      * values. Except for very big car parks, this should give
      * a unique hash code for each (floor, row, place) tupel.
+     *
      * @return A hashcode for the location.
      */
+    @Override
     public int hashCode() {
         return (floor << 20) + (row << 10) + place;
     }
 
     /**
+     * Getter for floor.
+     *
      * @return The floor.
      */
     public int getFloor() {
@@ -65,6 +72,8 @@ public class Location extends AbstractModel {
     }
 
     /**
+     * Getter for row.
+     *
      * @return The row.
      */
     public int getRow() {
@@ -72,6 +81,8 @@ public class Location extends AbstractModel {
     }
 
     /**
+     * Getter for place.
+     *
      * @return The place.
      */
     public int getPlace() {
