@@ -6,5 +6,7 @@ package nl.hanze.CarParkSimulation.logic;
  * @author Ruben Buisman
  * @version 0.1 (05-04-2016)
  */
-public class AdHocCar extends Car {
+public class AdHocCar extends Car
+{
+    // do nothing
 }

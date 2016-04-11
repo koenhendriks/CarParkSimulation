@@ -12,21 +12,22 @@ package nl.hanze.CarParkSimulation.logic;
  * It has a certain location in the parking car park and a certain amount of time that
  * it stays in the car park.
  */
-public abstract class Car extends AbstractModel {
+public abstract class Car extends AbstractModel
+{
 
-    // Location for the Car object.
+    // location for the Car object
     private Location location;
 
-    // Minutes the car has left for parking.
+    // minutes the car has left for parking
     private int minutesLeft;
 
-    // Minutes the car is staying in the carpark
+    // minutes the car is staying in the carpark
     private int stayMinutes;
 
-    // Boolean indicating that the car is paying.
+    // boolean indicating that the car is paying
     private boolean isPaying;
 
-    // License for the car
+    // license for the car
     private String license;
 
     /**
@@ -37,12 +38,9 @@ public abstract class Car extends AbstractModel {
         this.license = license.generateLicenseNumber();
     }
 
-    public String getLicense() {
-        return license;
-    }
-
     /**
      * Getter for the location of the Car object.
+     *
      * @return Location of the Car object.
      */
     public Location getLocation() {
@@ -86,7 +84,7 @@ public abstract class Car extends AbstractModel {
     }
 
     /**
-     * Tel the car that it is paying.
+     * Tell the car if it is paying.
      *
      * @param isPaying boolean whether the car is paying or not
      */
@@ -95,16 +93,18 @@ public abstract class Car extends AbstractModel {
     }
 
     /**
-     * The amount of time a car stays in the carpark
-     * @return
+     * Getter for the amount of minutes a car is staying in the car park.
+     *
+     * @return int The amount of minutes the car is staying.
      */
     public int getStayMinutes() {
         return stayMinutes;
     }
 
     /**
-     * Set the amount of time a car stays in the carpak
-     * @param stayMinutes
+     * Set the amount of minutes a car stays in the car park.
+     *
+     * @param stayMinutes The amount of minutes a car is staying.
      */
     public void setStayMinutes(int stayMinutes) {
         this.stayMinutes = stayMinutes;
