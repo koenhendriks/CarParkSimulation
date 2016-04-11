@@ -42,7 +42,7 @@ public class GridView extends AbstractView
     }
 
     /**
-     * Paint the grid on the JPanel
+     * Paint the grid on the JPanel.
      */
     @Override
     public void paint(Graphics g) {
