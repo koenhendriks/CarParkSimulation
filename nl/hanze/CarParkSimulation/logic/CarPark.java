@@ -240,17 +240,12 @@ public final class CarPark extends AbstractModel{
      * Loop trough the car park to get all cars and call the tick method.
      */
     private void tickCars() {
-        this.inMinutes = 0;
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = this.getCar(location);
-                    if (car != null) {
-                        this.inMinutes = this.inMinutes + car.getStayMinutes();
-                        car.tick();
-                    }
-                }
+        inMinutes = 0;
+
+        for (Car car : carLocationMap.values()) {
+            if(car != null){
+                car.tick();
+                inMinutes = inMinutes + car.getStayMinutes();
             }
         }
     }
@@ -316,6 +311,7 @@ public final class CarPark extends AbstractModel{
             }
         }else {
             int nextPlace = freeLocation.getPlace() + 1;
+            System.out.println("");
             freeLocation = new Location(freeLocation.getFloor(),freeLocation.getRow(),nextPlace);
         }
 
