@@ -83,8 +83,10 @@ public abstract class Language
 
         // statistics view strings
         stringCollection.put("stats","Statistics");
-        stringCollection.put("current","Current revenue: ");
         stringCollection.put("expected","Expected revenue: ");
+        stringCollection.put("current","Current rev: ");
+        stringCollection.put("yesterday","Yesterday's rev: ");
+        stringCollection.put("total","Total revenue: ");
     }
 
     /**
