@@ -11,13 +11,11 @@ import java.util.HashMap;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.1 (5-4-2016)
  */
-public abstract class Language
-{
+public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
 
     // the entire body must be static
-    static
-    {
+    static {
         // this is the hash map
         stringCollection = new HashMap<>();
 
@@ -30,66 +28,66 @@ public abstract class Language
         stringCollection.put("no", "No");
 
         // menu strings
-        stringCollection.put("fileMenu","File");
-        stringCollection.put("resetItem","Reset");
-        stringCollection.put("exitItem","Exit");
-        stringCollection.put("helpMenu","Help");
-        stringCollection.put("aboutItem","About...");
-        stringCollection.put("version","version 1.0 \n" +
-                "\n" +
-                "Written by:\n" +
-                "Koen Hendriks,\n" +
-                "Ruben Buisman,\n" +
-                "Robin Meles,\n" +
-                "Joey Boum Bletterman.");
+        stringCollection.put("fileMenu", "File");
+        stringCollection.put("resetItem", "Reset");
+        stringCollection.put("exitItem", "Exit");
+        stringCollection.put("helpMenu", "Help");
+        stringCollection.put("aboutItem", "About...");
+        stringCollection.put("version", "version 1.0");
+         stringCollection.put("names",
+                 "Written by:\n" +
+                 "Koen Hendriks,\n" +
+                 "Ruben Buisman,\n" +
+                 "Robin Meles,\n" +
+                 "Joey Boum Bletterman.");
 
         // controller strings
-        stringCollection.put("insertSteps","Insert steps: ");
-        stringCollection.put("input","1");
-        stringCollection.put("startLimit","Start");
-        stringCollection.put("speedLabel","Size of minute in milliseconds: ");
-        stringCollection.put("speedField","1000");
-        stringCollection.put("speedButton","Set");
-        stringCollection.put("startButton","Start");
-        stringCollection.put("stopButton","Stop");
+        stringCollection.put("insertSteps", "Insert steps: ");
+        stringCollection.put("input", "1");
+        stringCollection.put("startLimit", "Start");
+        stringCollection.put("speedLabel", "Size of minute in milliseconds: ");
+        stringCollection.put("speedField", "1000");
+        stringCollection.put("speedButton", "Set");
+        stringCollection.put("startButton", "Start");
+        stringCollection.put("stopButton", "Stop");
 
         // day view strings
-        stringCollection.put("runTime","Time Info");
-        stringCollection.put("runningTime","Simulation is running:");
+        stringCollection.put("runTime", "Time Info");
+        stringCollection.put("runningTime", "Simulation is running:");
         stringCollection.put("startTime", "Simulating since:");
         stringCollection.put("currentTime", "Current time in simulation:");
-        stringCollection.put("mins","In minutes: ");
-        stringCollection.put("hrs","In hours: ");
-        stringCollection.put("days","In days: ");
-        stringCollection.put("wks","In Weeks: ");
-        stringCollection.put("weekend","Weekend?");
+        stringCollection.put("mins", "In minutes: ");
+        stringCollection.put("hrs", "In hours: ");
+        stringCollection.put("days", "In days: ");
+        stringCollection.put("wks", "In Weeks: ");
+        stringCollection.put("weekend", "Weekend?");
 
         // simulation strings
-        stringCollection.put("title","Car Park Simulation");
+        stringCollection.put("title", "Car Park Simulation");
 
         // car park view strings
-        stringCollection.put("birdView","Car Park Bird View");
-        stringCollection.put("cars0","Total cars: 0");
-        stringCollection.put("pass0","Total passholds: 0");
-        stringCollection.put("cars","Total cars: ");
-        stringCollection.put("pass","Total Passholders: ");
+        stringCollection.put("birdView", "Car Park Bird View");
+        stringCollection.put("cars0", "Total cars: 0");
+        stringCollection.put("pass0", "Total passholds: 0");
+        stringCollection.put("cars", "Total cars: ");
+        stringCollection.put("pass", "Total Passholders: ");
 
         // queue view strings
-        stringCollection.put("info","Carpark info");
-        stringCollection.put("used","Used the entrance: ");
-        stringCollection.put("left","Left the carpark: ");
-        stringCollection.put("payCash","Paid with cash: ");
-        stringCollection.put("payPass","Paid with pass: ");
+        stringCollection.put("info", "Carpark info");
+        stringCollection.put("used", "Used the entrance: ");
+        stringCollection.put("left", "Left the carpark: ");
+        stringCollection.put("payCash", "Paid with cash: ");
+        stringCollection.put("payPass", "Paid with pass: ");
 
         // statistics view strings
-        stringCollection.put("stats","Statistics");
-        stringCollection.put("expected","Expected revenue: ");
-        stringCollection.put("current","Current rev: ");
-        stringCollection.put("yesterday","Yesterday's rev: ");
-        stringCollection.put("total","Total revenue: ");
-        stringCollection.put("bar","Occupation: ");
-        stringCollection.put("regbar","Regular customers: ");
-        stringCollection.put("pasbar","Pass Holders: ");
+        stringCollection.put("stats", "Statistics");
+        stringCollection.put("expected", "Expected revenue: ");
+        stringCollection.put("current", "Current rev: ");
+        stringCollection.put("yesterday", "Yesterday's rev: ");
+        stringCollection.put("total", "Total revenue: ");
+        stringCollection.put("bar", "Occupation: ");
+        stringCollection.put("regbar", "Regular customers: ");
+        stringCollection.put("pasbar", "Pass Holders: ");
     }
 
     /**
@@ -98,7 +96,7 @@ public abstract class Language
      * @param code The code to retrieve the string from
      * @return String that belongs to the given code
      */
-    public static String get(String code){
+    public static String get(String code) {
         return stringCollection.get(code);
     }
 }
