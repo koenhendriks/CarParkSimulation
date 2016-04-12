@@ -53,6 +53,7 @@ public class Controller extends AbstractController implements ActionListener
 
         stepsField = new JTextField(Language.get("input"));
         stepsField.setBounds(10,20,75,20);
+        stepsField.addActionListener(this);
         add(stepsField);
 
         startLimit = new JButton(Language.get("startLimit"));
@@ -67,6 +68,7 @@ public class Controller extends AbstractController implements ActionListener
 
         speedField = new JTextField(Language.get("speedField"));
         speedField.setBounds(10,65,75,20);
+        speedField.addActionListener(this);
         add(speedField);
 
         speedButton = new JButton(Language.get("speedButton"));
@@ -182,17 +184,29 @@ public class Controller extends AbstractController implements ActionListener
 
         if(actionEvent.getSource() == startButton){
             this.startPressed();
-        } else if(actionEvent.getSource() == stopButton){
+        }
+        else if(actionEvent.getSource() == stopButton){
             this.stopPressed();
-        } else if(actionEvent.getSource() == startLimit){
+        }
+        else if(actionEvent.getSource() == startLimit){
             this.startStepPressed();
-        } else if(actionEvent.getSource() == speedButton){
+        }
+        else if(actionEvent.getSource() == stepsField) {
+            this.startStepPressed();
+        }
+        else if(actionEvent.getSource() == speedButton){
             this.speedPressed();
-        } else if(actionEvent.getSource() == CarParkSimulation.exitItem){
+        }
+        else if(actionEvent.getSource() == speedField) {
+            this.speedPressed();
+        }
+        else if(actionEvent.getSource() == CarParkSimulation.exitItem){
             this.exitPressed();
-        } else if(actionEvent.getSource() == CarParkSimulation.aboutItem) {
+        }
+        else if(actionEvent.getSource() == CarParkSimulation.aboutItem) {
            this.aboutPressed();
-        } else if(actionEvent.getSource() == CarParkSimulation.resetItem) {
+        }
+        else if(actionEvent.getSource() == CarParkSimulation.resetItem) {
             this.resetPressed();
         }
 

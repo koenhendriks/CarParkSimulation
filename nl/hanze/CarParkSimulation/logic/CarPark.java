@@ -1,7 +1,5 @@
 package nl.hanze.CarParkSimulation.logic;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -46,7 +44,6 @@ public final class CarPark extends AbstractModel{
     private static int inMinutes;
 
     private static HashMap<Location, Car> carLocationMap;
-    private static Location freeLocation;
 
     /**
      * Constructor of the CarPark model expecting the floors, rows and places.
@@ -61,12 +58,6 @@ public final class CarPark extends AbstractModel{
          * The time object for the Car Park
          */
         this.time = time;
-
-        /**
-         * The first free spot is on the first floor
-         * on the first row, the first place
-         */
-        freeLocation = new Location(0,0,0);
 
         /**
          * Create the park with the number of floors, rows and places
@@ -181,7 +172,8 @@ public final class CarPark extends AbstractModel{
                 break;
             }
             // Find a space for this car.
-            if (freeLocation != null) {
+            if (FreeLocation.location != null) {
+
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setStayMinutes(stayMinutes);
 
@@ -189,9 +181,9 @@ public final class CarPark extends AbstractModel{
                  * Park the car and generate a new free location
                  * for the next car that comes in the car park.
                  */
-                this.parkCar(freeLocation, car);
+                this.parkCar(FreeLocation.location, car);
 
-                setNextFreeLocation();
+                FreeLocation.setNext();
             }
 
             super.notifyViews();
@@ -242,16 +234,11 @@ public final class CarPark extends AbstractModel{
      */
     private void tickCars() {
         inMinutes = 0;
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = this.getCar(location);
-                    if (car != null) {
-                        inMinutes =(inMinutes + car.getStayMinutes());
-                        car.tick();
-                    }
-                }
+
+        for (Car car : carLocationMap.values()) {
+            if(car != null){
+                car.tick();
+                inMinutes =(inMinutes + car.getStayMinutes());
             }
         }
     }
@@ -293,40 +280,7 @@ public final class CarPark extends AbstractModel{
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces); // todo check last bracket
-    }
-
-    /**
-     * Sets the first free parking place that is available in the car park.
-     */
-    public void setNextFreeLocation() {
-
-        if(freeLocation.getPlace() == numberOfPlaces ){
-
-            if(freeLocation.getRow() == numberOfRows ) {
-
-                if (freeLocation.getFloor() == numberOfFloors) {
-                    freeLocation = null;
-                }else{
-                    int nextFloor = freeLocation.getFloor() +1;
-                    freeLocation = new Location(nextFloor, 0, 0);
-                }
-            }else{
-                int nextRow = freeLocation.getRow() + 1;
-                freeLocation = new Location(freeLocation.getFloor(),nextRow,0);
-            }
-        }else {
-            int nextPlace = freeLocation.getPlace() + 1;
-            freeLocation = new Location(freeLocation.getFloor(),freeLocation.getRow(),nextPlace);
-        }
-
-        /**
-         * Make this method recursive until we have a free spot.
-         */
-        if(getCar(freeLocation) != null){
-            setNextFreeLocation();
-        }
-
+        return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces);
     }
 
     /**
@@ -339,21 +293,7 @@ public final class CarPark extends AbstractModel{
             Car car = carLocationMap.get(location);
             car.setLocation(null);
 
-            /**
-             * Only set the location as next free location if:
-             *  - the floor is smaller then the original
-             *  - or, the floor is the same but the row is smaller
-             *  - or, the floor is the same, the row is the same but the place is smaller
-             */
-            if(location.getFloor() < freeLocation.getFloor()) {
-                freeLocation = location;
-            } else if(location.getFloor() == freeLocation.getFloor() && location.getRow() < freeLocation.getRow()){
-                freeLocation = location;
-            } else if (location.getFloor() == freeLocation.getFloor() && location.getRow() == freeLocation.getRow() && location.getPlace() < freeLocation.getPlace()) {
-                freeLocation = location;
-            }
-
-
+            FreeLocation.checkRemovedLocation(location);
 
             carLocationMap.put(location, null);
         }
@@ -467,7 +407,6 @@ public final class CarPark extends AbstractModel{
         return totalPassholderIndex;
     }
 
-
     /**
      * Reset method for the park.
      */
@@ -498,7 +437,7 @@ public final class CarPark extends AbstractModel{
         for (Location location: carLocationMap.keySet()) {
             carLocationMap.put(location, null);
         }
-        freeLocation = new Location(0,0,0);
+        FreeLocation.location = new Location(0,0,0);
 
         //Update the views
         super.notifyViews();
