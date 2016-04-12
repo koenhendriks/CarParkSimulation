@@ -36,7 +36,6 @@ public final class CarParkSimulation {
     private AbstractController controller;
     private int width;
     private int height;
-    private int steps;
 
     /**
      * The simulations speed means the amount of miliseconds
@@ -47,8 +46,6 @@ public final class CarParkSimulation {
     public static boolean running;
 
     public CarParkSimulation() {
-        // set default number of steps
-        steps = 300000;
 
         /**
          * Set the dimension for the application
@@ -87,7 +84,7 @@ public final class CarParkSimulation {
         /**
          * Set the location of the views on the screen
          */
-        carParkView.setBounds(260,10,680,300);
+        carParkView.setBounds(260,10,680,330);
         statisticsView.setBounds(30,140, 200,100);
         queueView.setBounds(30,10,200,120);
         dayView.setBounds(970,10,200, 150);
@@ -98,7 +95,7 @@ public final class CarParkSimulation {
          */
         screen.getContentPane().add(controller);
 
-        controller.setBounds(30,250,910,90);
+        controller.setBounds(30,350,910,90);
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
@@ -155,21 +152,4 @@ public final class CarParkSimulation {
             }
         }
     }
-
-    /**
-     * Getter for steps
-     * @return the amount of steps the simulation executes
-     */
-    public int getSteps() {
-        return steps;
-    }
-
-    /**
-     * Setter for steps
-     * @param steps the amount of steps the simulation executes
-     */
-    public void setSteps(int steps) {
-        this.steps = steps;
-    }
-
 }

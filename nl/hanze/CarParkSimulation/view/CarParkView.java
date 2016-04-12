@@ -33,7 +33,7 @@ public class CarParkView extends AbstractView{
         this.title = new JLabel(Language.get("birdView"));
         this.totalCars = new JLabel(Language.get("cars0"));
         this.totalPassholders = new JLabel(Language.get("pass0"));
-        this.size = new Dimension(680, 300);
+        this.size = new Dimension(680, 330);
 
         /**
          * Set location of the labels
