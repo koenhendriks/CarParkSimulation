@@ -1,9 +1,11 @@
 package nl.hanze.CarParkSimulation.view;
 
+import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * AlternateStatisticsView class
@@ -14,12 +16,21 @@ import javax.swing.*;
  */
 public class AlternateStatisticsView extends AbstractView
 {
+    CarPark carPark = (CarPark) super.model;
+
     private int totalCars;
     private int passholders;
     private int regular;
+    private Double percent1;
+    private Double percent2;
+    private double percent1int;
+    private double percent2int;
 
-    private JLabel bar1;
-    private JLabel bar2;
+    private JLabel progress;
+    private JProgressBar bar1;
+    private JProgressBar bar2;
+
+    public static final int SPACES = 500;
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
      *
@@ -28,6 +39,28 @@ public class AlternateStatisticsView extends AbstractView
     public AlternateStatisticsView(AbstractModel model) {
         super(model);
 
+        // label
+        progress = new JLabel(Language.get("bar")); // TODO: 4/12/16 Link to Language
+        progress.setBounds(0,0,680,20);
+        add(progress);
+
+        // bar 1: regular
+        bar1 = new JProgressBar();
+        bar1.setBounds(0, 30, 680, 30);
+        bar1.setBorderPainted(true);
+        bar1.setStringPainted(true);
+        add(bar1);
+
+        // bar 2: pass holders
+        bar2 = new JProgressBar();
+        bar2.setBounds(0, 70, 680, 30);
+        bar2.setBorderPainted(true);
+        bar2.setStringPainted(true);
+        add(bar2);
+    }
+
+    @Override
+    public void updateView() {
         CarPark carPark = (CarPark) super.model;
 
         // indices
@@ -35,19 +68,17 @@ public class AlternateStatisticsView extends AbstractView
         passholders = carPark.getTotalPassholderIndex();
         regular = totalCars - passholders;
 
-        // bar 1
-        bar1 = new JLabel("bar1");
-        bar1.setBounds(0,0,680,30);
-        add(bar1);
+        bar1.setMaximum(SPACES);
+        bar1.setValue(regular);
+        percent1 = bar1.getPercentComplete();
+        bar1.setString(Language.get("regbar") + percent1);
 
-        // bar 2
-        bar2 = new JLabel("bar2");
-        bar2.setBounds(0,40,680,30);
-        add(bar2);
-    }
+        bar2.setMaximum(SPACES);
+        bar2.setValue(passholders);
+        percent2 = bar2.getPercentComplete();
+        bar2.setString(Language.get("pasbar") + percent2);
 
-    @Override
-    public void updateView() {
+        setVisible(true);
         super.updateView();
     }
 }

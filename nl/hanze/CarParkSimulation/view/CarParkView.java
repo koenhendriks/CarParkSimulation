@@ -74,10 +74,11 @@ public class CarParkView extends AbstractView
 
         CarPark carPark = (CarPark) super.model;
 
+        // total statistics
         totalCars.setText(Language.get("cars")+ carPark.getTotalCars());
         totalPassholders.setText(Language.get("pass")+carPark.getTotalPassholderIndex());
 
-        // Create a new car park image if the size has changed.
+        // create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
 
         Graphics graphics = carParkImage.getGraphics();

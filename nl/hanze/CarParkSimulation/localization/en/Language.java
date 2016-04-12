@@ -85,6 +85,9 @@ public abstract class Language
         stringCollection.put("stats","Statistics");
         stringCollection.put("current","Current revenue: ");
         stringCollection.put("expected","Expected revenue: ");
+        stringCollection.put("bar","Occupation: ");
+        stringCollection.put("regbar","Regular customers: %");
+        stringCollection.put("pasbar","Pass Holders: %");
     }
 
     /**
