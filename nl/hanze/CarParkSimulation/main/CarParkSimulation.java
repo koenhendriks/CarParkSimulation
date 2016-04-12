@@ -5,13 +5,8 @@ import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
-import nl.hanze.CarParkSimulation.logic.CarQueue;
-import nl.hanze.CarParkSimulation.logic.DayView;
-import nl.hanze.CarParkSimulation.view.AbstractView;
-import nl.hanze.CarParkSimulation.view.CarParkView;
-import nl.hanze.CarParkSimulation.view.GridView;
-import nl.hanze.CarParkSimulation.view.StatisticsView;
-import nl.hanze.CarParkSimulation.view.QueueView;
+import nl.hanze.CarParkSimulation.logic.Time;
+import nl.hanze.CarParkSimulation.view.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -20,36 +15,51 @@ import java.awt.event.WindowEvent;
 /**
  * Class CarParkSimulation
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * This will be an instance of the main simulation.
+ *
+ * @author Koen Hendriks, Ruben Buisman, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public final class CarParkSimulation {
+public final class CarParkSimulation
+{
+    // the main specifications
+    public static final JFrame SCREEN = new JFrame(Language.get("title"));
+    private static CarPark carParkModel;
+    private static Time timeModel;
+    private int width;
+    private int height;
 
-    private CarPark carParkModel;
-    private JFrame screen;
+    // the simulations speed means the amount of milliseconds
+    // it takes to simulate 1 minute in the car park.
+    public static int simulationSpeed = 1000;
+
+    // state of the simulation
+    public static boolean running;
+
+    // the menu
+    public static final JMenuBar menubar = new JMenuBar();
+    public static final JMenu fileMenu = new JMenu(Language.get("fileMenu"));
+    public static final JMenu helpMenu = new JMenu(Language.get("helpMenu"));
+    public static final JMenuItem resetItem = new JMenuItem(Language.get("resetItem"));
+    public static final JMenuItem exitItem = new JMenuItem(Language.get("exitItem"));
+    public static final JMenuItem aboutItem = new JMenuItem(Language.get("aboutItem"));
+
+    // the views
     private AbstractView carParkView;
     private AbstractView queueView;
     private AbstractView dayView;
     private AbstractView gridView;
-    private AbstractView statisticsView;
-    private AbstractController carParkController;
+    private AbstractView alternateStatiscticsView;
+    private static StatisticsView statisticsView;
+
+    // the controller
     private AbstractController controller;
-    private int width;
-    private int height;
 
     /**
-     * The simulations speed means the amount of miliseconds
-     * it takes to simulate 1 minute in the car park.
+     * Constructor for the simulation.
      */
-    public static int simulationSpeed = 1000;
-
-    public static boolean running;
-
     public CarParkSimulation() {
-
-        /**
-         * Set the dimension for the application
-         */
+        //Set the dimensions for the application
         this.width = 1200;
         this.height = 750;
 
@@ -57,51 +67,64 @@ public final class CarParkSimulation {
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
-        this.carParkModel = new CarPark(3, 6, 30);
-        this.carParkController = new Controller(carParkModel);
+        timeModel = new Time();
+        carParkModel = new CarPark(3, 6, 30,timeModel);
+
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
-        this.dayView = new DayView(carParkModel);
-        this.statisticsView = new StatisticsView(carParkModel);
+        this.dayView = new DayView(timeModel);
+        statisticsView = new StatisticsView(carParkModel);
+        this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
+
         this.controller = new Controller(carParkModel);
 
         /**
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
-        screen = new JFrame(Language.get("title"));
-        screen.setSize(this.width, this.height);
-        screen.setLayout(null);
+        SCREEN.setSize(this.width, this.height);
+        SCREEN.setLayout(null);
 
-        /**
-         * Add the views to the main screen
-         */
-        screen.getContentPane().add(carParkView);
-        screen.getContentPane().add(dayView);
-        screen.getContentPane().add(queueView);
-        screen.getContentPane().add(statisticsView);
+        // add the menu bar
+        SCREEN.add(menubar);
 
-        /**
-         * Set the location of the views on the screen
-         */
-        carParkView.setBounds(260,10,680,330);
-        statisticsView.setBounds(30,140, 200,100);
-        queueView.setBounds(30,10,200,120);
-        dayView.setBounds(970,10,200, 150);
+        // add the file menu and items
+        menubar.add(fileMenu);
+        fileMenu.add(resetItem);
+        fileMenu.add(new JSeparator());
+        fileMenu.add(exitItem);
 
 
-        /**
-         * Add the controllers to the main screen
-         */
-        screen.getContentPane().add(controller);
+        // add the help menu and items
+        menubar.add(helpMenu);
+        helpMenu.add(aboutItem);
+        menubar.setBounds(0,0,1200,20);
+        menubar.setVisible(true);
 
-        controller.setBounds(30,350,910,90);
+        // add the views to the main SCREEN
+        SCREEN.getContentPane().add(carParkView);
+        SCREEN.getContentPane().add(dayView);
+        SCREEN.getContentPane().add(queueView);
+        SCREEN.getContentPane().add(statisticsView);
+        SCREEN.getContentPane().add(alternateStatiscticsView);
+
+        // set the location of the views on the SCREEN
+        carParkView.setBounds(260,30,680,330);
+        statisticsView.setBounds(30,160, 200,100);
+        queueView.setBounds(30,30,200,120);
+        dayView.setBounds(970,30,200, 330);
+
+
+        // add the controllers to the main SCREEN
+        SCREEN.getContentPane().add(controller);
+        controller.setBounds(30,300,910,90);
+
         /**
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
-         * they want to close the Car Park Simulation
+         * they want to close the Car Park Simulation.
          */
-        screen.addWindowListener(new WindowAdapter() {
+        SCREEN.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showOptionDialog(carParkView,
@@ -114,42 +137,48 @@ public final class CarParkSimulation {
             }
         });
 
-        /**
+        /*
          * We only want to exit the application if the user has
          * confirmed our message, otherwise we don't want to
-         * do anything, so we change the default close
+         * do anything, so we change the default close.
          */
-        screen.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        SCREEN.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        /**
-         * Show the main screen, disable resizing and notify the views to update
-         */
-        screen.setVisible(true);
-        screen.setResizable(false);
+        // show the main SCREEN, disable resizing and notify the views to update.
+        SCREEN.setVisible(true);
+        SCREEN.setResizable(false);
 
-        /**
-         * Debug: Draw a grid with 10 by 10 squares
-         */
+        // debug: Draw a grid with 10 by 10 squares
+        // TODO: 4/11/16 this should be removed before release
         this.gridView = new GridView(new AbstractModel() {}, this.width, this.height);
         gridView.setBounds(0, 0, this.width, this.height);
-        screen.getContentPane().add(gridView);
+        SCREEN.getContentPane().add(gridView);
 
-        /**
-         * Initialize views
-         */
+        // initialize views
         carParkView.updateView();
+        timeModel.notifyViews();
 
         running = true;
 
         while(true){
             if (running) {
-                carParkModel.tick(true);
+                carParkModel.tick();
             }
-            try{
+            try {
                 Thread.sleep(simulationSpeed);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Method for resetting the entire simulation.
+     */
+    public static void resetSimulation(){
+        carParkModel.resetPark();
+        statisticsView.resetStats();
+        timeModel.resetTime();
     }
 }

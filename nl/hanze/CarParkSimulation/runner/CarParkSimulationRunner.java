@@ -8,11 +8,11 @@ import nl.hanze.CarParkSimulation.main.CarParkSimulation;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public class CarParkSimulationRunner {
-
+public class CarParkSimulationRunner
+{
     /**
-     * Main method for executing the runner
-     * @param args args for runner
+     * Main method for executing the runner.
+     * @param args args for runner.
      */
     public static void main(String[] args) {
          new CarParkSimulation();

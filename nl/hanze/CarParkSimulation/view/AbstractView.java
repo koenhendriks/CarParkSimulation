@@ -11,20 +11,21 @@ import javax.swing.*;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public abstract class AbstractView extends JPanel {
-    // All views have a certain model
+public abstract class AbstractView extends JPanel
+{
+    // all views have a certain model
     protected AbstractModel model;
 
     /**
-     * Constructor of AbstractView that expects a model belonging to this view
+     * Constructor of AbstractView that expects a model belonging to this view.
      *
-     * @param model AbstractModel that belongs to this view
+     * @param model AbstractModel that belongs to this view.
      */
     public AbstractView(AbstractModel model) {
         this.model = model;
         model.addView(this);
 
-        // We use absolute positioning so we can set the layout to null
+        // we use absolute positioning so we can set the layout to null
         setLayout(null);
     }
 

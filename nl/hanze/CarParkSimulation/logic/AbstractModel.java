@@ -12,7 +12,8 @@ import java.util.List;
  * @author Koen Hendriks
  * @version 0.1 (04-04-2016)
  */
-public abstract class AbstractModel {
+public abstract class AbstractModel
+{
     // List of views that are linked to the model
     private List<AbstractView> views;
 
@@ -26,7 +27,7 @@ public abstract class AbstractModel {
     /**
      * Method to add a view to the model
      *
-     * @param view AbstractView that belongs to the model
+     * @param view AbstractView that belongs to the model.
      */
     public void addView(AbstractView view) {
         this.views.add(view);

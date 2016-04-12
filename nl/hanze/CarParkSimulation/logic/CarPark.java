@@ -1,27 +1,29 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * Class CarPark
+ * This class can generate an instance of a car park.
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public class CarPark extends AbstractModel{
+public final class CarPark extends AbstractModel{
 
-    private int numberOfFloors;
-    private int numberOfRows;
-    private int numberOfPlaces;
+    private static int numberOfFloors;
+    private static int numberOfRows;
+    private static int numberOfPlaces;
 
-    private CarQueue entranceCarQueue;
-    private CarQueue paymentCarQueue;
-    private CarQueue exitCarQueue;
+    // car queue types
+    private static CarQueue entranceCarQueue;
+    private static CarQueue paymentCarQueue;
+    private static CarQueue exitCarQueue;
 
-    private int day = 0;
-    private int hour = 0;
-    private int minute = 0;
-
+    // time object
+    private Time time;
     // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
@@ -32,37 +34,63 @@ public class CarPark extends AbstractModel{
     int exitSpeed = 9; // number of cars that can leave per minute
     int passHolderProbability = 5; // this means one in five cars will be a passholder
 
-    int entranceIndex = 0;
-    int exitIndex = 0;
-    int payCashIndex = 0;
-    int payPassIndex = 0;
-    int totalCarIndex = 0;
-    int totalPassholderIndex = 0;
+    private static int entranceIndex = 0;
+    private static int exitIndex = 0;
+    private static int payCashIndex = 0;
+    private static int payPassIndex = 0;
+    private static int totalCarIndex = 0;
+    private static int totalPassholderIndex = 0;
+    private static int totalMinutes;
+    private static int inMinutes;
 
-    int stayMinutes;
-    int totalMinutes;
-    int inMinutes;
-
-
-    private Car[][][] cars;
+    private static HashMap<Location, Car> carLocationMap;
+    private static Location freeLocation;
 
     /**
      * Constructor of the CarPark model expecting the floors, rows and places.
      *
-     * @param numberOfFloors int with the amount of floors to draw
-     * @param numberOfRows   int with the amount of rows per floor to draw
-     * @param numberOfPlaces int with the amount of places per row to draw
+     * @param floors int with the amount of floors to draw
+     * @param rows int with the amount of rows per floor to draw
+     * @param places int with the amount of places per row to draw
+     * @param time Time model that we use to keep track and progress the time
      */
-    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-        this.numberOfFloors = numberOfFloors;
-        this.numberOfRows = numberOfRows;
-        this.numberOfPlaces = numberOfPlaces;
+    public CarPark(int floors, int rows, int places, Time time) {
+        /**
+         * The time object for the Car Park
+         */
+        this.time = time;
 
-        this.entranceCarQueue = new CarQueue();
-        this.paymentCarQueue = new CarQueue();
-        this.exitCarQueue = new CarQueue();
+        /**
+         * The first free spot is on the first floor
+         * on the first row, the first place
+         */
+        freeLocation = new Location(0,0,0);
 
-        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+        /**
+         * Create the park with the number of floors, rows and places
+         * and create the queues available for the cars
+         */
+        numberOfFloors = floors;
+        numberOfRows = rows;
+        numberOfPlaces = places;
+        entranceCarQueue = new CarQueue();
+        paymentCarQueue = new CarQueue();
+        exitCarQueue = new CarQueue();
+
+        /**
+         * Here we generate our hash map with all the locations
+         * we only need to do this ones here which saves a lot
+         * of resources in comparison if we do this every tick
+         */
+        carLocationMap = new HashMap<>();
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    carLocationMap.put(location,null);
+                }
+            }
+        }
     }
 
     /**
@@ -71,27 +99,27 @@ public class CarPark extends AbstractModel{
      * @param location Location object where to get the car from.
      * @return car object that is located at the given location.
      */
-    public Car getCar(Location location) {
+    public static Car getCar(Location location) {
         if (!checkLocation(location)) {
             return null;
         }
-        return cars[location.getFloor()][location.getRow()][location.getPlace()];
+        return carLocationMap.get(location);
     }
 
     /**
      * Park a car in a certain location in the car park.
      *
      * @param location Location object where to put the car.
-     * @param car Car object
-     * @return boolean whether car is successfully placed or not
+     * @param car Car object.
+     * @return boolean whether car is successfully placed or not.
      */
     public boolean parkCar(Location location, Car car) {
-        if (!this.checkLocation(location)) {
+        if (!checkLocation(location)) {
             return false;
         }
-        Car oldCar = this.getCar(location);
+        Car oldCar = getCar(location);
         if (oldCar == null) {
-            cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
+            carLocationMap.put(location,car);
             car.setLocation(location);
             return true;
         }
@@ -99,30 +127,15 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Run a simulation step
-     *
-     * @param pause boolean whether we should pause after a step
+     * Method for running a simulation step.
      */
-    public void tick(boolean pause) {
-
-        // Advance the time by one minute.
-        this.minute++;
-        while (this.minute > 59) {
-            this.minute -= 60;
-            this.hour++;
-        }
-        while (this.hour > 23) {
-            this.hour -= 24;
-            this.day++;
-        }
-        while (this.day > 6) {
-            this.day -= 7;
-        }
+    public void tick() {
+        time.tick();
 
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = this.day < 5
+        int averageNumberOfCarsPerHour = time.isWeekend()
                 ? this.weekDayArrivals
                 : this.weekendArrivals;
 
@@ -141,13 +154,14 @@ public class CarPark extends AbstractModel{
              */
             int customerChance = random.nextInt(this.passHolderProbability);
 
-            if(customerChance == 0){
+            if (customerChance == 0){
                 Car car = new PassHolder();
-                this.entranceCarQueue.addCar(car);
+                entranceCarQueue.addCar(car);
                 totalPassholderIndex++;
-            }else{
+            }
+            else {
                 Car car = new AdHocCar();
-                this.entranceCarQueue.addCar(car);
+                entranceCarQueue.addCar(car);
             }
             entranceIndex ++;
             totalCarIndex ++;
@@ -165,12 +179,17 @@ public class CarPark extends AbstractModel{
                 break;
             }
             // Find a space for this car.
-            Location freeLocation = this.getFirstFreeLocation();
             if (freeLocation != null) {
+                int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                car.setStayMinutes(stayMinutes);
+
+                /**
+                 * Park the car and generate a new free location
+                 * for the next car that comes in the car park.
+                 */
                 this.parkCar(freeLocation, car);
-                this.stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                car.setMinutesLeft(this.stayMinutes);
-                this.inMinutes = inMinutes + stayMinutes;
+
+                setNextFreeLocation();
             }
 
             super.notifyViews();
@@ -178,31 +197,7 @@ public class CarPark extends AbstractModel{
 
         this.tickCars();
 
-        // Add leaving cars to the exit queue.
-        while (true) {
-            Car car = this.getFirstLeavingCar();
-            if (car == null) {
-                break;
-            }
-
-            /**
-             * If the customer is an instance of the passholder
-             * we can skip the payment and leave the car park
-             * immediately by adding the car to the exit que.
-             */
-            if(car instanceof PassHolder){
-                this.removeCarAt(car.getLocation());
-                exitCarQueue.addCar(car);
-                payPassIndex ++;
-                exitIndex ++;
-            }else{
-                car.setIsPaying(true);
-                paymentCarQueue.addCar(car);
-                payCashIndex ++;
-            }
-
-            super.notifyViews();
-        }
+        super.notifyViews();
 
         // Let cars pay.
         for (int i = 0; i < paymentSpeed; i++) {
@@ -211,9 +206,8 @@ public class CarPark extends AbstractModel{
             if (car == null) {
                 break;
             }
-            // TODO Handle payment.
-            this.removeCarAt(car.getLocation());
-            super.notifyViews();
+
+            removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
 
             super.notifyViews();
@@ -222,6 +216,7 @@ public class CarPark extends AbstractModel{
         // Let cars leave.
         for (int i = 0; i < exitSpeed; i++) {
             Car car = exitCarQueue.removeCar();
+
             if (car == null) {
                 break;
             }
@@ -230,10 +225,9 @@ public class CarPark extends AbstractModel{
                 totalPassholderIndex--;
             }
 
+            totalMinutes = totalMinutes + car.getStayMinutes();
             totalCarIndex--;
             exitIndex++;
-            this.totalMinutes = this.totalMinutes + this.stayMinutes;
-
             super.notifyViews();
         }
 
@@ -243,15 +237,17 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Loop trough the car park to get all cars and call the tick method
+     * Loop trough the car park to get all cars and call the tick method.
      */
     private void tickCars() {
+        this.inMinutes = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = this.getCar(location);
                     if (car != null) {
+                        this.inMinutes = this.inMinutes + car.getStayMinutes();
                         car.tick();
                     }
                 }
@@ -260,152 +256,249 @@ public class CarPark extends AbstractModel{
     }
 
     /**
-     * Get number of floors
+     * Get number of floors.
      *
-     * @return int number of floors in the car park
+     * @return int number of floors in the car park.
      */
-    public int getNumberOfFloors() {
+    public static int getNumberOfFloors() {
         return numberOfFloors;
     }
 
     /**
-     * Get number of rows
+     * Get number of rows.
      *
-     * @return int number of rows in the car park
+     * @return int number of rows in the car park.
      */
-    public int getNumberOfRows() {
+    public static int getNumberOfRows() {
         return numberOfRows;
     }
 
     /**
-     * Get number of places
+     * Get number of places.
      *
-     * @return int number of places in the car park
+     * @return int number of places in the car park.
      */
-    public int getNumberOfPlaces() {
+    public static int getNumberOfPlaces() {
         return numberOfPlaces;
     }
 
     /**
      * Check if a location is valid in the car park.
      *
-     * @param location Location object to check
-     * @return boolean whether location is valid
+     * @param location Location object to check.
+     * @return boolean whether location is valid.
      */
-    public boolean checkLocation(Location location) {
+    public static boolean checkLocation(Location location) {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        return !(floor < 0 || floor >= getNumberOfFloors() || row < 0 || row > getNumberOfRows() || place < 0 || place > getNumberOfPlaces());
+        return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces); // todo check last bracket
     }
 
     /**
-     * Gets the first free parking place that is available in the car park.
-     *
-     * @return null | Location object when free place is found, otherwise null
+     * Sets the first free parking place that is available in the car park.
      */
-    public Location getFirstFreeLocation() {
-        for (int floor = 0; floor < this.getNumberOfFloors(); floor++) {
-            for (int row = 0; row < this.getNumberOfRows(); row++) {
-                for (int place = 0; place < this.getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    if (this.getCar(location) == null) {
-                        return location;
-                    }
-                }
-            }
-        }
-        return null;
-    }
+    public void setNextFreeLocation() {
 
-    /**
-     * Get the first leaving car in the parking garage.
-     *
-     * @return null | Car object when a leaving car is found, otherwise null
-     */
-    public Car getFirstLeavingCar() {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    Car car = this.getCar(location);
-                    if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
-                        return car;
-                    }
+        if(freeLocation.getPlace() == numberOfPlaces ){
+
+            if(freeLocation.getRow() == numberOfRows ) {
+
+                if (freeLocation.getFloor() == numberOfFloors) {
+                    freeLocation = null;
+                }else{
+                    int nextFloor = freeLocation.getFloor() +1;
+                    freeLocation = new Location(nextFloor, 0, 0);
                 }
+            }else{
+                int nextRow = freeLocation.getRow() + 1;
+                freeLocation = new Location(freeLocation.getFloor(),nextRow,0);
             }
+        }else {
+            int nextPlace = freeLocation.getPlace() + 1;
+            freeLocation = new Location(freeLocation.getFloor(),freeLocation.getRow(),nextPlace);
         }
-        return null;
+
+        /**
+         * Make this method recursive until we have a free spot.
+         */
+        if(getCar(freeLocation) != null){
+            setNextFreeLocation();
+        }
+
     }
 
     /**
      * Remove a car at a certain location in the car park.
      *
      * @param location Location object where to remove the car
-     * @return null | Car object when successfully removed, null if it failed
      */
-    public Car removeCarAt(Location location) {
-        if (!this.checkLocation(location)) {
-            return null;
+    public static void removeCarAt(Location location) {
+        if (checkLocation(location)) {
+            Car car = carLocationMap.get(location);
+            car.setLocation(null);
+
+            /**
+             * Only set the location as next free location if:
+             *  - the floor is smaller then the original
+             *  - or, the floor is the same but the row is smaller
+             *  - or, the floor is the same, the row is the same but the place is smaller
+             */
+            if(location.getFloor() < freeLocation.getFloor()) {
+                freeLocation = location;
+            } else if(location.getFloor() == freeLocation.getFloor() && location.getRow() < freeLocation.getRow()){
+                freeLocation = location;
+            } else if (location.getFloor() == freeLocation.getFloor() && location.getRow() == freeLocation.getRow() && location.getPlace() < freeLocation.getPlace()) {
+                freeLocation = location;
+            }
+
+
+
+            carLocationMap.put(location, null);
         }
-        Car car = getCar(location);
-        if (car == null) {
-            return null;
-        }
-        cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
-        car.setLocation(null);
-        return car;
     }
 
-    public Car[][][] getCars() {
-        return cars;
+    /**
+     * Increase the amount of cars that have
+     * payed and are leaving the car park.
+     */
+    public static void addCashIndex(){
+        payCashIndex ++;
     }
 
-    public CarQueue getEntranceCarQueue() {
-        return entranceCarQueue;
+    /**
+     * Increase the amount of passholders that have
+     * payed and are leaving the car park.
+     */
+    public static void addPassIndex(){
+        payPassIndex ++;
     }
 
-    public CarQueue getPaymentCarQueue() {
-        return paymentCarQueue;
+    /**
+     * Let a car exit by adding it to the end
+     * of the exit queue.
+     *
+     * @param car Car object that should be added to the exit queue
+     */
+    public static void payCar(Car car){
+        paymentCarQueue.addCar(car);
     }
 
-    public CarQueue getExitCarQueue() {
-        return exitCarQueue;
+    /**
+     * Let a car exit by adding it to the end
+     * of the exit queue.
+     *
+     * @param car Car object that should be added to the exit queue
+     */
+    public static void exitCar(Car car){
+        exitCarQueue.addCar(car);
     }
 
+    /**
+     * Getter for the entrance index.
+     * @return int entrance index.
+     */
     public int getEntranceIndex() {
         return entranceIndex;
     }
 
+    /**
+     * Getter for the exit index.
+     * @return int exit index.
+     */
     public int getExitIndex() {
         return exitIndex;
     }
 
+    /**
+     * Getter for the pay pass index.
+     * @return int pay pass index
+     */
     public int getPayPassIndex() {
         return payPassIndex;
     }
 
+    /**
+     * Getter for the pay cash index.
+     * @return int pay cash index.
+     */
     public int getPayCashIndex() {
         return payCashIndex;
     }
 
-    public int getStayMinutes() {
-        return stayMinutes;
-    }
-
+    /**
+     * Getter for the total amount of minutes.
+     * @return int total minutes
+     */
     public int getTotalMinutes() {
         return totalMinutes;
     }
 
+    /**
+     * Getter for inMinutes.
+     * @return int inMinutes.
+     */
     public int getInMinutes() {
         return inMinutes;
     }
 
-    public int getTotalCarIndex() {
-        return totalCarIndex;
+    /**
+     * Getter for the total car index.
+     * @return int total car.
+     */
+    public int getTotalCars() {
+        int cars = 0;
+        for (Car car : carLocationMap.values()) {
+            if(car != null){
+
+                cars++;
+
+            }
+        }
+        return cars;
     }
 
+    /**
+     * Getter for the total pass holder index.
+     * @return int total pass holder index.
+     */
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Reset method for the park.
+     */
+    public void resetPark(){
+        // reset time
+        totalMinutes = 0;
+        inMinutes = 0;
+
+        // reset indices
+        entranceIndex = 0;
+        exitIndex = 0;
+        payCashIndex = 0;
+        payPassIndex = 0;
+
+        totalCarIndex = 0;
+        totalPassholderIndex = 0;
+
+        // reset park
+        numberOfFloors = 3;
+        numberOfRows = 6;
+        numberOfPlaces = 30;
+
+        entranceCarQueue = new CarQueue();
+        paymentCarQueue = new CarQueue();
+        exitCarQueue = new CarQueue();
+
+        //reset locations
+        for (Location location: carLocationMap.keySet()) {
+            carLocationMap.put(location, null);
+        }
+        freeLocation = new Location(0,0,0);
+
+        //Update the views
+        super.notifyViews();
     }
 }

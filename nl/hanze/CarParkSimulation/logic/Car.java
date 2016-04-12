@@ -3,8 +3,8 @@ package nl.hanze.CarParkSimulation.logic;
 /**
  * Class Car
  *
- * @author Ruben Buisman
- * @version 0.1 (04-04-2016)
+ * @author Ruben Buisman, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
 
 /**
@@ -12,18 +12,22 @@ package nl.hanze.CarParkSimulation.logic;
  * It has a certain location in the parking car park and a certain amount of time that
  * it stays in the car park.
  */
-public abstract class Car extends AbstractModel {
+public abstract class Car extends AbstractModel
+{
 
-    // Location for the Car object.
+    // location for the Car object
     private Location location;
 
-    // Minutes the car has left for parking.
+    // minutes the car has left for parking
     private int minutesLeft;
 
-    // Boolean indicating that the car is paying.
+    // minutes the car is staying in the carpark
+    private int stayMinutes;
+
+    // boolean indicating that the car is paying
     private boolean isPaying;
 
-    // License for the car
+    // license for the car
     private String license;
 
     /**
@@ -40,6 +44,7 @@ public abstract class Car extends AbstractModel {
 
     /**
      * Getter for the location of the Car object.
+     *
      * @return Location of the Car object.
      */
     public Location getLocation() {
@@ -83,7 +88,7 @@ public abstract class Car extends AbstractModel {
     }
 
     /**
-     * Tel the car that it is paying.
+     * Tell the car if it is paying.
      *
      * @param isPaying boolean whether the car is paying or not
      */
@@ -92,10 +97,39 @@ public abstract class Car extends AbstractModel {
     }
 
     /**
+     * The amount of time a car stays in the carpark
+     * @return
+     */
+    public int getStayMinutes() {
+        return stayMinutes;
+    }
+
+    /**
+     * Set the amount of minutes a car stays in the car park.
+     *
+     * @param stayMinutes The amount of minutes a car is staying.
+     */
+    public void setStayMinutes(int stayMinutes) {
+        this.stayMinutes = stayMinutes;
+        this.setMinutesLeft(stayMinutes);
+    }
+
+    /**
      * Method for decreasing the minutes the Car object has left for parking.
      */
     public void tick() {
         minutesLeft--;
+        if (this.getMinutesLeft() <= 0 && !this.getIsPaying()) {
+            if(this instanceof PassHolder){
+                CarPark.removeCarAt(this.getLocation());
+                CarPark.exitCar(this);
+                CarPark.addPassIndex();
+            }else{
+                this.setIsPaying(true);
+                CarPark.payCar(this);
+                CarPark.addCashIndex();
+            }
+        }
     }
 
 }

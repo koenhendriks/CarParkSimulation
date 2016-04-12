@@ -1,28 +1,30 @@
 package nl.hanze.CarParkSimulation.logic;
 
-/**
- * Class License
- *
- * @author Ruben Buisman
- * @version 0.1 (05-04-2016)
- */
-
 import java.util.Random;
 
 /**
- * This class creates a license plate.
+ * Class License
+ *
+ * Class for creating license plates.
+ * These plates can then be assigned to cars.
+ *
+ * @author Joey Boum Bletterman, Ruben Buisman
+ * @version 0.2 (11-04-2016)
  */
+public class License extends AbstractModel
+{
+    // local random generator
+    private Random random;
 
-public class License extends AbstractModel {
-    Random random;
-
-    // Different elements of a plate number
+    // different elements of a plate number
     private String left;
     private String middle;
     private String right;
 
-    public License()
-    {
+    /**
+     * Constructor for generating license instances.
+     */
+    public License() {
         random = new Random();
         left = generateNumbers();
         middle = generateString();
@@ -30,16 +32,15 @@ public class License extends AbstractModel {
     }
 
     /**
-     * Generate a number for the license plate
+     * Generate a string of numbers for the license plate.
      *
-     * @todo Should this be a String method? Probably could use Integers here.
-     * @return String with random 2 numbers
+     * @return String with random 2 numbers.
      */
-    public String generateNumbers()
-    {
+    public String generateNumbers() {
         // generate number
-        int rand = random.nextInt(99);
+        int rand = random.nextInt(100);
 
+        // add a "0" if it is lower than 10
         if(rand < 10) {
             return "0" + rand;
         }
@@ -57,6 +58,7 @@ public class License extends AbstractModel {
         // generate string
         String string = "";
 
+        // loop through the alphabet
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i < 2; i++) {
             string += alphabet.charAt(random.nextInt(alphabet.length()));
@@ -66,9 +68,9 @@ public class License extends AbstractModel {
     }
 
     /**
-     * Generate a valid license plate number in the format 99-XX-99
+     * Generate a valid license plate number in the format 99-XX-99.
      *
-     * @return String with a license plate number
+     * @return String with a license plate number.
      */
     public String generateLicenseNumber()
     {

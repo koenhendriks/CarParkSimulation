@@ -3,24 +3,29 @@ package nl.hanze.CarParkSimulation.controller;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
-import nl.hanze.CarParkSimulation.runner.CarParkSimulationRunner;
 import nl.hanze.CarParkSimulation.localization.en.Language;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Class Controller
+ * This class is used to add controllers to views in the view package.
  *
- * @author Koen Hendriks
- * @version 0.1 (04-04-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
  */
-public class Controller extends AbstractController implements ActionListener {
-    private JLabel description;
+public class Controller extends AbstractController implements ActionListener
+{
+    // labels for steps and speed
+    private JLabel insertSteps;
     private JLabel speedLabel;
-    private JTextField input;
+
+    // fields for steps and speed
+    private JTextField stepsField;
     private JTextField speedField;
+
+    // buttons for steps, speed, starting and stopping
     private JButton startLimit;
     private JButton speedButton;
     private JButton startButton;
@@ -34,18 +39,21 @@ public class Controller extends AbstractController implements ActionListener {
     public Controller(AbstractModel model) {
         super(model);
 
-        CarPark carPark = (CarPark) super.model;
-
         setLayout(null);
 
-        // custom step counter
-        description = new JLabel(Language.get("insertSteps"));
-        description.setBounds(10,0,200,20);
-        add(description);
+        // menu
+        CarParkSimulation.resetItem.addActionListener(this);
+        CarParkSimulation.exitItem.addActionListener(this);
+        CarParkSimulation.aboutItem.addActionListener(this);
 
-        input = new JTextField(Language.get("input"));
-        input.setBounds(10,20,75,20);
-        add(input);
+        // custom step counter
+        insertSteps = new JLabel(Language.get("insertSteps"));
+        insertSteps.setBounds(10,0,200,20);
+        add(insertSteps);
+
+        stepsField = new JTextField(Language.get("input"));
+        stepsField.setBounds(10,20,75,20);
+        add(stepsField);
 
         startLimit = new JButton(Language.get("startLimit"));
         startLimit.setBounds(110,20,70,20);
@@ -78,18 +86,58 @@ public class Controller extends AbstractController implements ActionListener {
         add(stopButton);
     }
 
+    /**
+     * Method for action definition of Reset item.
+     */
+    private void resetPressed() {
+        CarParkSimulation.resetSimulation();
+    }
+
+    /**
+     * Method for action definition of Exit item.
+     */
+    private void exitPressed() {
+        int confirm = JOptionPane.showOptionDialog(CarParkSimulation.SCREEN,
+                Language.get("confirmExit"),
+                Language.get("confirmExitTitle"), JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (confirm == 0) {
+            System.exit(0); // 0 when execution went fine;
+        }
+    }
+
+    /**
+     * Method for action definition of About item.
+     */
+    private void aboutPressed() {
+        JOptionPane.showMessageDialog(CarParkSimulation.SCREEN,
+                Language.get("title") + "\n" +
+                        Language.get("version"),
+                "About " + Language.get("title"),
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Method for action definition of start button.
+     */
     private void startPressed() {
         CarParkSimulation.running = true;
     }
 
+    /**
+     * Method for action definition of stop button.
+     */
     private void stopPressed() {
         CarParkSimulation.running = false;
     }
 
+    /**
+     * Method for action definition of startStep button.
+     */
     private void startStepPressed(){
 
         try{
-            int steps = Integer.parseInt(input.getText());
+            int steps = Integer.parseInt(stepsField.getText());
 
             setSteps(steps);
 
@@ -98,6 +146,9 @@ public class Controller extends AbstractController implements ActionListener {
         }
     }
 
+    /**
+     * Method for action definition of speed button.
+     */
     private void speedPressed(){
 
         try{
@@ -111,17 +162,21 @@ public class Controller extends AbstractController implements ActionListener {
     }
 
     /**
-     * Set steps in the simulator
+     * Method for setting steps in the simulator.
      *
-     * @param steps amount of steps we should do
+     * @param steps Amount of steps we should make.
      */
     private void setSteps(int steps) {
         CarPark carPark = (CarPark) super.model;
 
         for(int i =0; i < steps; i++)
-            carPark.tick(false);
+            carPark.tick();
     }
 
+    /**
+     * Method for performing actions.
+     * @param actionEvent The action we are listening for.
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
@@ -133,6 +188,12 @@ public class Controller extends AbstractController implements ActionListener {
             this.startStepPressed();
         } else if(actionEvent.getSource() == speedButton){
             this.speedPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.exitItem){
+            this.exitPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.aboutItem) {
+           this.aboutPressed();
+        } else if(actionEvent.getSource() == CarParkSimulation.resetItem) {
+            this.resetPressed();
         }
 
     }
