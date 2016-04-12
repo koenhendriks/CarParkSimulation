@@ -224,7 +224,6 @@ public final class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 totalPassholderIndex--;
             }
-
             totalMinutes = totalMinutes + car.getStayMinutes();
             totalCarIndex--;
             exitIndex++;
