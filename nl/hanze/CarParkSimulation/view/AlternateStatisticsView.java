@@ -40,7 +40,7 @@ public class AlternateStatisticsView extends AbstractView
         super(model);
 
         // label
-        progress = new JLabel(Language.get("bar")); // TODO: 4/12/16 Link to Language
+        progress = new JLabel(Language.get("bar"));
         progress.setBounds(0,0,680,20);
         add(progress);
 
