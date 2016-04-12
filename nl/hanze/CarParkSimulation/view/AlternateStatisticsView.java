@@ -23,8 +23,6 @@ public class AlternateStatisticsView extends AbstractView
     private int regular;
     private int percent1;
     private int percent2;
-    private double percent1int;
-    private double percent2int;
 
     private JLabel progress;
     private JProgressBar bar1;
@@ -72,12 +70,12 @@ public class AlternateStatisticsView extends AbstractView
         bar1.setValue(regular);
         percent1 = (int) Math.floor(bar1.getPercentComplete() * 100);
         System.out.println(""+percent1);
-        bar1.setString(Language.get("regbar") + percent1);
+        bar1.setString(Language.get("regbar") + percent1 + "%");
 
         bar2.setMaximum(SPACES);
         bar2.setValue(passholders);
         percent2 = (int) Math.floor(bar2.getPercentComplete() * 100);
-        bar2.setString(Language.get("pasbar") + percent2);
+        bar2.setString(Language.get("pasbar") + percent2 + "%");
 
         setVisible(true);
         super.updateView();
