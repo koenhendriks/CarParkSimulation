@@ -226,7 +226,7 @@ public final class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 totalPassholderIndex--;
             }
-            setTotalMinutes(getTotalMinutes() + car.getStayMinutes());
+            totalMinutes = (totalMinutes + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
             super.notifyViews();
@@ -241,14 +241,14 @@ public final class CarPark extends AbstractModel{
      * Loop trough the car park to get all cars and call the tick method.
      */
     private void tickCars() {
-        setInMinutes(0);
+        inMinutes = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = this.getCar(location);
                     if (car != null) {
-                        setInMinutes(getInMinutes()+car.getStayMinutes());
+                        inMinutes =(inMinutes + car.getStayMinutes());
                         car.tick();
                     }
                 }
@@ -467,21 +467,6 @@ public final class CarPark extends AbstractModel{
         return totalPassholderIndex;
     }
 
-    /**
-     * Setter to set a value in the inMinuts
-     * @param inMinutes int total minutes of cars inside the carPark
-     */
-    public static void setInMinutes(int inMinutes) {
-        CarPark.inMinutes = inMinutes;
-    }
-
-    /**
-     * Setter to set a value in totalMinutes
-     * @param totalMinutes int total minutes of cars that left the carPark
-     */
-    public static void setTotalMinutes(int totalMinutes) {
-        CarPark.totalMinutes = totalMinutes;
-    }
 
     /**
      * Reset method for the park.
