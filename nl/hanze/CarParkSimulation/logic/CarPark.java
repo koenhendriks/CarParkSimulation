@@ -180,6 +180,7 @@ public final class CarPark extends AbstractModel{
             }
             // Find a space for this car.
             if (freeLocation != null) {
+
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setStayMinutes(stayMinutes);
 
@@ -295,11 +296,11 @@ public final class CarPark extends AbstractModel{
      */
     public void setNextFreeLocation() {
 
-        if(freeLocation.getPlace() == numberOfPlaces ){
+        if(freeLocation.getPlace() == numberOfPlaces-1 ){
 
-            if(freeLocation.getRow() == numberOfRows ) {
+            if(freeLocation.getRow() == numberOfRows-1 ) {
 
-                if (freeLocation.getFloor() == numberOfFloors) {
+                if (freeLocation.getFloor() == numberOfFloors -1) {
                     freeLocation = null;
                 }else{
                     int nextFloor = freeLocation.getFloor() +1;
