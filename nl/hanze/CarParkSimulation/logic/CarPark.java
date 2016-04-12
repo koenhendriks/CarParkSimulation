@@ -446,4 +446,12 @@ public final class CarPark extends AbstractModel implements TimeInterface{
         //Update the views
         super.notifyViews();
     }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public static void setTotalMinutes(int totalMinutes) {
+        CarPark.totalMinutes = totalMinutes;
+    }
 }
