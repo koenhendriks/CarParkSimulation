@@ -15,7 +15,7 @@ import static java.util.Calendar.MINUTE;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-public final class Time extends AbstractModel
+public class Time extends AbstractModel
 {
     private Calendar startCalendar;
     private Calendar runningCalendar;
