@@ -119,17 +119,6 @@ public abstract class Car extends AbstractModel implements TimeInterface
      */
     public void tick() {
         minutesLeft--;
-        if (this.getMinutesLeft() <= 0 && !this.getIsPaying()) {
-            if(this instanceof PassHolder){
-                CarPark.removeCarAt(this.getLocation());
-                CarPark.exitCar(this);
-                CarPark.addPassIndex();
-            }else{
-                this.setIsPaying(true);
-                CarPark.payCar(this);
-                CarPark.addCashIndex();
-            }
-        }
     }
 
 }

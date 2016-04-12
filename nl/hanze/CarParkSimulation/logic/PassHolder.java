@@ -12,6 +12,11 @@ package nl.hanze.CarParkSimulation.logic;
 public class PassHolder extends Car implements TimeInterface
 {
     public void tick(){
-        // TODO alter minutes left and exit park
+        super.tick();
+        if (super.getMinutesLeft() <= 0 && !super.getIsPaying()) {
+            CarPark.removeCarAt(super.getLocation());
+            CarPark.exitCar(this);
+            CarPark.addPassIndex();
+        }
     }
 }

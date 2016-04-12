@@ -48,13 +48,15 @@ public final class FreeLocation {
      *  - or, the floor is the same, the row is the same but the place is smaller
      */
     public static void checkRemovedLocation(Location oldLocation) {
-        
-        if(oldLocation.getFloor() < location.getFloor()) {
-            location = oldLocation;
-        } else if(oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() < location.getRow()){
-            location = oldLocation;
-        } else if (oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() == location.getRow() && oldLocation.getPlace() < location.getPlace()) {
-            location = oldLocation;
+        if(oldLocation != null && location != null){
+            if(oldLocation.getFloor() < location.getFloor()) {
+                location = oldLocation;
+            } else if(oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() < location.getRow()){
+                location = oldLocation;
+            } else if (oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() == location.getRow() && oldLocation.getPlace() < location.getPlace()) {
+                location = oldLocation;
+            }
         }
+
     }
 }

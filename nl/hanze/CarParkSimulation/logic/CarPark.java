@@ -277,6 +277,10 @@ public final class CarPark extends AbstractModel implements TimeInterface{
      * @return boolean whether location is valid.
      */
     public static boolean checkLocation(Location location) {
+
+        if(location == null)
+            return false;
+
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();

@@ -10,6 +10,11 @@ package nl.hanze.CarParkSimulation.logic;
 public class AdHocCar extends Car implements TimeInterface
 {
     public void tick(){
-        //TODO alter minutes left and add to pay que on exit
+        super.tick();
+        if (super.getMinutesLeft() <= 0 && !super.getIsPaying()) {
+            super.setIsPaying(true);
+            CarPark.payCar(this);
+            CarPark.addCashIndex();
+        }
     }
 }
