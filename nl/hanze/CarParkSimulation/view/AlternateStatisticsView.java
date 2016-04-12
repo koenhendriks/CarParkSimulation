@@ -69,7 +69,6 @@ public class AlternateStatisticsView extends AbstractView
         bar1.setMaximum(SPACES);
         bar1.setValue(regular);
         percent1 = (int) Math.floor(bar1.getPercentComplete() * 100);
-        System.out.println(""+percent1);
         bar1.setString(Language.get("regbar") + percent1 + "%");
 
         bar2.setMaximum(SPACES);
