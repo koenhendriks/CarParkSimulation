@@ -1,5 +1,7 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -224,7 +226,7 @@ public final class CarPark extends AbstractModel{
             if(car instanceof PassHolder){
                 totalPassholderIndex--;
             }
-            totalMinutes = totalMinutes + car.getStayMinutes();
+            setTotalMinutes(getTotalMinutes() + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
             super.notifyViews();
@@ -239,14 +241,14 @@ public final class CarPark extends AbstractModel{
      * Loop trough the car park to get all cars and call the tick method.
      */
     private void tickCars() {
-        this.inMinutes = 0;
+        setInMinutes(0);
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = this.getCar(location);
                     if (car != null) {
-                        this.inMinutes = this.inMinutes + car.getStayMinutes();
+                        setInMinutes(getInMinutes()+car.getStayMinutes());
                         car.tick();
                     }
                 }
@@ -463,6 +465,22 @@ public final class CarPark extends AbstractModel{
      */
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Setter to set a value in the inMinuts
+     * @param inMinutes int total minutes of cars inside the carPark
+     */
+    public static void setInMinutes(int inMinutes) {
+        CarPark.inMinutes = inMinutes;
+    }
+
+    /**
+     * Setter to set a value in totalMinutes
+     * @param totalMinutes int total minutes of cars that left the carPark
+     */
+    public static void setTotalMinutes(int totalMinutes) {
+        CarPark.totalMinutes = totalMinutes;
     }
 
     /**
