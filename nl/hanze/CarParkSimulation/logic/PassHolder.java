@@ -9,7 +9,9 @@ package nl.hanze.CarParkSimulation.logic;
  * @author Ruben Buisman, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-public class PassHolder extends Car
+public class PassHolder extends Car implements TimeInterface
 {
-    // do nothing
+    public void tick(){
+        // TODO alter minutes left and exit park
+    }
 }

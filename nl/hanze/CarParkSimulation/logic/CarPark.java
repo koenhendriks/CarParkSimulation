@@ -11,7 +11,7 @@ import java.util.Random;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-public final class CarPark extends AbstractModel{
+public final class CarPark extends AbstractModel implements TimeInterface{
 
     private static int numberOfFloors;
     private static int numberOfRows;

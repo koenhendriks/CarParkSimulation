@@ -12,7 +12,7 @@ package nl.hanze.CarParkSimulation.logic;
  * It has a certain location in the parking car park and a certain amount of time that
  * it stays in the car park.
  */
-public abstract class Car extends AbstractModel
+public abstract class Car extends AbstractModel implements TimeInterface
 {
 
     // location for the Car object
