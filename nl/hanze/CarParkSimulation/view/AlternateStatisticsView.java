@@ -21,8 +21,8 @@ public class AlternateStatisticsView extends AbstractView
     private int totalCars;
     private int passholders;
     private int regular;
-    private Double percent1;
-    private Double percent2;
+    private int percent1;
+    private int percent2;
     private double percent1int;
     private double percent2int;
 
@@ -30,7 +30,7 @@ public class AlternateStatisticsView extends AbstractView
     private JProgressBar bar1;
     private JProgressBar bar2;
 
-    public static final int SPACES = 500;
+    public static final int SPACES = 540;
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
      *
@@ -70,12 +70,13 @@ public class AlternateStatisticsView extends AbstractView
 
         bar1.setMaximum(SPACES);
         bar1.setValue(regular);
-        percent1 = bar1.getPercentComplete();
+        percent1 = (int) Math.floor(bar1.getPercentComplete() * 100);
+        System.out.println(""+percent1);
         bar1.setString(Language.get("regbar") + percent1);
 
         bar2.setMaximum(SPACES);
         bar2.setValue(passholders);
-        percent2 = bar2.getPercentComplete();
+        percent2 = (int) Math.floor(bar2.getPercentComplete() * 100);
         bar2.setString(Language.get("pasbar") + percent2);
 
         setVisible(true);
