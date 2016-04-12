@@ -5,6 +5,7 @@ import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import javax.swing.*;
+import javax.swing.text.html.HTML;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -112,9 +113,17 @@ public class Controller extends AbstractController implements ActionListener
      * Method for action definition of About item.
      */
     private void aboutPressed() {
+        HTML link = new HTML();
         JOptionPane.showMessageDialog(CarParkSimulation.SCREEN,
-                Language.get("title") + "\n" +
-                        Language.get("version"),
+                Language.get("title") +
+                        "\n" +
+                        Language.get("version") +
+                        "\n" +
+                        "\n" +
+                        "GitHub" +
+                        "\n" +
+                        "\n" +
+                        Language.get("names"),
                 "About " + Language.get("title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
