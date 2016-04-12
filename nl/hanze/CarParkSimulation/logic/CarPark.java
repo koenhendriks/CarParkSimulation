@@ -280,7 +280,7 @@ public final class CarPark extends AbstractModel{
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces); // todo check last bracket
+        return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces);
     }
 
     /**
@@ -293,19 +293,7 @@ public final class CarPark extends AbstractModel{
             Car car = carLocationMap.get(location);
             car.setLocation(null);
 
-            /**
-             * Only set the location as next free location if:
-             *  - the floor is smaller then the original
-             *  - or, the floor is the same but the row is smaller
-             *  - or, the floor is the same, the row is the same but the place is smaller
-             */
-            if(location.getFloor() < FreeLocation.location.getFloor()) {
-                FreeLocation.location = location;
-            } else if(location.getFloor() == FreeLocation.location.getFloor() && location.getRow() < FreeLocation.location.getRow()){
-                FreeLocation.location = location;
-            } else if (location.getFloor() == FreeLocation.location.getFloor() && location.getRow() == FreeLocation.location.getRow() && location.getPlace() < FreeLocation.location.getPlace()) {
-                FreeLocation.location = location;
-            }
+            FreeLocation.checkRemovedLocation(location);
 
             carLocationMap.put(location, null);
         }

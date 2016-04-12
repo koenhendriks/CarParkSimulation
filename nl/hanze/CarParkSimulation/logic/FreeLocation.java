@@ -39,4 +39,22 @@ public final class FreeLocation {
         }
 
     }
+
+    /**
+     * Method to check if a car that left has a better location then the current
+     * free location. Only set the location as next free location if:
+     *  - the floor is smaller then the original
+     *  - or, the floor is the same but the row is smaller
+     *  - or, the floor is the same, the row is the same but the place is smaller
+     */
+    public static void checkRemovedLocation(Location oldLocation) {
+        
+        if(oldLocation.getFloor() < location.getFloor()) {
+            location = oldLocation;
+        } else if(oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() < location.getRow()){
+            location = oldLocation;
+        } else if (oldLocation.getFloor() == location.getFloor() && oldLocation.getRow() == location.getRow() && oldLocation.getPlace() < location.getPlace()) {
+            location = oldLocation;
+        }
+    }
 }
