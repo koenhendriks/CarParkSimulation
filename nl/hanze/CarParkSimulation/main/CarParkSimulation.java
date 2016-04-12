@@ -55,7 +55,7 @@ public final class CarParkSimulation
     // the controller
     private AbstractController controller;
 
-    /**
+    /*
      * Constructor for the simulation.
      */
     public CarParkSimulation() {
@@ -63,7 +63,7 @@ public final class CarParkSimulation
         this.width = 1200;
         this.height = 750;
 
-        /**
+        /*
          * Create the model, view and controller that
          * we need for the Car Park Simulation
          */
@@ -78,7 +78,7 @@ public final class CarParkSimulation
 
         this.controller = new Controller(carParkModel);
 
-        /**
+        /*
          * Create the JFrame that will display the views
          * and add these views to this JFrame
          */
@@ -113,13 +113,14 @@ public final class CarParkSimulation
         statisticsView.setBounds(30,160, 200,100);
         queueView.setBounds(30,30,200,120);
         dayView.setBounds(970,30,200, 330);
+        alternateStatiscticsView.setBounds(260,400,680,70);
 
 
         // add the controllers to the main SCREEN
         SCREEN.getContentPane().add(controller);
         controller.setBounds(30,300,910,90);
 
-        /**
+        /*
          * Add a window listener to the SimulatorView so we can send
          * a confirmation to the user so we know they are sure if
          * they want to close the Car Park Simulation.
