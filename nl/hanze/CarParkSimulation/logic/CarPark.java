@@ -416,6 +416,7 @@ public final class CarPark extends AbstractModel implements TimeInterface{
      */
     public void resetPark(){
         // reset time
+        this.time.reset();
         totalMinutes = 0;
         inMinutes = 0;
 

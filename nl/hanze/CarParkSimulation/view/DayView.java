@@ -123,6 +123,7 @@ public class DayView extends AbstractView
         Time time = (Time) super.model;
 
         simulationTime.setText(time.getCurrentTime());
+        startTimeString.setText(time.getStartTime());
 
         minutes.setText(Language.get("mins")+time.getRunningMinutes());
         hours.setText(Language.get("hrs")+time.getRunningHours());

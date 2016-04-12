@@ -53,6 +53,16 @@ public class Time extends AbstractModel implements TimeInterface
     }
 
     /**
+     * Method to reset the time
+     */
+    public void reset(){
+        this.startCalendar = Calendar.getInstance();;
+        this.runningCalendar = Calendar.getInstance();;
+        this.startTime = this.getStringFromCalendar(this.startCalendar);
+        super.notifyViews();
+    }
+
+    /**
      * Get the current time of the simulation.
      *
      * @return String formatted nicely for the human eye.
