@@ -2,7 +2,9 @@ package nl.hanze.CarParkSimulation.logic;
 
 import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,6 +27,10 @@ public final class CarPark extends AbstractModel implements TimeInterface {
 
     // time object
     private Time time;
+
+    // reservations object
+    private Reservations reservations;
+
     // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
@@ -60,6 +66,34 @@ public final class CarPark extends AbstractModel implements TimeInterface {
          * The time object for the Car Park
          */
         this.time = time;
+
+        /**
+         * Create the reservations object for the Car Park
+         * and fill them with 2 companies for the simulator
+         */
+        this.reservations = new Reservations();
+
+        /**
+         * First company and its locations are generated
+         * here by looping trough the first 15 spots on
+         * the highest floor in last row
+         */
+        ArrayList<Location> locations = new ArrayList<>();
+        for(int i = 0; i < 16; i++ ){
+            locations.add(new Location(floors,rows, i));
+        }
+        reservations.addReservation("Albert Heijn", locations);
+
+        /**
+         * Second company and its locations are generated
+         * here by looping trough the last 15 spots on
+         * the highest floor in the last row
+         */
+        locations = new ArrayList<>();
+        for(int i = 16; i < 31; i++ ){
+            locations.add(new Location(floors,rows, i));
+        }
+        reservations.addReservation("Theater Opera", locations);
 
         /**
          * Create the park with the number of floors, rows and places
@@ -156,7 +190,15 @@ public final class CarPark extends AbstractModel implements TimeInterface {
                 totalPassholderIndex++;
             }
             else if(reservationChance == 0){
-                Car car = new ReservationCar();
+                /**
+                 * Put all reservation companies in a list to get a random company
+                 * and create a new reservation car for this company
+                 */
+                List<String> keys = new ArrayList<String>(reservations.getReservations().keySet());
+                String randomCompany = keys.get(random.nextInt(reservations.getReservations().size()));
+                Car car = new ReservationCar(randomCompany);
+
+
                 entranceCarQueue.addCar(car);
                 // // TODO: 4/13/16 count amount of Reservation cars
             }
