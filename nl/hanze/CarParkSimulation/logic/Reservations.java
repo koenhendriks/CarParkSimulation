@@ -20,8 +20,8 @@ public final class Reservations {
     /**
      * Method to add a reservation for a company.
      *
-     * @param company
-     * @param locations
+     * @param company String with the unique name of the company that makes the reservation
+     * @param locations ArrayList with locations that the company has reserved
      */
     public void addReservation(String company, ArrayList<Location> locations ){
         reservations.put(company,locations);
