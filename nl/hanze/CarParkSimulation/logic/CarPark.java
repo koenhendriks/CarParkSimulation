@@ -2,6 +2,7 @@ package nl.hanze.CarParkSimulation.logic;
 
 import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,10 +81,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
          * the highest floor in last row
          */
         ArrayList<Location> locations = new ArrayList<>();
-        for(int i = 0; i < 16; i++ ){
-            locations.add(new Location(floors,rows, i));
+        for(int i = 0; i < 31; i++ ){
+            locations.add(new Location(floors-1,rows-2, i));
         }
         reservations.addReservation("Albert Heijn", locations);
+        reservations.setColor("Albert Heijn", Color.cyan);
 
         /**
          * Second company and its locations are generated
@@ -91,10 +93,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
          * the highest floor in the last row
          */
         locations = new ArrayList<>();
-        for(int i = 16; i < 31; i++ ){
-            locations.add(new Location(floors,rows, i));
+        for(int i = 0; i < 31; i++ ){
+            locations.add(new Location(floors-1,rows-1, i));
         }
         reservations.addReservation("Theater Opera", locations);
+        reservations.setColor("Theater Opera", Color.green);
 
         /**
          * Create the park with the number of floors, rows and places
@@ -128,7 +131,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
      * Get a car from a certain location in the car park.
      *
      * @param location Location object where to get the car from.
-     * @return car object that is located at the given location.
+     * @return car object that is located at the given location or null if there is no car at the location.
      */
     public static Car getCar(Location location) {
         if (!checkLocation(location)) {
@@ -200,7 +203,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
                 String randomCompany = keys.get(random.nextInt(reservations.getReservations().size()));
                 Car car = new ReservationCar(randomCompany);
 
-                entranceCarQueue.addCar(car);
+                reservationCarQueue.addCar(car);
                 // // TODO: 4/13/16 count amount of Reservation cars
             }
             else {
@@ -213,11 +216,32 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             super.notifyViews();
         }
 
+        // Remove car from the front of the reservation queue and assign to a parking space
+        for (int i = 0; i < enterSpeed; i++) {
+            ReservationCar car = (ReservationCar) reservationCarQueue.removeCar();
+
+            if (car == null) {
+                break;
+            }
+
+            String company = car.getCompany();
+            ArrayList<Location> companyLocations = reservations.getCompanyLocations(company);
+
+            for (Location companyLocation : companyLocations) {
+                if(getCar(companyLocation) == null){
+                    int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                    car.setStayMinutes(stayMinutes);
+
+                    this.parkCar(companyLocation,car);
+                    break;
+                }
+            }
+
+        }
+
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
             Car car = entranceCarQueue.removeCar();
-
-            super.notifyViews();
 
             if (car == null) {
                 break;
@@ -335,6 +359,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
+
         return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces);
     }
 
