@@ -10,6 +10,12 @@ import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
  */
 public class ReservationCar extends Car implements TimeInterface{
 
+    private String company;
+
+    public ReservationCar(String company) {
+        this.company = company;
+    }
+
     /**
      * Method to interact with time passing in the
      * car park simulation
@@ -23,4 +29,7 @@ public class ReservationCar extends Car implements TimeInterface{
         }
     }
 
+    public String getCompany() {
+        return company;
+    }
 }
