@@ -17,6 +17,7 @@ public final class Reservations {
 
     public Reservations() {
         reservations = new HashMap<>();
+        colors = new HashMap<>();
     }
 
     /**
