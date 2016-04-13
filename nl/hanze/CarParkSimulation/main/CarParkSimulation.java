@@ -113,7 +113,7 @@ public final class CarParkSimulation
         statisticsView.setBounds(30,190, 220,120);
         queueView.setBounds(30,30,230,160);
         dayView.setBounds(970,30,200, 330);
-        alternateStatiscticsView.setBounds(260,400,680,100);
+        alternateStatiscticsView.setBounds(260,400,680,140);
 
 
         // add the controllers to the main SCREEN

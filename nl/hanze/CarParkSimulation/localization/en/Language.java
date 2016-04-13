@@ -92,6 +92,7 @@ public abstract class Language {
         stringCollection.put("bar", "Occupation: ");
         stringCollection.put("regbar", "Regular customers: ");
         stringCollection.put("pasbar", "Pass Holders: ");
+        stringCollection.put("resbar", "Reservations: ");
     }
 
     /**

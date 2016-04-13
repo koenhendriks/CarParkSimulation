@@ -20,15 +20,18 @@ public class AlternateStatisticsView extends AbstractView
 
     private int totalCars;
     private int passholders;
+    private int reservations;
     private int regular;
     private int percent1;
     private int percent2;
+    private int percent3;
 
     private JLabel progress;
     private JProgressBar bar1;
     private JProgressBar bar2;
+    private JProgressBar bar3;
 
-    public static final int SPACES = 540;
+    public static int SPACES;
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
      *
@@ -36,6 +39,9 @@ public class AlternateStatisticsView extends AbstractView
      */
     public AlternateStatisticsView(AbstractModel model) {
         super(model);
+
+        // calculate amount of parking spaces
+        SPACES = CarPark.getNumberOfFloors() * CarPark.getNumberOfRows() * CarPark.getNumberOfPlaces();
 
         // label
         progress = new JLabel(Language.get("bar"));
@@ -55,6 +61,13 @@ public class AlternateStatisticsView extends AbstractView
         bar2.setBorderPainted(true);
         bar2.setStringPainted(true);
         add(bar2);
+
+        // bar 3: reservations
+        bar3 = new JProgressBar();
+        bar3.setBounds(0, 110, 680, 30);
+        bar3.setBorderPainted(true);
+        bar3.setStringPainted(true);
+        add(bar3);
     }
 
     @Override
@@ -64,6 +77,7 @@ public class AlternateStatisticsView extends AbstractView
         // indices
         totalCars = carPark.getTotalCars();
         passholders = carPark.getTotalPassholderIndex();
+        reservations = carPark.getTotalReservationIndex();
         regular = totalCars - passholders;
 
         bar1.setMaximum(SPACES);
@@ -75,6 +89,11 @@ public class AlternateStatisticsView extends AbstractView
         bar2.setValue(passholders);
         percent2 = (int) Math.floor(bar2.getPercentComplete() * 100);
         bar2.setString(Language.get("pasbar") + percent2 + "%");
+
+        bar3.setMaximum(SPACES);
+        bar3.setValue(reservations);
+        percent3 = (int) Math.floor(bar3.getPercentComplete() * 100);
+        bar3.setString(Language.get("resbar") + percent3 + "%");
 
         setVisible(true);
         super.updateView();
