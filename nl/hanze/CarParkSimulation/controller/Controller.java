@@ -113,19 +113,8 @@ public class Controller extends AbstractController implements ActionListener
      * Method for action definition of About item.
      */
     private void aboutPressed() {
-        HTML link = new HTML();
-        JOptionPane.showMessageDialog(CarParkSimulation.SCREEN,
-                Language.get("title") +
-                        "\n" +
-                        Language.get("version") +
-                        "\n" +
-                        "\n" +
-                        "GitHub" +
-                        "\n" +
-                        "\n" +
-                        Language.get("names"),
-                "About " + Language.get("title"),
-                JOptionPane.INFORMATION_MESSAGE);
+        AboutOptionPane about = new AboutOptionPane();
+        CarParkSimulation.SCREEN.add(about);
     }
 
     /**

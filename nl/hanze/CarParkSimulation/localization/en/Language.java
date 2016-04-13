@@ -33,8 +33,9 @@ public abstract class Language {
         stringCollection.put("exitItem", "Exit");
         stringCollection.put("helpMenu", "Help");
         stringCollection.put("aboutItem", "About...");
+        stringCollection.put("aboutMessage", "About Car Park Simulation");
         stringCollection.put("version", "version 1.0");
-         stringCollection.put("names",
+        stringCollection.put("names",
                  "Written by:\n" +
                  "Koen Hendriks,\n" +
                  "Ruben Buisman,\n" +
