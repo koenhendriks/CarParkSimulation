@@ -1,10 +1,7 @@
 package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.localization.en.Language;
-import nl.hanze.CarParkSimulation.logic.Car;
-import nl.hanze.CarParkSimulation.logic.CarPark;
-import nl.hanze.CarParkSimulation.logic.Location;
-import nl.hanze.CarParkSimulation.logic.PassHolder;
+import nl.hanze.CarParkSimulation.logic.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,6 +90,9 @@ public class CarParkView extends AbstractView
 
                     if(car instanceof PassHolder){
                         color = Color.blue;
+                    }
+                    else if(car instanceof ReservationCar){
+                        color = Color.green;
                     }
                     else if(car != null){
                         color = Color.red;
