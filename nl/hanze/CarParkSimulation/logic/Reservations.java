@@ -27,6 +27,10 @@ public final class Reservations {
         reservations.put(company,locations);
     }
 
+    public ArrayList<Location> getCompanyLocations(String company){
+        return reservations.get(company);
+    }
+
     public HashMap<String, ArrayList<Location>> getReservations() {
         return reservations;
     }
