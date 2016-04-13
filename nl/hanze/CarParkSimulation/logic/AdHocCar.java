@@ -11,6 +11,11 @@ import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
  */
 public class AdHocCar extends Car implements TimeInterface
 {
+
+    /**
+     * Method to interact with time passing in the
+     * car park simulation
+     */
     public void tick(){
         super.tick();
         if (super.getMinutesLeft() <= 0 && !super.getIsPaying()) {
