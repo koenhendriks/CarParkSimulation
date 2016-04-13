@@ -50,6 +50,16 @@ public final class Reservations {
         return colors.get(company);
     }
 
+    public ArrayList<Location> getLocations(){
+        ArrayList<Location> allLocations = new ArrayList<>();
+
+        for (ArrayList<Location> locations : reservations.values()) {
+            allLocations.addAll(locations);
+        }
+
+        return allLocations;
+    }
+
     public ArrayList<Location> getCompanyLocations(String company){
         return reservations.get(company);
     }
