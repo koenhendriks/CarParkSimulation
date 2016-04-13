@@ -24,7 +24,10 @@ public class AboutOptionPane extends JOptionPane implements HyperlinkListener
         version = Language.get("version");
         authors = Language.get("names");
         this.showMessageDialog(CarParkSimulation.SCREEN,
+                // message goes here
                 version + "\n" + authors
+
+                // title and message type
                 ,title
                 ,JOptionPane.INFORMATION_MESSAGE);
     }
