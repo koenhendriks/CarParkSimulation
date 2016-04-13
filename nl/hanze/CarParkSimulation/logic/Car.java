@@ -1,40 +1,52 @@
+package nl.hanze.CarParkSimulation.logic;
+
+/**
+ * Class Car
+ *
+ * @author Ruben Buisman, Joey Boum Bletterman
+ * @version 0.2 (11-04-2016)
+ */
+
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 /**
  * This is the Car class, it represents a car that enters, pays and leaves the car park.
  * It has a certain location in the parking car park and a certain amount of time that
  * it stays in the car park.
  */
-public abstract class Car {
+public abstract class Car extends AbstractModel implements TimeInterface
+{
 
-    // Location for the Car object.
+    // location for the Car object
     private Location location;
 
-    // Minutes the car has left for parking.
+    // minutes the car has left for parking
     private int minutesLeft;
 
-    // Boolean indicating that the car is paying.
+    // minutes the car is staying in the carpark
+    private int stayMinutes;
+
+    // boolean indicating that the car is paying
     private boolean isPaying;
 
-    // Customer object that belongs to this car.
-    private Customer customer;
+    // license for the car
+    private String license;
 
     /**
      * Constructor for objects of class Car.
      */
     public Car() {
-
+        License license = new License();
+        this.license = license.generateLicenseNumber();
     }
 
-    /**
-     * Constructor for a Car with a customer.
-     *
-     * @param customer Customer that belongs to the car.
-     */
-    public Car(Customer customer){
-        this.customer = customer;
+    public String getLicense() {
+        return license;
     }
 
     /**
      * Getter for the location of the Car object.
+     *
      * @return Location of the Car object.
      */
     public Location getLocation() {
@@ -78,7 +90,7 @@ public abstract class Car {
     }
 
     /**
-     * Tel the car that it is paying.
+     * Tell the car if it is paying.
      *
      * @param isPaying boolean whether the car is paying or not
      */
@@ -87,21 +99,21 @@ public abstract class Car {
     }
 
     /**
-     * Get the customer belonging to this car
-     *
-     * @return customer belonging to this car
+     * The amount of time a car stays in the carpark
+     * @return
      */
-    public Customer getCustomer() {
-        return customer;
+    public int getStayMinutes() {
+        return stayMinutes;
     }
 
     /**
-     * Set the customer belonging to this car.
+     * Set the amount of minutes a car stays in the car park.
      *
-     * @param customer Customer that belongs to this car.
+     * @param stayMinutes The amount of minutes a car is staying.
      */
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setStayMinutes(int stayMinutes) {
+        this.stayMinutes = stayMinutes;
+        this.setMinutesLeft(stayMinutes);
     }
 
     /**
