@@ -13,9 +13,14 @@ import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
  */
 public class PassHolder extends Car implements TimeInterface
 {
+
+    /**
+     * Method to interact with time passing in the
+     * car park simulation
+     */
     public void tick(){
         super.tick();
-        if (super.getMinutesLeft() <= 0 && !super.getIsPaying()) {
+        if (super.getMinutesLeft() <= 0) {
             CarPark.removeCarAt(super.getLocation());
             CarPark.exitCar(this);
             CarPark.addPassIndex();
