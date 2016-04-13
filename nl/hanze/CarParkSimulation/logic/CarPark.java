@@ -33,7 +33,8 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
-    int passHolderProbability = 5; // this means one in five cars will be a passholder
+    int passHolderProbability = 5; // this means that there is a one in x change the car will be a pass holder car
+    int reservationProbability = 10; // this means that there is a one in x change the car will be a reservation car
 
     private static int entranceIndex = 0;
     private static int exitIndex = 0;
@@ -42,8 +43,8 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     private static int totalCarIndex = 0;
     private static int totalPassholderIndex = 0;
     private static int totalMinutes;
-    private static int inMinutes;
 
+    private static int inMinutes;
     private static HashMap<Location, Car> carLocationMap;
 
     /**
@@ -146,12 +147,18 @@ public final class CarPark extends AbstractModel implements TimeInterface {
              * is used to check if we create a passholder or a
              * regular customer.
              */
-            int customerChance = random.nextInt(this.passHolderProbability);
+            int passHolderChance = random.nextInt(this.passHolderProbability);
+            int reservationChance = random.nextInt(this.reservationProbability);
 
-            if (customerChance == 0){
+            if (passHolderChance == 0){
                 Car car = new PassHolder();
                 entranceCarQueue.addCar(car);
                 totalPassholderIndex++;
+            }
+            else if(reservationChance == 0){
+                Car car = new ReservationCar();
+                entranceCarQueue.addCar(car);
+                // // TODO: 4/13/16 count amount of Reservation cars
             }
             else {
                 Car car = new AdHocCar();
