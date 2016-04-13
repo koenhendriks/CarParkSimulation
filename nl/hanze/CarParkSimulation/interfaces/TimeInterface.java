@@ -1,4 +1,4 @@
-package nl.hanze.CarParkSimulation.logic;
+package nl.hanze.CarParkSimulation.interfaces;
 
 /**
  * Class TimeInterface
@@ -6,6 +6,6 @@ package nl.hanze.CarParkSimulation.logic;
  * @author Koen Hendriks
  * @version 0.1 (12-04-2016)
  */
-interface TimeInterface {
+public interface TimeInterface {
     void tick();
 }

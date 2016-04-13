@@ -110,15 +110,15 @@ public final class CarParkSimulation
 
         // set the location of the views on the SCREEN
         carParkView.setBounds(260,30,680,330);
-        statisticsView.setBounds(30,160, 220,120);
-        queueView.setBounds(30,30,220,120);
+        statisticsView.setBounds(30,190, 220,120);
+        queueView.setBounds(30,30,230,160);
         dayView.setBounds(970,30,200, 330);
-        alternateStatiscticsView.setBounds(260,400,680,100);
+        alternateStatiscticsView.setBounds(260,400,680,140);
 
 
         // add the controllers to the main SCREEN
         SCREEN.getContentPane().add(controller);
-        controller.setBounds(30,300,910,90);
+        controller.setBounds(30,320,910,90);
 
         /*
          * Add a window listener to the SimulatorView so we can send
