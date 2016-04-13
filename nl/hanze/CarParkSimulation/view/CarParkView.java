@@ -92,7 +92,11 @@ public class CarParkView extends AbstractView
                         color = Color.blue;
                     }
                     else if(car instanceof ReservationCar){
-                        color = Color.green;
+
+                        Reservations reservations = carPark.getReservations();
+                        ReservationCar reservationCar = (ReservationCar) car;
+
+                        color = reservations.getColor(reservationCar.getCompany());
                     }
                     else if(car != null){
                         color = Color.red;
