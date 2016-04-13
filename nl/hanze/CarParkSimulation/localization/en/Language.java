@@ -70,8 +70,11 @@ public abstract class Language {
         stringCollection.put("birdView", "Car Park Bird View");
         stringCollection.put("cars0", "Total cars: 0");
         stringCollection.put("pass0", "Total passholds: 0");
+        stringCollection.put("reservation0", "Total reservations: 0");
         stringCollection.put("cars", "Total cars: ");
         stringCollection.put("pass", "Total Passholders: ");
+        stringCollection.put("reservations", "Total reservations: ");
+
 
         // queue view strings
         stringCollection.put("info", "Carpark info");
@@ -79,6 +82,7 @@ public abstract class Language {
         stringCollection.put("left", "Left the carpark: ");
         stringCollection.put("payCash", "Paid with cash: ");
         stringCollection.put("payPass", "Paid with pass: ");
+        stringCollection.put("payReservations", "Paid by reservation: ");
 
         // statistics view strings
         stringCollection.put("stats", "Statistics");
@@ -89,6 +93,7 @@ public abstract class Language {
         stringCollection.put("bar", "Occupation: ");
         stringCollection.put("regbar", "Regular customers: ");
         stringCollection.put("pasbar", "Pass Holders: ");
+        stringCollection.put("resbar", "Reservations: ");
     }
 
     /**

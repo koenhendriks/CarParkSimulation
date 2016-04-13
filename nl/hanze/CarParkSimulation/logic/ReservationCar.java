@@ -3,16 +3,18 @@ package nl.hanze.CarParkSimulation.logic;
 import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
 
 /**
- * Class PassHolder
+ * Class ReservationCar
  *
- * This class can create instances of Pass Holders,
- * as opposed to regular customers.
- *
- * @author Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @author Koen Hendriks
+ * @version 0.1 (13-04-2016)
  */
-public class PassHolder extends Car implements TimeInterface
-{
+public class ReservationCar extends Car implements TimeInterface{
+
+    private String company;
+
+    public ReservationCar(String company) {
+        this.company = company;
+    }
 
     /**
      * Method to interact with time passing in the
@@ -23,7 +25,11 @@ public class PassHolder extends Car implements TimeInterface
         if (super.getMinutesLeft() <= 0) {
             CarPark.removeCarAt(super.getLocation());
             CarPark.exitCar(this);
-            CarPark.addPassIndex();
+            CarPark.addReservationIndex();
         }
+    }
+
+    public String getCompany() {
+        return company;
     }
 }

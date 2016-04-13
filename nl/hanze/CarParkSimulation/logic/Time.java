@@ -1,5 +1,7 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;

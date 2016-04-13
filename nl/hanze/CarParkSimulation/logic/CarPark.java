@@ -1,7 +1,11 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,7 +15,7 @@ import java.util.Random;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-public final class CarPark extends AbstractModel implements TimeInterface{
+public final class CarPark extends AbstractModel implements TimeInterface {
 
     private static int numberOfFloors;
     private static int numberOfRows;
@@ -21,9 +25,14 @@ public final class CarPark extends AbstractModel implements TimeInterface{
     private static CarQueue entranceCarQueue;
     private static CarQueue paymentCarQueue;
     private static CarQueue exitCarQueue;
+    private static CarQueue reservationCarQueue;
 
     // time object
     private Time time;
+
+    // reservations object
+    private Reservations reservations;
+
     // Number of arriving cars per hour.
     int weekDayArrivals= 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
@@ -32,17 +41,20 @@ public final class CarPark extends AbstractModel implements TimeInterface{
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
-    int passHolderProbability = 5; // this means one in five cars will be a passholder
+    int passHolderProbability = 5; // this means that there is a one in x change the car will be a pass holder car
+    int reservationProbability = 10; // this means that there is a one in x change the car will be a reservation car
 
     private static int entranceIndex = 0;
     private static int exitIndex = 0;
     private static int payCashIndex = 0;
     private static int payPassIndex = 0;
+    private static int payReservationIndex = 0;
     private static int totalCarIndex = 0;
     private static int totalPassholderIndex = 0;
+    private static int totalReservationIndex = 0;
     private static int totalMinutes;
-    private static int inMinutes;
 
+    private static int inMinutes;
     private static HashMap<Location, Car> carLocationMap;
 
     /**
@@ -60,6 +72,36 @@ public final class CarPark extends AbstractModel implements TimeInterface{
         this.time = time;
 
         /**
+         * Create the reservations object for the Car Park
+         * and fill them with 2 companies for the simulator
+         */
+        this.reservations = new Reservations();
+
+        /**
+         * First company and its locations are generated
+         * here by looping trough the first 15 spots on
+         * the highest floor in last row
+         */
+        ArrayList<Location> locations = new ArrayList<>();
+        for(int i = 0; i < 31; i++ ){
+            locations.add(new Location(floors-1,rows-2, i));
+        }
+        reservations.addReservation("Albert Heijn", locations);
+        reservations.setColor("Albert Heijn", Color.cyan);
+
+        /**
+         * Second company and its locations are generated
+         * here by looping trough the last 15 spots on
+         * the highest floor in the last row
+         */
+        locations = new ArrayList<>();
+        for(int i = 0; i < 31; i++ ){
+            locations.add(new Location(floors-1,rows-1, i));
+        }
+        reservations.addReservation("Theater Opera", locations);
+        reservations.setColor("Theater Opera", Color.green);
+
+        /**
          * Create the park with the number of floors, rows and places
          * and create the queues available for the cars
          */
@@ -69,6 +111,7 @@ public final class CarPark extends AbstractModel implements TimeInterface{
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
+        reservationCarQueue = new CarQueue();
 
         /**
          * Here we generate our hash map with all the locations
@@ -90,7 +133,7 @@ public final class CarPark extends AbstractModel implements TimeInterface{
      * Get a car from a certain location in the car park.
      *
      * @param location Location object where to get the car from.
-     * @return car object that is located at the given location.
+     * @return car object that is located at the given location or null if there is no car at the location.
      */
     public static Car getCar(Location location) {
         if (!checkLocation(location)) {
@@ -145,12 +188,26 @@ public final class CarPark extends AbstractModel implements TimeInterface{
              * is used to check if we create a passholder or a
              * regular customer.
              */
-            int customerChance = random.nextInt(this.passHolderProbability);
+            int passHolderChance = random.nextInt(this.passHolderProbability);
+            int reservationChance = random.nextInt(this.reservationProbability);
 
-            if (customerChance == 0){
+            if (passHolderChance == 0){
                 Car car = new PassHolder();
                 entranceCarQueue.addCar(car);
                 totalPassholderIndex++;
+            }
+            else if(reservationChance == 0){
+                /**
+                 * Put all reservation companies in a list to get a random company
+                 * and create a new reservation car for this company
+                 */
+                List<String> keys = new ArrayList<String>(reservations.getReservations().keySet());
+                String randomCompany = keys.get(random.nextInt(reservations.getReservations().size()));
+                Car car = new ReservationCar(randomCompany);
+
+                reservationCarQueue.addCar(car);
+
+                totalReservationIndex ++;
             }
             else {
                 Car car = new AdHocCar();
@@ -162,11 +219,32 @@ public final class CarPark extends AbstractModel implements TimeInterface{
             super.notifyViews();
         }
 
+        // Remove car from the front of the reservation queue and assign to a parking space
+        for (int i = 0; i < enterSpeed; i++) {
+            ReservationCar car = (ReservationCar) reservationCarQueue.removeCar();
+
+            if (car == null) {
+                break;
+            }
+
+            String company = car.getCompany();
+            ArrayList<Location> companyLocations = reservations.getCompanyLocations(company);
+
+            for (Location companyLocation : companyLocations) {
+                if(getCar(companyLocation) == null){
+                    int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                    car.setStayMinutes(stayMinutes);
+
+                    this.parkCar(companyLocation,car);
+                    break;
+                }
+            }
+
+        }
+
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
             Car car = entranceCarQueue.removeCar();
-
-            super.notifyViews();
 
             if (car == null) {
                 break;
@@ -218,6 +296,11 @@ public final class CarPark extends AbstractModel implements TimeInterface{
             if(car instanceof PassHolder){
                 totalPassholderIndex--;
             }
+
+            if(car instanceof ReservationCar) {
+                totalReservationIndex--;
+            }
+
             totalMinutes = (totalMinutes + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
@@ -284,6 +367,7 @@ public final class CarPark extends AbstractModel implements TimeInterface{
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
+
         return !(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces);
     }
 
@@ -317,6 +401,14 @@ public final class CarPark extends AbstractModel implements TimeInterface{
      */
     public static void addPassIndex(){
         payPassIndex ++;
+    }
+
+    /**
+     * Increase the amount of reservation cars that have
+     * payed and are leaving the car park.
+     */
+    public static void addReservationIndex(){
+        payReservationIndex ++;
     }
 
     /**
@@ -371,6 +463,15 @@ public final class CarPark extends AbstractModel implements TimeInterface{
         return payCashIndex;
     }
 
+
+    /**
+     * Getter for the pay cash index.
+     * @return int pay cash index.
+     */
+    public int getPayReservationIndex() {
+        return payReservationIndex;
+    }
+
     /**
      * Getter for the total amount of minutes.
      * @return int total minutes
@@ -409,6 +510,14 @@ public final class CarPark extends AbstractModel implements TimeInterface{
      */
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Getter for the total reservation index.
+     * @return int total reservation index.
+     */
+    public int getTotalReservationIndex() {
+        return totalReservationIndex;
     }
 
     /**
@@ -454,5 +563,9 @@ public final class CarPark extends AbstractModel implements TimeInterface{
 
     public static void setTotalMinutes(int totalMinutes) {
         CarPark.totalMinutes = totalMinutes;
+    }
+
+    public Reservations getReservations() {
+        return reservations;
     }
 }

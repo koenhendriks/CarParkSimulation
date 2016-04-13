@@ -7,6 +7,8 @@ package nl.hanze.CarParkSimulation.logic;
  * @version 0.2 (11-04-2016)
  */
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 /**
  * This is the Car class, it represents a car that enters, pays and leaves the car park.
  * It has a certain location in the parking car park and a certain amount of time that
