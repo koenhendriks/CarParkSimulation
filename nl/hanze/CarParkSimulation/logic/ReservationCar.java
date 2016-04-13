@@ -22,10 +22,10 @@ public class ReservationCar extends Car implements TimeInterface{
      */
     public void tick(){
         super.tick();
-        if (super.getMinutesLeft() <= 0 && !super.getIsPaying()) {
-            super.setIsPaying(true);
-            CarPark.payCar(this);
-            CarPark.addCashIndex();
+        if (super.getMinutesLeft() <= 0) {
+            CarPark.removeCarAt(super.getLocation());
+            CarPark.exitCar(this);
+            // // TODO: 4/13/16 count leaving reservations
         }
     }
 
