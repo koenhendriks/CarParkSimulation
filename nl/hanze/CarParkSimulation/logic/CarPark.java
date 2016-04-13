@@ -24,6 +24,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     private static CarQueue entranceCarQueue;
     private static CarQueue paymentCarQueue;
     private static CarQueue exitCarQueue;
+    private static CarQueue reservationCarQueue;
 
     // time object
     private Time time;
@@ -105,6 +106,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
+        reservationCarQueue = new CarQueue();
 
         /**
          * Here we generate our hash map with all the locations
@@ -197,7 +199,6 @@ public final class CarPark extends AbstractModel implements TimeInterface {
                 List<String> keys = new ArrayList<String>(reservations.getReservations().keySet());
                 String randomCompany = keys.get(random.nextInt(reservations.getReservations().size()));
                 Car car = new ReservationCar(randomCompany);
-
 
                 entranceCarQueue.addCar(car);
                 // // TODO: 4/13/16 count amount of Reservation cars
