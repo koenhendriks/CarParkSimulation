@@ -1,5 +1,7 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 /**
  * Class AdHocCar
  * This class extends the car class and is meant for creating cars ad hoc.

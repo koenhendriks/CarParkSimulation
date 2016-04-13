@@ -1,5 +1,7 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 /**
  * Class PassHolder
  *

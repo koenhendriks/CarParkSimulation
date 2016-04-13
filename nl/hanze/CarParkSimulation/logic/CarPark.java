@@ -1,7 +1,8 @@
 package nl.hanze.CarParkSimulation.logic;
 
+import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
+
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Random;
  * @author Koen Hendriks, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-public final class CarPark extends AbstractModel implements TimeInterface{
+public final class CarPark extends AbstractModel implements TimeInterface {
 
     private static int numberOfFloors;
     private static int numberOfRows;
