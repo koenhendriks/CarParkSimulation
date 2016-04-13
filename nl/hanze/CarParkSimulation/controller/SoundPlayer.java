@@ -32,7 +32,7 @@ public class SoundPlayer {
                     System.out.println("Start");
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                            Main.class.getResourceAsStream(path + filename));
+                            Main.class.getResourceAsStream(PATH+EXIT));
                     clip.open(audioInputStream);
                     clip.start();
                     Thread.sleep(2);

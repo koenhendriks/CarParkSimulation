@@ -32,15 +32,17 @@ public abstract class Language {
         stringCollection.put("resetItem", "Reset");
         stringCollection.put("exitItem", "Exit");
         stringCollection.put("helpMenu", "Help");
+        stringCollection.put("close", "Close");
+        stringCollection.put("about", "About");
         stringCollection.put("aboutItem", "About...");
         stringCollection.put("aboutMessage", "About Car Park Simulation");
         stringCollection.put("version", "version 1.0");
-        stringCollection.put("names",
-                 "Written by:\n" +
-                 "Koen Hendriks,\n" +
-                 "Ruben Buisman,\n" +
-                 "Robin Meles,\n" +
-                 "Joey Boum Bletterman.");
+        stringCollection.put("nameLine1","Written by:");
+        stringCollection.put("nameLine2","Koen Hendriks");
+        stringCollection.put("nameLine3","Ruben Buisman");
+        stringCollection.put("nameLine4","Robin Meles");
+        stringCollection.put("nameLine5","Joey Boum Bletterman");
+        stringCollection.put("github","You can find this project on GitHub");
 
         // controller strings
         stringCollection.put("insertSteps", "Insert steps: ");

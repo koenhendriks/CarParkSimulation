@@ -4,8 +4,12 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
 import nl.hanze.CarParkSimulation.main.CarParkSimulation;
 import nl.hanze.CarParkSimulation.localization.en.Language;
+import nl.hanze.CarParkSimulation.view.AboutView;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTML;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +22,10 @@ import java.awt.event.ActionListener;
  */
 public class Controller extends AbstractController implements ActionListener
 {
+    // about dialog
+    public static JDialog aboutDialog;
+    private JPanel dialogBox;
+
     // labels for steps and speed
     private JLabel insertSteps;
     private JLabel speedLabel;
@@ -46,6 +54,14 @@ public class Controller extends AbstractController implements ActionListener
         CarParkSimulation.resetItem.addActionListener(this);
         CarParkSimulation.exitItem.addActionListener(this);
         CarParkSimulation.aboutItem.addActionListener(this);
+
+        // about dialog
+        aboutDialog = new JDialog(CarParkSimulation.SCREEN, Language.get("about"), true);
+        aboutDialog.add(new AboutView());
+        aboutDialog.pack();
+        aboutDialog.setLocation(430,200);
+        aboutDialog.setSize(500,500);
+        aboutDialog.setResizable(false);
 
         // custom step counter
         insertSteps = new JLabel(Language.get("insertSteps"));
@@ -113,8 +129,7 @@ public class Controller extends AbstractController implements ActionListener
      * Method for action definition of About item.
      */
     private void aboutPressed() {
-        AboutOptionPane about = new AboutOptionPane();
-        CarParkSimulation.SCREEN.add(about);
+        aboutDialog.setVisible(true);
     }
 
     /**
@@ -171,6 +186,13 @@ public class Controller extends AbstractController implements ActionListener
 
         for(int i =0; i < steps; i++)
             carPark.tick();
+    }
+
+    /**
+     * Method to close the about dialog
+     */
+    public static void closeAboutDialog(){
+        aboutDialog.setVisible(false);
     }
 
     /**
