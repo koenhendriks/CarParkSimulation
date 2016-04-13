@@ -78,7 +78,7 @@ public class AlternateStatisticsView extends AbstractView
         totalCars = carPark.getTotalCars();
         passholders = carPark.getTotalPassholderIndex();
         reservations = carPark.getTotalReservationIndex();
-        regular = totalCars - passholders;
+        regular = totalCars - passholders - reservations;
 
         bar1.setMaximum(SPACES);
         bar1.setValue(regular);
