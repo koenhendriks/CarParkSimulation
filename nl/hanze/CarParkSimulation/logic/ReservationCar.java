@@ -25,7 +25,7 @@ public class ReservationCar extends Car implements TimeInterface{
         if (super.getMinutesLeft() <= 0) {
             CarPark.removeCarAt(super.getLocation());
             CarPark.exitCar(this);
-            // // TODO: 4/13/16 count leaving reservations
+            CarPark.addReservationIndex();
         }
     }
 

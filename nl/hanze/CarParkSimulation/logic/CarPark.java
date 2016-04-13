@@ -48,8 +48,10 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     private static int exitIndex = 0;
     private static int payCashIndex = 0;
     private static int payPassIndex = 0;
+    private static int payReservationIndex = 0;
     private static int totalCarIndex = 0;
     private static int totalPassholderIndex = 0;
+    private static int totalReservationIndex = 0;
     private static int totalMinutes;
 
     private static int inMinutes;
@@ -204,7 +206,8 @@ public final class CarPark extends AbstractModel implements TimeInterface {
                 Car car = new ReservationCar(randomCompany);
 
                 reservationCarQueue.addCar(car);
-                // // TODO: 4/13/16 count amount of Reservation cars
+
+                totalReservationIndex ++;
             }
             else {
                 Car car = new AdHocCar();
@@ -293,6 +296,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             if(car instanceof PassHolder){
                 totalPassholderIndex--;
             }
+
+            if(car instanceof ReservationCar) {
+                totalReservationIndex--;
+            }
+
             totalMinutes = (totalMinutes + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
@@ -396,6 +404,14 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     }
 
     /**
+     * Increase the amount of reservation cars that have
+     * payed and are leaving the car park.
+     */
+    public static void addReservationIndex(){
+        payReservationIndex ++;
+    }
+
+    /**
      * Let a car exit by adding it to the end
      * of the exit queue.
      *
@@ -485,6 +501,14 @@ public final class CarPark extends AbstractModel implements TimeInterface {
      */
     public int getTotalPassholderIndex() {
         return totalPassholderIndex;
+    }
+
+    /**
+     * Getter for the total reservation index.
+     * @return int total reservation index.
+     */
+    public int getTotalReservationIndex() {
+        return totalReservationIndex;
     }
 
     /**

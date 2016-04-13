@@ -20,6 +20,7 @@ public class CarParkView extends AbstractView
     private JLabel title;
     private JLabel totalCars;
     private JLabel totalPassholders;
+    private JLabel totalReservations;
 
     // image of the car park
     private Image carParkImage;
@@ -35,16 +36,19 @@ public class CarParkView extends AbstractView
         this.title = new JLabel(Language.get("birdView"));
         this.totalCars = new JLabel(Language.get("cars0"));
         this.totalPassholders = new JLabel(Language.get("pass0"));
+        this.totalReservations = new JLabel(Language.get("reservation0"));
         this.size = new Dimension(680, 330);
 
         // set location of the labels
-        totalPassholders.setBounds(500,5,250,10);
-        totalCars.setBounds(270,5,150,10);
+        totalReservations.setBounds(500,5,250,10);
+        totalPassholders.setBounds(300,5,250,10);
+        totalCars.setBounds(170,5,150,10);
         title.setBounds(10,5, 150,10);
 
         // add the labels to the view
         add(title);
         add(totalCars);
+        add(totalReservations);
         add(totalPassholders);
     }
 
@@ -74,6 +78,7 @@ public class CarParkView extends AbstractView
         // total statistics
         totalCars.setText(Language.get("cars")+ carPark.getTotalCars());
         totalPassholders.setText(Language.get("pass")+carPark.getTotalPassholderIndex());
+        totalReservations.setText(Language.get("reservations")+carPark.getTotalReservationIndex());
 
         // create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
@@ -81,11 +86,11 @@ public class CarParkView extends AbstractView
         Graphics graphics = carParkImage.getGraphics();
 
 
-        for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++) {
-            for (int row = 0; row < carPark.getNumberOfRows(); row++) {
-                for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
+        for (int floor = 0; floor < CarPark.getNumberOfFloors(); floor++) {
+            for (int row = 0; row < CarPark.getNumberOfRows(); row++) {
+                for (int place = 0; place < CarPark.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    Car car = carPark.getCar(location);
+                    Car car = CarPark.getCar(location);
                     Color color;
 
                     if(car instanceof PassHolder){
