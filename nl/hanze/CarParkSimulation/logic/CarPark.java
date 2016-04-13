@@ -463,6 +463,15 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         return payCashIndex;
     }
 
+
+    /**
+     * Getter for the pay cash index.
+     * @return int pay cash index.
+     */
+    public int getPayReservationIndex() {
+        return payReservationIndex;
+    }
+
     /**
      * Getter for the total amount of minutes.
      * @return int total minutes

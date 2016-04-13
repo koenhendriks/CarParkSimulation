@@ -81,6 +81,7 @@ public abstract class Language {
         stringCollection.put("left", "Left the carpark: ");
         stringCollection.put("payCash", "Paid with cash: ");
         stringCollection.put("payPass", "Paid with pass: ");
+        stringCollection.put("payReservations", "Paid by reservation: ");
 
         // statistics view strings
         stringCollection.put("stats", "Statistics");

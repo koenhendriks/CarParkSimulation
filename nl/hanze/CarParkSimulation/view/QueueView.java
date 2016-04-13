@@ -26,12 +26,14 @@ public class QueueView extends AbstractView
     private JLabel exitLabel;
     private JLabel payCashLabel;
     private JLabel payPassLabel;
+    private JLabel payReservationLabel;
 
     // indices
     private int entranceIndex;
     private int exitIndex;
     private int payCashIndex;
     private int payPassIndex;
+    private int payReservationIndex;
 
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
@@ -41,7 +43,7 @@ public class QueueView extends AbstractView
     public QueueView(CarPark model) {
         super(model);
 
-        this.size = new Dimension(100, 100);
+        this.size = new Dimension(100, 140);
 
         // create labels
         this.titleLabel = new JLabel();
@@ -49,6 +51,7 @@ public class QueueView extends AbstractView
         this.exitLabel = new JLabel();
         this.payCashLabel = new JLabel();
         this.payPassLabel = new JLabel();
+        this.payReservationLabel = new JLabel();
 
         // set font for title label
         titleLabel.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -59,6 +62,7 @@ public class QueueView extends AbstractView
         exitLabel.setBounds(10,60,200,20);
         payCashLabel.setBounds(10,80,200,20);
         payPassLabel.setBounds(10,100,200,20);
+        payReservationLabel.setBounds(10,120,200,20);
 
         // add the labels to the view
         add(titleLabel);
@@ -66,6 +70,7 @@ public class QueueView extends AbstractView
         add(exitLabel);
         add(payCashLabel);
         add(payPassLabel);
+        add(payReservationLabel);
 
         // set the title
         titleLabel.setText(Language.get("info"));
@@ -82,11 +87,13 @@ public class QueueView extends AbstractView
         exitIndex = carPark.getExitIndex();
         payCashIndex = carPark.getPayCashIndex();
         payPassIndex = carPark.getPayPassIndex();
+        payReservationIndex = carPark.getPayReservationIndex();
 
         enterLabel.setText(Language.get("used") + entranceIndex);
         exitLabel.setText(Language.get("left") + exitIndex);
         payCashLabel.setText(Language.get("payCash") + payCashIndex);
         payPassLabel.setText(Language.get("payPass") + payPassIndex);
+        payReservationLabel.setText(Language.get("payReservations") + payReservationIndex);
 
         setVisible(true);
         super.updateView();
