@@ -102,6 +102,9 @@ public abstract class Language {
         stringCollection.put("legPas","Pass Holders");
         stringCollection.put("legAh","Reserved AH");
         stringCollection.put("legOp","Reserved Opera");
+
+        //QueueLengthView strings
+        stringCollection.put("lengthTitle","Queue length:");
     }
 
     /**
