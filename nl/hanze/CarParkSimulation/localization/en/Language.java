@@ -9,7 +9,7 @@ import java.util.HashMap;
  * HashMap stores all the strings with a defined code.
  *
  * @author Koen Hendriks, Joey Boum Bletterman, Ruben Buisman
- * @version 0.3 (5-4-2016)
+ * @version 0.4 (5-4-2016)
  */
 public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
@@ -71,11 +71,13 @@ public abstract class Language {
         // car park view strings
         stringCollection.put("birdView", "Car Park Bird View");
         stringCollection.put("cars0", "Total cars: 0");
-        stringCollection.put("pass0", "Total passholds: 0");
-        stringCollection.put("reservation0", "Total reservations: 0");
         stringCollection.put("cars", "Total cars: ");
         stringCollection.put("pass", "Total Passholders: ");
         stringCollection.put("reservations", "Total reservations: ");
+
+        // graph strings
+        stringCollection.put("graphTotalCars", "Total Cars");
+
 
         // queue view strings
         stringCollection.put("info", "Statistics");
