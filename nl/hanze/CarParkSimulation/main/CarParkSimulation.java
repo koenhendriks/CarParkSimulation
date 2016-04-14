@@ -119,7 +119,7 @@ public final class CarParkSimulation
         carParkView.setBounds(260,30,680,330);
         statisticsView.setBounds(30,190, 220,120);
         queueView.setBounds(30,30,220,160);
-        queueLengthView.setBounds(30,420,220,110);
+        queueLengthView.setBounds(30,420,220,120);
         dayView.setBounds(970,30,200, 330);
         alternateStatiscticsView.setBounds(260,400,680,140);
         legend.setBounds(970,370,200,170);

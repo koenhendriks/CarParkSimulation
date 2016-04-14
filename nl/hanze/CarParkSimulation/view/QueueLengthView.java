@@ -2,6 +2,7 @@ package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
+import nl.hanze.CarParkSimulation.logic.CarPark;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,7 @@ public class QueueLengthView extends AbstractView {
     private JLabel titleLabel;
     private JLabel entranceLabel;
     private JLabel payLabel;
+    private JLabel reservationLabel;
     private JLabel exitLabel;
 
 
@@ -37,6 +39,7 @@ public class QueueLengthView extends AbstractView {
         this.titleLabel = new JLabel();
         this.entranceLabel = new JLabel();
         this.payLabel = new JLabel();
+        this.reservationLabel = new JLabel();
         this.exitLabel = new JLabel();
 
         // set font for titleLabel
@@ -46,12 +49,14 @@ public class QueueLengthView extends AbstractView {
         titleLabel.setBounds(10,5,200,20);
         entranceLabel.setBounds(10,40,200,20);
         payLabel.setBounds(10,60,200,20);
-        exitLabel.setBounds(10,80,200,20);
+        reservationLabel.setBounds(10,80,200,20);
+        exitLabel.setBounds(10,100,200,20);
 
         // add the labels to the view
         add(titleLabel);
         add(entranceLabel);
         add(payLabel);
+        add(reservationLabel);
         add(exitLabel);
 
         //set the title
@@ -64,7 +69,15 @@ public class QueueLengthView extends AbstractView {
      * Gets called by the super model class when something needs to be updated.
      */
     public void updateView(){
+        CarPark carPark = (CarPark) super.model;
 
+        entranceLabel.setText(Language.get("lengthEntrance"));
+        payLabel.setText(Language.get("lengthPay"));
+        reservationLabel.setText(Language.get("lengthReservation"));
+        exitLabel.setText(Language.get("lengthExit"));
+
+        setVisible(true);
+        super.updateView();
 
     }
 

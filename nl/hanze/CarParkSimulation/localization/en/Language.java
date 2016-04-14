@@ -107,6 +107,10 @@ public abstract class Language {
 
         //QueueLengthView strings
         stringCollection.put("lengthTitle","Queue length:");
+        stringCollection.put("lengthEntrance","Entrance:");
+        stringCollection.put("lengthPay","Pay:");
+        stringCollection.put("lengthReservation","Reservation:");
+        stringCollection.put("lengthExit","Exit:");
     }
 
     /**
