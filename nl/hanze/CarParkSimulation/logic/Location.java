@@ -6,8 +6,8 @@ package nl.hanze.CarParkSimulation.logic;
  * This class represents a location in the car park which
  * is on a certain floor in a certain row in a place.
  *
- * @author Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @author Ruben Buisman, Joey Boum Bletterman, Koen Hendriks
+ * @version 0.3 (11-04-2016)
  */
 public class Location extends AbstractModel
 {
