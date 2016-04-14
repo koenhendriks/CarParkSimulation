@@ -62,6 +62,7 @@ public class QueueLengthView extends AbstractView {
         //set the title
         titleLabel.setText(Language.get("lengthTitle"));
 
+
     }
 
 
@@ -71,10 +72,10 @@ public class QueueLengthView extends AbstractView {
     public void updateView(){
         CarPark carPark = (CarPark) super.model;
 
-        entranceLabel.setText(Language.get("lengthEntrance"));
-        payLabel.setText(Language.get("lengthPay"));
-        reservationLabel.setText(Language.get("lengthReservation"));
-        exitLabel.setText(Language.get("lengthExit"));
+        entranceLabel.setText(Language.get("lengthEntrance") + CarPark.getEntranceCarQueue().size());
+        payLabel.setText(Language.get("lengthPay") + CarPark.getPaymentCarQueue().size());
+        reservationLabel.setText(Language.get("lengthReservation")+ CarPark.getReservationCarQueue().size());
+        exitLabel.setText(Language.get("lengthExit")+ CarPark.getExitCarQueue().size());
 
         setVisible(true);
         super.updateView();
