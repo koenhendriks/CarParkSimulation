@@ -83,21 +83,21 @@ public class AlternateStatisticsView extends AbstractView
         bar1.setMaximum(SPACES);
         bar1.setValue(regular);
         percent1 = (int) Math.floor(bar1.getPercentComplete() * 100);
-        bar1.setString((carPark.getTotalCars()-carPark.getTotalPassholderIndex()-carPark.getTotalReservationIndex()) + " " +
+        bar1.setString(regular + " " +
                 Language.get("regbar") +
                 percent1 + "%");
 
         bar2.setMaximum(SPACES);
         bar2.setValue(passholders);
         percent2 = (int) Math.floor(bar2.getPercentComplete() * 100);
-        bar2.setString(carPark.getTotalPassholderIndex() +  " " +
+        bar2.setString(passholders +  " " +
                 Language.get("pasbar") +
                 percent2 + "%");
 
         bar3.setMaximum(SPACES);
         bar3.setValue(reservations);
         percent3 = (int) Math.floor(bar3.getPercentComplete() * 100);
-        bar3.setString(carPark.getTotalReservationIndex() +  " " +
+        bar3.setString(reservations +  " " +
                 Language.get("resbar") +
                 percent3 + "%");
 
