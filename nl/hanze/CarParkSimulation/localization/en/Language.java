@@ -98,10 +98,10 @@ public abstract class Language {
 
         // legend strings
         stringCollection.put("legTit","Legend: ");
-        stringCollection.put("legReg","Regular customers: ");
-        stringCollection.put("legPas","Pass Holders: ");
-        stringCollection.put("legAh","Reserved AH: ");
-        stringCollection.put("legOp","Reserved Opera: ");
+        stringCollection.put("legReg","Regular customers");
+        stringCollection.put("legPas","Pass Holders");
+        stringCollection.put("legAh","Reserved AH");
+        stringCollection.put("legOp","Reserved Opera");
     }
 
     /**
