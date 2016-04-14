@@ -263,13 +263,9 @@ public final class CarPark extends AbstractModel implements TimeInterface {
 
                 FreeLocation.setNext();
             }
-
-            super.notifyViews();
         }
 
         this.tickCars();
-
-        super.notifyViews();
 
         // Let cars pay.
         for (int i = 0; i < paymentSpeed; i++) {
@@ -282,7 +278,6 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
 
-            super.notifyViews();
         }
 
         // Let cars leave.
@@ -304,7 +299,6 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             totalMinutes = (totalMinutes + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
-            super.notifyViews();
         }
 
         // Update the car park view.

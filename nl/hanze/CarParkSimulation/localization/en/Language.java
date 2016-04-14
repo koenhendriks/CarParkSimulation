@@ -77,6 +77,9 @@ public abstract class Language {
         stringCollection.put("pass", "Total Passholders: ");
         stringCollection.put("reservations", "Total reservations: ");
 
+        // graph strings
+        stringCollection.put("graphTotalCars", "Total Cars");
+
 
         // queue view strings
         stringCollection.put("info", "Carpark info");
