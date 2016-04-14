@@ -100,8 +100,8 @@ public abstract class Language {
         stringCollection.put("legTit","Legend: ");
         stringCollection.put("legReg","Regular customers: ");
         stringCollection.put("legPas","Pass Holders: ");
-        stringCollection.put("legRes","Reserved spaces: ");
-        stringCollection.put("legUse","Used reservations: ");
+        stringCollection.put("legAh","Reserved AH: ");
+        stringCollection.put("legOp","Reserved Opera: ");
     }
 
     /**
