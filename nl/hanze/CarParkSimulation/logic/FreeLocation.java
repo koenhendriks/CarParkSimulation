@@ -1,5 +1,11 @@
 package nl.hanze.CarParkSimulation.logic;
 
+/**
+ * Class FreeLocation
+ *
+ * @author Koen Hendriks
+ * @version 0.1 (04-04-2016)
+ */
 public final class FreeLocation {
     /**
      * The first free spot is on the first floor

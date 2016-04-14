@@ -18,7 +18,7 @@ import java.awt.event.WindowEvent;
  * This will be an instance of the main simulation.
  *
  * @author Koen Hendriks, Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @version 0.4 (11-04-2016)
  */
 public final class CarParkSimulation
 {
@@ -50,6 +50,7 @@ public final class CarParkSimulation
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
+    private AbstractView legend;
     private AbstractView graphView;
     private static StatisticsView statisticsView;
 
@@ -77,6 +78,7 @@ public final class CarParkSimulation
         statisticsView = new StatisticsView(carParkModel);
         this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
         this.graphView = new GraphView(carParkModel);
+        this.legend = new LegendView(carParkModel);
 
         this.controller = new Controller(carParkModel);
 
@@ -109,6 +111,7 @@ public final class CarParkSimulation
         SCREEN.getContentPane().add(queueView);
         SCREEN.getContentPane().add(statisticsView);
         SCREEN.getContentPane().add(alternateStatiscticsView);
+        SCREEN.getContentPane().add(legend);
         SCREEN.getContentPane().add(graphView);
 
         // set the location of the views on the SCREEN
@@ -118,6 +121,7 @@ public final class CarParkSimulation
         dayView.setBounds(970,30,200, 330);
         alternateStatiscticsView.setBounds(260,400,680,140);
         graphView.setBounds(0,540,1200,300);
+        legend.setBounds(970,370,200,170);
 
 
         // add the controllers to the main SCREEN

@@ -15,8 +15,8 @@ import java.awt.*;
  * It indicates when the simulation started and for
  * how long it has been running.
  *
- * @author Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @author Ruben Buisman, Joey Boum Bletterman, Koen Hendriks
+ * @version 0.3 (11-04-2016)
  */
 public class DayView extends AbstractView
 {

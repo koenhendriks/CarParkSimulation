@@ -8,8 +8,8 @@ import java.util.HashMap;
  * language or change a sentence we can do it here. The
  * HashMap stores all the strings with a defined code.
  *
- * @author Koen Hendriks, Joey Boum Bletterman
- * @version 0.1 (5-4-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman, Ruben Buisman
+ * @version 0.4 (5-4-2016)
  */
 public abstract class Language {
     private static HashMap<String, String> stringCollection = null;
@@ -71,8 +71,6 @@ public abstract class Language {
         // car park view strings
         stringCollection.put("birdView", "Car Park Bird View");
         stringCollection.put("cars0", "Total cars: 0");
-        stringCollection.put("pass0", "Total passholds: 0");
-        stringCollection.put("reservation0", "Total reservations: 0");
         stringCollection.put("cars", "Total cars: ");
         stringCollection.put("pass", "Total Passholders: ");
         stringCollection.put("reservations", "Total reservations: ");
@@ -99,6 +97,13 @@ public abstract class Language {
         stringCollection.put("regbar", "Regular customers: ");
         stringCollection.put("pasbar", "Pass Holders: ");
         stringCollection.put("resbar", "Reservations: ");
+
+        // legend strings
+        stringCollection.put("legTit","Legend: ");
+        stringCollection.put("legReg","Regular customers");
+        stringCollection.put("legPas","Pass Holders");
+        stringCollection.put("legAh","Reserved AH");
+        stringCollection.put("legOp","Reserved Opera");
     }
 
     /**
