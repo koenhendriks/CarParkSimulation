@@ -8,8 +8,8 @@ import java.util.HashMap;
  * language or change a sentence we can do it here. The
  * HashMap stores all the strings with a defined code.
  *
- * @author Koen Hendriks, Joey Boum Bletterman
- * @version 0.1 (5-4-2016)
+ * @author Koen Hendriks, Joey Boum Bletterman, Ruben Buisman
+ * @version 0.3 (5-4-2016)
  */
 public abstract class Language {
     private static HashMap<String, String> stringCollection = null;

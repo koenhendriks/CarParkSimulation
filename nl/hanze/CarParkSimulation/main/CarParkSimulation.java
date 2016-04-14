@@ -18,7 +18,7 @@ import java.awt.event.WindowEvent;
  * This will be an instance of the main simulation.
  *
  * @author Koen Hendriks, Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @version 0.3 (11-04-2016)
  */
 public final class CarParkSimulation
 {

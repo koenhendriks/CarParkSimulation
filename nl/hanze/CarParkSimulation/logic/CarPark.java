@@ -545,6 +545,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         numberOfRows = 6;
         numberOfPlaces = 30;
 
+        // reset queues
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
