@@ -117,6 +117,7 @@ public class StatisticsView extends AbstractView
         expectedRevenue = 0;
         currentRevenue = 0;
         yesterdayRevenue = 0;
+        totalRevenue = 0;
         updateView();
     }
 }
