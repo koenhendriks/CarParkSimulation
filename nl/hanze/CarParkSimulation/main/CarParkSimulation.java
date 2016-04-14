@@ -10,6 +10,7 @@ import nl.hanze.CarParkSimulation.logic.Time;
 import nl.hanze.CarParkSimulation.view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -84,6 +85,13 @@ public final class CarParkSimulation
         this.legend = new LegendView(carParkModel);
 
         this.controller = new Controller(carParkModel);
+
+        // set borders for the views
+        queueView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        queueLengthView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        dayView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        statisticsView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        legend.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 
         /*
          * Create the JFrame that will display the views
