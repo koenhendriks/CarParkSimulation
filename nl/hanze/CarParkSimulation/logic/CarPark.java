@@ -521,6 +521,38 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     }
 
     /**
+     * Getter for entranceCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getEntranceCarQueue() {
+        return entranceCarQueue;
+    }
+
+    /**
+     * Getter for paymentCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getPaymentCarQueue() {
+        return paymentCarQueue;
+    }
+
+    /**
+     * Getter for exitCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getExitCarQueue() {
+        return exitCarQueue;
+    }
+
+    /**
+     * Getter for reservationCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getReservationCarQueue() {
+        return reservationCarQueue;
+    }
+
+    /**
      * Reset method for the park.
      */
     public void resetPark(){
