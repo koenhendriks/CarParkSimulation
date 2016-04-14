@@ -48,7 +48,7 @@ public abstract class Language {
         stringCollection.put("insertSteps", "Insert steps: ");
         stringCollection.put("input", "1");
         stringCollection.put("startLimit", "Start");
-        stringCollection.put("speedLabel", "Size of minute in milliseconds: ");
+        stringCollection.put("speedLabel", "Time of 1 minute (in ms):");
         stringCollection.put("speedField", "1000");
         stringCollection.put("speedButton", "Set");
         stringCollection.put("startButton", "Start");
