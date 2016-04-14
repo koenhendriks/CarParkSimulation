@@ -71,11 +71,7 @@ public abstract class Language {
         // car park view strings
         stringCollection.put("birdView", "Car Park Bird View");
         stringCollection.put("cars0", "Total cars: 0");
-        stringCollection.put("pass0", "Total passholds: 0");
-        stringCollection.put("reservation0", "Total reservations: 0");
         stringCollection.put("cars", "Total cars: ");
-        stringCollection.put("pass", "Total Passholders: ");
-        stringCollection.put("reservations", "Total reservations: ");
 
         // queue view strings
         stringCollection.put("info", "Carpark info");
