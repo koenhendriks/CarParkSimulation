@@ -42,4 +42,10 @@ public class LegendView extends AbstractView
         albert.setBounds(0,90,150,50);
         opera.setBounds(0,110,150,50);
     }
+
+    @Override
+    public void updateView() {
+        super.updateView();
+    }
+
 }
