@@ -2,6 +2,9 @@ package nl.hanze.CarParkSimulation.view;
 
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Class QueueLengthView
  *
@@ -9,6 +12,15 @@ import nl.hanze.CarParkSimulation.logic.AbstractModel;
  * @version 0.1 (14-04-2016)
  */
 public class QueueLengthView extends AbstractView {
+
+    // queue view size
+    private Dimension size;
+
+    // queue view labels
+    private JLabel titleLabel;
+    private JLabel entranceLabel;
+    private JLabel payLabel;
+    private JLabel exitLabel;
 
 
     /**
