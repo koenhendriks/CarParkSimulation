@@ -78,7 +78,7 @@ public abstract class Language {
         stringCollection.put("reservations", "Total reservations: ");
 
         // queue view strings
-        stringCollection.put("info", "Carpark info");
+        stringCollection.put("info", "Statistics");
         stringCollection.put("used", "Used the entrance: ");
         stringCollection.put("left", "Left the carpark: ");
         stringCollection.put("payCash", "Paid with cash: ");
@@ -86,11 +86,13 @@ public abstract class Language {
         stringCollection.put("payReservations", "Paid by reservation: ");
 
         // statistics view strings
-        stringCollection.put("stats", "Statistics");
-        stringCollection.put("expected", "Expected revenue: ");
-        stringCollection.put("current", "Current rev: ");
-        stringCollection.put("yesterday", "Yesterday's rev: ");
-        stringCollection.put("total", "Total revenue: ");
+        stringCollection.put("stats", "Revenue");
+        stringCollection.put("expected", "Expected: ");
+        stringCollection.put("current", "Current: ");
+        stringCollection.put("yesterday", "Yesterday's: ");
+        stringCollection.put("total", "Total: ");
+
+        // bar strings
         stringCollection.put("bar", "Occupation: ");
         stringCollection.put("regbar", "Regular customers: ");
         stringCollection.put("pasbar", "Pass Holders: ");
