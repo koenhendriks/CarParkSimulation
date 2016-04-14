@@ -50,6 +50,7 @@ public final class CarParkSimulation
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
+    private AbstractView legend;
     private static StatisticsView statisticsView;
 
     // the controller
@@ -75,6 +76,7 @@ public final class CarParkSimulation
         this.dayView = new DayView(timeModel);
         statisticsView = new StatisticsView(carParkModel);
         this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
+        this.legend = new LegendView(carParkModel);
 
         this.controller = new Controller(carParkModel);
 
@@ -107,6 +109,7 @@ public final class CarParkSimulation
         SCREEN.getContentPane().add(queueView);
         SCREEN.getContentPane().add(statisticsView);
         SCREEN.getContentPane().add(alternateStatiscticsView);
+        SCREEN.getContentPane().add(legend);
 
         // set the location of the views on the SCREEN
         carParkView.setBounds(260,30,680,330);
@@ -114,6 +117,7 @@ public final class CarParkSimulation
         queueView.setBounds(30,30,230,160);
         dayView.setBounds(970,30,200, 330);
         alternateStatiscticsView.setBounds(260,400,680,140);
+        legend.setBounds(970,370,200,170);
 
 
         // add the controllers to the main SCREEN
