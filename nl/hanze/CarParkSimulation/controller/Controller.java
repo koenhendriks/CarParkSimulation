@@ -24,7 +24,6 @@ public class Controller extends AbstractController implements ActionListener
 {
     // about dialog
     public static JDialog aboutDialog;
-    private JPanel dialogBox;
 
     // labels for steps and speed
     private JLabel insertSteps;
@@ -59,7 +58,8 @@ public class Controller extends AbstractController implements ActionListener
         aboutDialog = new JDialog(CarParkSimulation.SCREEN, Language.get("about"), true);
         aboutDialog.add(new AboutView());
         aboutDialog.pack();
-        aboutDialog.setLocation(430,200);
+        aboutDialog.setLocationRelativeTo(CarParkSimulation.SCREEN);
+        aboutDialog.setLocation(350,85);
         aboutDialog.setSize(500,500);
         aboutDialog.setResizable(false);
 
