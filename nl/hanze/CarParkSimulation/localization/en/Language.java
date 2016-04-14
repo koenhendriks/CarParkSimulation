@@ -101,7 +101,7 @@ public abstract class Language {
         stringCollection.put("resbar", "Reservations: ");
 
         // legend strings
-        stringCollection.put("legTit","Legend: ");
+        stringCollection.put("legTit","Legend");
         stringCollection.put("legReg","Regular customers");
         stringCollection.put("legPas","Pass Holders");
         stringCollection.put("legAh","Reserved AH");
