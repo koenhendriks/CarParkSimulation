@@ -172,8 +172,8 @@ public final class CarPark extends AbstractModel implements TimeInterface {
 
         // Get the average number of cars that arrive per hour.
         int averageNumberOfCarsPerHour = time.isWeekend()
-                ? this.weekDayArrivals
-                : this.weekendArrivals;
+                ? this.weekendArrivals
+                : this.weekDayArrivals;
 
         // Calculate the number of cars that arrive this minute.
         double standardDeviation = averageNumberOfCarsPerHour * 0.1;
