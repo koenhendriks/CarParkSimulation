@@ -373,7 +373,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     public static void removeCarAt(Location location) {
         if (checkLocation(location)) {
             Car car = carLocationMap.get(location);
-            car.setLocation(null);
+
+            if(car != null){
+                car.setLocation(null);
+            }
+
 
             FreeLocation.checkRemovedLocation(location);
 
@@ -582,7 +586,10 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         }
         FreeLocation.location = new Location(0,0,0);
 
-        //Update the views
+        // reset graph
+
+
+        // update the views
         super.notifyViews();
     }
 

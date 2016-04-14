@@ -53,7 +53,7 @@ public final class CarParkSimulation
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
     private AbstractView legend;
-    private AbstractView graphView;
+    private static GraphView graphView;
     private static StatisticsView statisticsView;
 
     // the controller
@@ -80,7 +80,7 @@ public final class CarParkSimulation
         this.dayView = new DayView(timeModel);
         statisticsView = new StatisticsView(carParkModel);
         this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
-        this.graphView = new GraphView(carParkModel);
+        graphView = new GraphView(carParkModel);
         this.legend = new LegendView(carParkModel);
 
         this.controller = new Controller(carParkModel);
@@ -185,8 +185,9 @@ public final class CarParkSimulation
      * Method for resetting the entire simulation.
      */
     public static void resetSimulation(){
-        carParkModel.resetPark();
         statisticsView.resetStats();
         timeModel.resetTime();
+        graphView.reset();
+        carParkModel.resetPark();
     }
 }

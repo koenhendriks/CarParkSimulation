@@ -8,7 +8,9 @@ import nl.hanze.CarParkSimulation.logic.Time;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Class GridView
@@ -25,14 +27,14 @@ public class GraphView extends AbstractView
     private CarPark carPark;
     private Time time;
     private Graphics2D graphic = null;
-    private Line2D yAxis;
-    private Line2D xAxis;
     private int maxCars = 0 ;
-    private int lastMinute = 0;
-    private int drawnGraphs = 0;
     private int lastTotalCars = 1;
-    private LinkedList<Line2D> lines;
+    private static int lastMinute = 0;
+    private static LinkedList<Line2D> lines;
     private Image image;
+    private static Line2D yAxis;
+    private static Line2D xAxis;
+    private static int drawnGraphs = 0;
     private final int chartXOffset = 30;
     private final int chartYOffset = 40;
     private final int yZero = 170;
@@ -50,7 +52,7 @@ public class GraphView extends AbstractView
         this.size = new Dimension(1200,180);
         this.maxCars = CarPark.getNumberOfFloors() * CarPark.getNumberOfPlaces() * CarPark.getNumberOfRows();
         this.image = createImage(size.width,size.height);
-        this.lines = new LinkedList<Line2D>();
+        lines = new LinkedList<>();
 
         yAxis = new Line2D.Float(chartXOffset, chartYOffset, chartXOffset, yZero);
         xAxis = new Line2D.Float(chartXOffset, yZero, 1190, yZero);
@@ -74,7 +76,7 @@ public class GraphView extends AbstractView
         this.size = new Dimension(width,height);
         this.maxCars = CarPark.getNumberOfFloors() * CarPark.getNumberOfPlaces() * CarPark.getNumberOfRows();
         this.image = createImage(size.width,size.height);
-        this.lines = new LinkedList<Line2D>();
+        this.lines = new LinkedList<>();
 
         yAxis = new Line2D.Float(chartXOffset, chartYOffset, chartXOffset, yZero);
         xAxis = new Line2D.Float(chartXOffset, yZero, 1190, yZero);
@@ -113,9 +115,10 @@ public class GraphView extends AbstractView
             double carPercentOld = ((double) lastTotalCars / (double) maxCars) * 100;
             double carPercentNew = ((double) totalCars / (double) maxCars) * 100;
 
+            int labelPercent = (int) Math.floor(carPercentNew);
 
             for(int i = 0; i < 101; i = i +10){
-                g.drawString(""+i+"%", 0, yZero - (int) Math.floor(1.3 * i));
+                g.drawString(""+i+"%", 0, (yZero - (int) Math.floor(1.3 * i) ));
             }
 
             int oldCars = (int) Math.floor(1.3 * carPercentOld);
@@ -130,7 +133,7 @@ public class GraphView extends AbstractView
 
             if(xTo > size.width){
                 drawnGraphs ++;
-                lines = new LinkedList<Line2D>();
+                lines = new LinkedList<>();
                 lines.add(yAxis);
                 lines.add(xAxis);
             }
@@ -139,10 +142,13 @@ public class GraphView extends AbstractView
 
             lines.add(line);
 
-            for (Line2D line2D : lines) {
-                g.draw(line2D);
-            }
+            g.drawString(labelPercent+"% at "+time.getCurrentTime(),xTo-10,yTo-20);
 
+            if(!lines.isEmpty()){
+                for (Line2D line2D : lines) {
+                    g.draw(line2D);
+                }
+            }
 
             lastMinute = runningMinutes;
             lastTotalCars = totalCars;
@@ -152,5 +158,13 @@ public class GraphView extends AbstractView
             setVisible(true);
             super.updateView();
         }
+    }
+
+    public static void reset(){
+        lastMinute = 0;
+        drawnGraphs = 0;
+        lines = new LinkedList<>();
+        lines.add(yAxis);
+        lines.add(xAxis);
     }
 }
