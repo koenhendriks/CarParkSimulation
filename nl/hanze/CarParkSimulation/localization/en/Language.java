@@ -77,7 +77,6 @@ public abstract class Language {
         stringCollection.put("pass", "Total Passholders: ");
         stringCollection.put("reservations", "Total reservations: ");
 
-
         // queue view strings
         stringCollection.put("info", "Carpark info");
         stringCollection.put("used", "Used the entrance: ");
@@ -96,6 +95,13 @@ public abstract class Language {
         stringCollection.put("regbar", "Regular customers: ");
         stringCollection.put("pasbar", "Pass Holders: ");
         stringCollection.put("resbar", "Reservations: ");
+
+        // legend strings
+        stringCollection.put("legTit","Legend: ");
+        stringCollection.put("legReg","Regular customers: ");
+        stringCollection.put("legPas","Pass Holders: ");
+        stringCollection.put("legRes","Reserved spaces: ");
+        stringCollection.put("legUse","Used reservations: ");
     }
 
     /**
