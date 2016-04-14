@@ -534,9 +534,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         exitIndex = 0;
         payCashIndex = 0;
         payPassIndex = 0;
+        payReservationIndex = 0;
 
         totalCarIndex = 0;
         totalPassholderIndex = 0;
+        totalReservationIndex = 0;
 
         // reset park
         numberOfFloors = 3;
