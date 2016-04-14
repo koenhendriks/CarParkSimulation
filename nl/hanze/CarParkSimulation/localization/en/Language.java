@@ -108,7 +108,7 @@ public abstract class Language {
         stringCollection.put("legOp","Reserved Opera");
 
         //QueueLengthView strings
-        stringCollection.put("lengthTitle","Queue length:");
+        stringCollection.put("lengthTitle","Queue");
         stringCollection.put("lengthEntrance","Entrance:");
         stringCollection.put("lengthPay","Pay:");
         stringCollection.put("lengthReservation","Reservation:");
