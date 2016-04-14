@@ -101,14 +101,14 @@ public abstract class Language {
         stringCollection.put("resbar", "Reservations: ");
 
         // legend strings
-        stringCollection.put("legTit","Legend: ");
+        stringCollection.put("legTit","Legend");
         stringCollection.put("legReg","Regular customers");
         stringCollection.put("legPas","Pass Holders");
         stringCollection.put("legAh","Reserved AH");
         stringCollection.put("legOp","Reserved Opera");
 
         //QueueLengthView strings
-        stringCollection.put("lengthTitle","Queue length:");
+        stringCollection.put("lengthTitle","Queue");
         stringCollection.put("lengthEntrance","Entrance:");
         stringCollection.put("lengthPay","Pay:");
         stringCollection.put("lengthReservation","Reservation:");
