@@ -26,7 +26,12 @@ public class LegendView extends AbstractView
         super(model);
 
         // set labels
-        title = new JLabel(Language.get("legTit"));
+        title = new JLabel();
+        title.setFont(new Font("Serif", Font.PLAIN, 20));
+        title.setText(Language.get("legTit"));
+
+
+
         regular = new JLabel(Language.get("legReg"));
         passholder = new JLabel(Language.get("legPas"));
         albert = new JLabel(Language.get("legAh"));
@@ -40,11 +45,11 @@ public class LegendView extends AbstractView
         add(opera);
 
         // set bounds
-        title.setBounds(0,0,150,50);
-        regular.setBounds(0,50,150,50);
-        passholder.setBounds(0,70,150,50);
-        albert.setBounds(0,90,150,50);
-        opera.setBounds(0,110,150,50);
+        title.setBounds(10,5,150,50);
+        regular.setBounds(10,40,150,50);
+        passholder.setBounds(10,60,150,50);
+        albert.setBounds(10,80,150,50);
+        opera.setBounds(10,100,150,50);
 
         // set colors
         regular.setForeground(Color.RED);
