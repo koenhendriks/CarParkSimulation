@@ -162,12 +162,6 @@ public final class CarParkSimulation
         SCREEN.setVisible(true);
         SCREEN.setResizable(false);
 
-        // debug: Draw a grid with 10 by 10 squares
-        // TODO: 4/11/16 this should be removed before release
-        this.gridView = new GridView(new AbstractModel() {}, this.width, this.height);
-        gridView.setBounds(0, 0, this.width, this.height);
-        SCREEN.getContentPane().add(gridView);
-
         // initialize views
         carParkView.updateView();
         timeModel.notifyViews();
