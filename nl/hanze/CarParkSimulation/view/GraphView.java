@@ -221,9 +221,11 @@ public class GraphView extends AbstractView
     public static void reset(){
         lastCarMinute = 0;
         drawnCarGraphs = 0;
+        drawnPassholderLines = 0;
         drawnreservationLines = 0;
         totalCarLines = new LinkedList<>();
         reservationLines = new LinkedList<>();
+        passholderLines = new LinkedList<>();
         totalCarLines.add(yAxis);
         totalCarLines.add(xAxis);
     }
