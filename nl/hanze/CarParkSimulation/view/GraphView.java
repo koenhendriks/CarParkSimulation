@@ -26,14 +26,17 @@ public class GraphView extends AbstractView
     private int maxCars = 0 ;
     private int lastTotalCars = 1;
     private int lastTotalRevenues = 1;
+    private int lastTotalPassholders = 1;
     private static int lastCarMinute = 0;
     private static LinkedList<Line2D> totalCarLines;
     private static LinkedList<Line2D> reservationLines;
+    private static LinkedList<Line2D> passholderLines;
     private Image image;
     private static Line2D yAxis;
     private static Line2D xAxis;
     private static int drawnCarGraphs = 0;
     private static int drawnreservationLines = 0;
+    private static int drawnPassholderLines = 0;
     private final int chartXOffset = 30;
     private final int chartYOffset = 40;
     private final int yZero = 170;
@@ -53,6 +56,7 @@ public class GraphView extends AbstractView
         this.image = createImage(size.width,size.height);
         totalCarLines = new LinkedList<>();
         reservationLines = new LinkedList<>();
+        passholderLines = new LinkedList<>();
 
         yAxis = new Line2D.Float(chartXOffset, chartYOffset, chartXOffset, yZero);
         xAxis = new Line2D.Float(chartXOffset, yZero, 1190, yZero);
@@ -113,6 +117,7 @@ public class GraphView extends AbstractView
 
             int totalCars = carPark.getTotalCars();
             int reservations = carPark.getTotalReservationIndex();
+            int passholders = carPark.getTotalPassholderIndex();
 
             double carPercentOld = ((double) lastTotalCars / (double) maxCars) * 100;
             double carPercentNew = ((double) totalCars / (double) maxCars) * 100;
@@ -120,8 +125,10 @@ public class GraphView extends AbstractView
             double reservationPercentOld = ((double) lastTotalRevenues / (double) maxCars) * 100;
             double reservationPercentNew = ((double) reservations / (double) maxCars) * 100;
 
+            double passholderPercentOld = ((double) lastTotalPassholders / (double) maxCars) * 100;
+            double passholderPercentNew = ((double) passholders / (double) maxCars) * 100;
+
             int labelPercent = (int) Math.floor(carPercentNew);
-            int reservationPercent = (int) Math.floor(reservationPercentNew);
 
             for(int i = 0; i < 101; i = i +10){
                 g.drawString(""+i+"%", 0, (yZero - (int) Math.floor(1.3 * i) ));
@@ -133,11 +140,17 @@ public class GraphView extends AbstractView
             int oldReservations = (int) Math.floor(1.3 * reservationPercentOld);
             int newReservations = (int) Math.floor(1.3 * reservationPercentNew);
 
+            int oldPassholders = (int) Math.floor(1.3 * passholderPercentOld);
+            int newPassholders = (int) Math.floor(1.3 * passholderPercentNew);
+
             int xFrom = (lastCarMinute + chartXOffset) - (drawnCarGraphs * (size.width - chartXOffset));
             int yFrom = yZero - oldCars;
 
             int xFromReservation = (lastCarMinute + chartXOffset) - (drawnreservationLines * (size.width - chartXOffset));
             int yFromReservation = yZero - oldReservations;
+
+            int xFromPassholder = (lastCarMinute + chartXOffset) - (drawnPassholderLines * (size.width - chartXOffset));
+            int yFromPassholder = yZero - oldPassholders;
 
             int xTo = (runningMinutes + chartXOffset)  - (drawnCarGraphs * (size.width - chartXOffset));
             int yTo = yZero - newCars;
@@ -145,24 +158,31 @@ public class GraphView extends AbstractView
             int xToReservations = (runningMinutes + chartXOffset)  - (drawnreservationLines * (size.width - chartXOffset));
             int yToReservations = yZero - newReservations;
 
+            int xToPassholder = (runningMinutes + chartXOffset)  - (drawnPassholderLines * (size.width - chartXOffset));
+            int yToPassholder = yZero - newPassholders;
+
             if(xTo > size.width){
                 drawnCarGraphs++;
                 totalCarLines = new LinkedList<>();
                 reservationLines = new LinkedList<>();
+                passholderLines = new LinkedList<>();
+
                 totalCarLines.add(yAxis);
                 totalCarLines.add(xAxis);
 
                 drawnreservationLines++;
+                drawnPassholderLines++;
             }
 
             Line2D line = new Line2D.Float(xFrom, yFrom, xTo, yTo);
             Line2D lineReservation = new Line2D.Float(xFromReservation, yFromReservation, xToReservations, yToReservations);
+            Line2D linePassholder = new Line2D.Float(xFromPassholder, yFromPassholder, xToPassholder, yToPassholder);
 
             totalCarLines.add(line);
             reservationLines.add(lineReservation);
+            passholderLines.add(linePassholder);
 
             g.drawString(labelPercent+"% at "+time.getCurrentTime(),xTo-10,yTo-20);
-            g.drawString(reservationPercent+"% at "+time.getCurrentTime(),xToReservations-10,yToReservations-20);
 
             if(!totalCarLines.isEmpty()){
                 for (Line2D line2D : totalCarLines) {
@@ -172,7 +192,14 @@ public class GraphView extends AbstractView
 
             if(!reservationLines.isEmpty()){
                 for (Line2D line2D : reservationLines) {
-                    g.setColor(Color.RED);
+                    g.setColor(Color.GREEN);
+                    g.draw(line2D);
+                }
+            }
+
+            if(!passholderLines.isEmpty()){
+                for (Line2D line2D : passholderLines) {
+                    g.setColor(Color.BLUE);
                     g.draw(line2D);
                 }
             }
@@ -180,9 +207,11 @@ public class GraphView extends AbstractView
             lastCarMinute = runningMinutes;
             lastTotalCars = totalCars;
             lastTotalRevenues = reservations;
+            lastTotalPassholders = passholders;
 
             lastTotalCars++;
             lastTotalRevenues++;
+            lastTotalPassholders++;
 
             setVisible(true);
             super.updateView();
