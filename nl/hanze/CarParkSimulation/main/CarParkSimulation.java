@@ -128,7 +128,7 @@ public final class CarParkSimulation
 
         // set the location of the views on the SCREEN
         carParkView.setBounds(260,30,680,330);
-        statisticsView.setBounds(30,190, 220,120);
+        statisticsView.setBounds(30,200, 220,120);
         queueView.setBounds(30,30,220,160);
         queueLengthView.setBounds(30,420,220,120);
         dayView.setBounds(970,30,200, 330);
