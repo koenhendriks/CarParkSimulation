@@ -104,6 +104,7 @@ public class GraphView extends AbstractView
 
         int runningMinutes = Integer.valueOf(time.getRunningMinutes());
 
+        // only draw the grapgh ones a minute
         if(runningMinutes > lastCarMinute) {
 
             // create a new car park image if the size has changed.
@@ -119,6 +120,10 @@ public class GraphView extends AbstractView
             int reservations = carPark.getTotalReservationIndex();
             int passholders = carPark.getTotalPassholderIndex();
 
+            /**
+             * Calculate the old and new percentage of the indexes
+             * to draw the lines in a percental scale.
+             */
             double carPercentOld = ((double) lastTotalCars / (double) maxCars) * 100;
             double carPercentNew = ((double) totalCars / (double) maxCars) * 100;
 
@@ -128,12 +133,19 @@ public class GraphView extends AbstractView
             double passholderPercentOld = ((double) lastTotalPassholders / (double) maxCars) * 100;
             double passholderPercentNew = ((double) passholders / (double) maxCars) * 100;
 
+            // add a label to the total cars line
             int labelPercent = (int) Math.floor(carPercentNew);
 
+            // keep the label at the latest point
             for(int i = 0; i < 101; i = i +10){
                 g.drawString(""+i+"%", 0, (yZero - (int) Math.floor(1.3 * i) ));
             }
 
+            /**
+             * Calculate integers to set the x and y coordinates where
+             * the line should draw from and the x and y coordinates where
+             * the line should draw to.
+             */
             int oldCars = (int) Math.floor(1.3 * carPercentOld);
             int newCars = (int) Math.floor(1.3 * carPercentNew);
 
@@ -161,6 +173,10 @@ public class GraphView extends AbstractView
             int xToPassholder = (runningMinutes + chartXOffset)  - (drawnPassholderLines * (size.width - chartXOffset));
             int yToPassholder = yZero - newPassholders;
 
+            /**
+             * Reset the width for the graph if we have no screen to draw
+             * on anymore we want to reset the graph to x 0 with the offset
+             */
             if(xTo > size.width){
                 drawnCarGraphs++;
                 totalCarLines = new LinkedList<>();
@@ -174,22 +190,30 @@ public class GraphView extends AbstractView
                 drawnPassholderLines++;
             }
 
+            /**
+             * Create the new lines for the totalcars, reservations and passholders
+             * in the current step.
+             */
             Line2D line = new Line2D.Float(xFrom, yFrom, xTo, yTo);
             Line2D lineReservation = new Line2D.Float(xFromReservation, yFromReservation, xToReservations, yToReservations);
             Line2D linePassholder = new Line2D.Float(xFromPassholder, yFromPassholder, xToPassholder, yToPassholder);
 
+            // add the lines to the lists
             totalCarLines.add(line);
             reservationLines.add(lineReservation);
             passholderLines.add(linePassholder);
 
+            // draw the label on the latest line of the total cars
             g.drawString(labelPercent+"% at "+time.getCurrentTime(),xTo-10,yTo-20);
 
+            // draw the totalcar graph
             if(!totalCarLines.isEmpty()){
                 for (Line2D line2D : totalCarLines) {
                     g.draw(line2D);
                 }
             }
 
+            // draw the total reservation graph
             if(!reservationLines.isEmpty()){
                 for (Line2D line2D : reservationLines) {
                     g.setColor(Color.GREEN);
@@ -197,6 +221,7 @@ public class GraphView extends AbstractView
                 }
             }
 
+            // draw the total passholder graph
             if(!passholderLines.isEmpty()){
                 for (Line2D line2D : passholderLines) {
                     g.setColor(Color.BLUE);
@@ -204,6 +229,7 @@ public class GraphView extends AbstractView
                 }
             }
 
+            // update the start values to the new lines
             lastCarMinute = runningMinutes;
             lastTotalCars = totalCars;
             lastTotalRevenues = reservations;
@@ -218,6 +244,9 @@ public class GraphView extends AbstractView
         }
     }
 
+    /**
+     * Method to reset the graph
+     */
     public static void reset(){
         lastCarMinute = 0;
         drawnCarGraphs = 0;
