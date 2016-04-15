@@ -14,7 +14,6 @@ import java.awt.*;
  * @author Ruben Buisman, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-
 public class QueueView extends AbstractView
 {
     // queue view size

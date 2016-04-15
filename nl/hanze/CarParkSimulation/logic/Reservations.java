@@ -15,6 +15,10 @@ public final class Reservations {
     private static HashMap<String, ArrayList<Location>> reservations;
     private static HashMap<String, Color> colors;
 
+    /**
+     * Constructor for the Reservation which holds the hashmaps
+     * of the reservations with their color
+     */
     public Reservations() {
         reservations = new HashMap<>();
         colors = new HashMap<>();
@@ -50,6 +54,11 @@ public final class Reservations {
         return colors.get(company);
     }
 
+    /**
+     * Method to get all the locations that have been reserved
+     *
+     * @return ArrayList with Location objects which have been reserved for different companies
+     */
     public ArrayList<Location> getLocations(){
         ArrayList<Location> allLocations = new ArrayList<>();
 
@@ -60,10 +69,21 @@ public final class Reservations {
         return allLocations;
     }
 
+    /**
+     * Method to get list of locatinos for a certain company
+     *
+     * @param company String with the company to get the locatiosn from
+     * @return ArrayList with Location objects which have been reserved by this company
+     */
     public ArrayList<Location> getCompanyLocations(String company){
         return reservations.get(company);
     }
 
+    /**
+     * Method to get the reservation hashmap
+     *
+     * @return HashMap with String company as key and ArrayList with Location objects as value
+     */
     public HashMap<String, ArrayList<Location>> getReservations() {
         return reservations;
     }

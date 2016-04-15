@@ -6,7 +6,6 @@ package nl.hanze.CarParkSimulation.logic;
  * @author Ruben Buisman, Joey Boum Bletterman
  * @version 0.2 (11-04-2016)
  */
-
 import nl.hanze.CarParkSimulation.interfaces.TimeInterface;
 
 /**

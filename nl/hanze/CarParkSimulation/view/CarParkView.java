@@ -19,8 +19,6 @@ public class CarParkView extends AbstractView
     // title, cars and pass holder labels
     private JLabel title;
     private JLabel totalCars;
-    private JLabel totalPassholders;
-    private JLabel totalReservations;
 
     // image of the car park
     private Image carParkImage;
@@ -35,21 +33,15 @@ public class CarParkView extends AbstractView
         super(model);
         this.title = new JLabel(Language.get("birdView"));
         this.totalCars = new JLabel(Language.get("cars0"));
-        this.totalPassholders = new JLabel(Language.get("pass0"));
-        this.totalReservations = new JLabel(Language.get("reservation0"));
         this.size = new Dimension(680, 330);
 
         // set location of the labels
-        totalReservations.setBounds(500,5,250,10);
-        totalPassholders.setBounds(300,5,250,10);
-        totalCars.setBounds(170,5,150,10);
+        totalCars.setBounds(300,5,150,10);
         title.setBounds(10,5, 150,10);
 
         // add the labels to the view
         add(title);
         add(totalCars);
-        add(totalReservations);
-        add(totalPassholders);
     }
 
 
@@ -77,8 +69,6 @@ public class CarParkView extends AbstractView
 
         // total statistics
         totalCars.setText(Language.get("cars")+ carPark.getTotalCars());
-        totalPassholders.setText(Language.get("pass")+carPark.getTotalPassholderIndex());
-        totalReservations.setText(Language.get("reservations")+carPark.getTotalReservationIndex());
 
         // create a new car park image if the size has changed.
         carParkImage = createImage(size.width, size.height);
@@ -120,7 +110,11 @@ public class CarParkView extends AbstractView
     }
 
     /**
-     * Paint a place on this car park view in a given color.
+     * Draw a single parking spot for a car
+     *
+     * @param graphics Graphics object to draw up on
+     * @param location Location to draw
+     * @param color Color object to give to the drawn place
      */
     private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);

@@ -34,4 +34,8 @@ public class CarQueue extends AbstractModel
     public Car removeCar() {
         return queue.poll();
     }
+
+    public int size(){
+        return this.queue.size();
+    }
 }

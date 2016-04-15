@@ -5,10 +5,12 @@ import nl.hanze.CarParkSimulation.controller.Controller;
 import nl.hanze.CarParkSimulation.localization.en.Language;
 import nl.hanze.CarParkSimulation.logic.AbstractModel;
 import nl.hanze.CarParkSimulation.logic.CarPark;
+import nl.hanze.CarParkSimulation.logic.CarQueue;
 import nl.hanze.CarParkSimulation.logic.Time;
 import nl.hanze.CarParkSimulation.view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -18,7 +20,7 @@ import java.awt.event.WindowEvent;
  * This will be an instance of the main simulation.
  *
  * @author Koen Hendriks, Ruben Buisman, Joey Boum Bletterman
- * @version 0.2 (11-04-2016)
+ * @version 0.4 (11-04-2016)
  */
 public final class CarParkSimulation
 {
@@ -47,9 +49,12 @@ public final class CarParkSimulation
     // the views
     private AbstractView carParkView;
     private AbstractView queueView;
+    private AbstractView queueLengthView;
     private AbstractView dayView;
     private AbstractView gridView;
     private AbstractView alternateStatiscticsView;
+    private AbstractView legend;
+    private static GraphView graphView;
     private static StatisticsView statisticsView;
 
     // the controller
@@ -72,11 +77,21 @@ public final class CarParkSimulation
 
         this.carParkView = new CarParkView(carParkModel);
         this.queueView = new QueueView(carParkModel);
+        this.queueLengthView = new QueueLengthView(carParkModel);
         this.dayView = new DayView(timeModel);
         statisticsView = new StatisticsView(carParkModel);
         this.alternateStatiscticsView = new AlternateStatisticsView(carParkModel);
+        graphView = new GraphView(carParkModel);
+        this.legend = new LegendView(carParkModel);
 
         this.controller = new Controller(carParkModel);
+
+        // set borders for the views
+        queueView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        queueLengthView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        dayView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        statisticsView.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+        legend.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 
         /*
          * Create the JFrame that will display the views
@@ -105,15 +120,21 @@ public final class CarParkSimulation
         SCREEN.getContentPane().add(carParkView);
         SCREEN.getContentPane().add(dayView);
         SCREEN.getContentPane().add(queueView);
+        SCREEN.getContentPane().add(queueLengthView);
         SCREEN.getContentPane().add(statisticsView);
         SCREEN.getContentPane().add(alternateStatiscticsView);
+        SCREEN.getContentPane().add(legend);
+        SCREEN.getContentPane().add(graphView);
 
         // set the location of the views on the SCREEN
         carParkView.setBounds(260,30,680,330);
-        statisticsView.setBounds(30,190, 220,120);
-        queueView.setBounds(30,30,230,160);
+        statisticsView.setBounds(30,200, 220,120);
+        queueView.setBounds(30,30,220,160);
+        queueLengthView.setBounds(30,420,220,120);
         dayView.setBounds(970,30,200, 330);
         alternateStatiscticsView.setBounds(260,400,680,140);
+        graphView.setBounds(0,540,1200,300);
+        legend.setBounds(970,370,200,170);
 
 
         // add the controllers to the main SCREEN
@@ -149,12 +170,6 @@ public final class CarParkSimulation
         SCREEN.setVisible(true);
         SCREEN.setResizable(false);
 
-        // debug: Draw a grid with 10 by 10 squares
-        // TODO: 4/11/16 this should be removed before release
-        this.gridView = new GridView(new AbstractModel() {}, this.width, this.height);
-        gridView.setBounds(0, 0, this.width, this.height);
-        SCREEN.getContentPane().add(gridView);
-
         // initialize views
         carParkView.updateView();
         timeModel.notifyViews();
@@ -178,8 +193,9 @@ public final class CarParkSimulation
      * Method for resetting the entire simulation.
      */
     public static void resetSimulation(){
-        carParkModel.resetPark();
         statisticsView.resetStats();
         timeModel.resetTime();
+        graphView.reset();
+        carParkModel.resetPark();
     }
 }

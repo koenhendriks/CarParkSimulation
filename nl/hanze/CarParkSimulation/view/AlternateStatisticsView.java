@@ -32,6 +32,7 @@ public class AlternateStatisticsView extends AbstractView
     private JProgressBar bar3;
 
     public static int SPACES;
+
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
      *
@@ -71,6 +72,9 @@ public class AlternateStatisticsView extends AbstractView
     }
 
     @Override
+    /**
+     * Method that gets called by model if the view needs to be updated
+     */
     public void updateView() {
         CarPark carPark = (CarPark) super.model;
 
@@ -83,17 +87,23 @@ public class AlternateStatisticsView extends AbstractView
         bar1.setMaximum(SPACES);
         bar1.setValue(regular);
         percent1 = (int) Math.floor(bar1.getPercentComplete() * 100);
-        bar1.setString(Language.get("regbar") + percent1 + "%");
+        bar1.setString(regular + " " +
+                Language.get("regbar") +
+                percent1 + "%");
 
         bar2.setMaximum(SPACES);
         bar2.setValue(passholders);
         percent2 = (int) Math.floor(bar2.getPercentComplete() * 100);
-        bar2.setString(Language.get("pasbar") + percent2 + "%");
+        bar2.setString(passholders +  " " +
+                Language.get("pasbar") +
+                percent2 + "%");
 
         bar3.setMaximum(SPACES);
         bar3.setValue(reservations);
         percent3 = (int) Math.floor(bar3.getPercentComplete() * 100);
-        bar3.setString(Language.get("resbar") + percent3 + "%");
+        bar3.setString(reservations +  " " +
+                Language.get("resbar") +
+                percent3 + "%");
 
         setVisible(true);
         super.updateView();

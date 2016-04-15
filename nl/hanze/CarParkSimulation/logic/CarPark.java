@@ -44,6 +44,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     int passHolderProbability = 5; // this means that there is a one in x change the car will be a pass holder car
     int reservationProbability = 10; // this means that there is a one in x change the car will be a reservation car
 
+    // indexes to keep track of multiple values
     private static int entranceIndex = 0;
     private static int exitIndex = 0;
     private static int payCashIndex = 0;
@@ -53,8 +54,9 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     private static int totalPassholderIndex = 0;
     private static int totalReservationIndex = 0;
     private static int totalMinutes;
-
     private static int inMinutes;
+
+    // hashmap with all the locations for the cars
     private static HashMap<Location, Car> carLocationMap;
 
     /**
@@ -172,8 +174,8 @@ public final class CarPark extends AbstractModel implements TimeInterface {
 
         // Get the average number of cars that arrive per hour.
         int averageNumberOfCarsPerHour = time.isWeekend()
-                ? this.weekDayArrivals
-                : this.weekendArrivals;
+                ? this.weekendArrivals
+                : this.weekDayArrivals;
 
         // Calculate the number of cars that arrive this minute.
         double standardDeviation = averageNumberOfCarsPerHour * 0.1;
@@ -263,13 +265,9 @@ public final class CarPark extends AbstractModel implements TimeInterface {
 
                 FreeLocation.setNext();
             }
-
-            super.notifyViews();
         }
 
         this.tickCars();
-
-        super.notifyViews();
 
         // Let cars pay.
         for (int i = 0; i < paymentSpeed; i++) {
@@ -282,7 +280,6 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
 
-            super.notifyViews();
         }
 
         // Let cars leave.
@@ -304,7 +301,6 @@ public final class CarPark extends AbstractModel implements TimeInterface {
             totalMinutes = (totalMinutes + car.getStayMinutes());
             totalCarIndex--;
             exitIndex++;
-            super.notifyViews();
         }
 
         // Update the car park view.
@@ -379,7 +375,11 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     public static void removeCarAt(Location location) {
         if (checkLocation(location)) {
             Car car = carLocationMap.get(location);
-            car.setLocation(null);
+
+            if(car != null){
+                car.setLocation(null);
+            }
+
 
             FreeLocation.checkRemovedLocation(location);
 
@@ -521,6 +521,38 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     }
 
     /**
+     * Getter for entranceCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getEntranceCarQueue() {
+        return entranceCarQueue;
+    }
+
+    /**
+     * Getter for paymentCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getPaymentCarQueue() {
+        return paymentCarQueue;
+    }
+
+    /**
+     * Getter for exitCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getExitCarQueue() {
+        return exitCarQueue;
+    }
+
+    /**
+     * Getter for reservationCarQueue
+     * @return an CarQueue object
+     */
+    public static CarQueue getReservationCarQueue() {
+        return reservationCarQueue;
+    }
+
+    /**
      * Reset method for the park.
      */
     public void resetPark(){
@@ -534,15 +566,18 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         exitIndex = 0;
         payCashIndex = 0;
         payPassIndex = 0;
+        payReservationIndex = 0;
 
         totalCarIndex = 0;
         totalPassholderIndex = 0;
+        totalReservationIndex = 0;
 
         // reset park
         numberOfFloors = 3;
         numberOfRows = 6;
         numberOfPlaces = 30;
 
+        // reset queues
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
@@ -553,18 +588,37 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         }
         FreeLocation.location = new Location(0,0,0);
 
-        //Update the views
+        // reset graph
+
+
+        // update the views
         super.notifyViews();
     }
 
+    /**
+     * Method to get the time object from the car park model.
+     *
+     * @return Time object with current time information
+     */
     public Time getTime() {
         return time;
     }
 
+    /**
+     * Method to set the total amount of minutes that the cars together
+     * have to calculate the expected revenue
+     *
+     * @param totalMinutes int to set the total minutes
+     */
     public static void setTotalMinutes(int totalMinutes) {
         CarPark.totalMinutes = totalMinutes;
     }
 
+    /**
+     * Get the reservation object from the car park model
+     *
+     * @return Reservation object with the reservations info
+     */
     public Reservations getReservations() {
         return reservations;
     }
