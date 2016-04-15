@@ -23,7 +23,6 @@ public class GraphView extends AbstractView
     private Dimension size;
     private CarPark carPark;
     private Time time;
-    private Graphics2D graphic = null;
     private int maxCars = 0 ;
     private int lastTotalCars = 1;
     private int lastTotalRevenues = 1;
@@ -173,6 +172,7 @@ public class GraphView extends AbstractView
 
             if(!reservationLines.isEmpty()){
                 for (Line2D line2D : reservationLines) {
+                    g.setColor(Color.RED);
                     g.draw(line2D);
                 }
             }
