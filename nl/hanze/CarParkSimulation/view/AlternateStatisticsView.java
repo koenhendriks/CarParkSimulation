@@ -32,6 +32,7 @@ public class AlternateStatisticsView extends AbstractView
     private JProgressBar bar3;
 
     public static int SPACES;
+
     /**
      * Constructor of AbstractView that expects a model belonging to this view.
      *
@@ -71,6 +72,9 @@ public class AlternateStatisticsView extends AbstractView
     }
 
     @Override
+    /**
+     * Method that gets called by model if the view needs to be updated
+     */
     public void updateView() {
         CarPark carPark = (CarPark) super.model;
 

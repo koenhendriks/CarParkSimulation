@@ -12,6 +12,11 @@ public class ReservationCar extends Car implements TimeInterface{
 
     private String company;
 
+    /**
+     * Constructor of the Reservation Car
+     *
+     * @param company String of the company the car belongs to
+     */
     public ReservationCar(String company) {
         this.company = company;
     }
@@ -29,6 +34,11 @@ public class ReservationCar extends Car implements TimeInterface{
         }
     }
 
+    /**
+     * Method to get the company from the reservation car
+     *
+     * @return String with the company
+     */
     public String getCompany() {
         return company;
     }

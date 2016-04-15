@@ -110,7 +110,11 @@ public class CarParkView extends AbstractView
     }
 
     /**
-     * Paint a place on this car park view in a given color.
+     * Draw a single parking spot for a car
+     *
+     * @param graphics Graphics object to draw up on
+     * @param location Location to draw
+     * @param color Color object to give to the drawn place
      */
     private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);

@@ -91,6 +91,9 @@ public class GraphView extends AbstractView
     }
 
     @Override
+    /**
+     * Paint components on the graphic
+     */
     public void paintComponent(Graphics g) {
         if (this.image == null) {
             return;
@@ -100,6 +103,9 @@ public class GraphView extends AbstractView
     }
 
     @Override
+    /**
+     * Method that gets called by model if the view needs to be updated
+     */
     public void updateView() {
 
         int runningMinutes = Integer.valueOf(time.getRunningMinutes());

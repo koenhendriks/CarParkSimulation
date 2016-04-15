@@ -44,6 +44,7 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     int passHolderProbability = 5; // this means that there is a one in x change the car will be a pass holder car
     int reservationProbability = 10; // this means that there is a one in x change the car will be a reservation car
 
+    // indexes to keep track of multiple values
     private static int entranceIndex = 0;
     private static int exitIndex = 0;
     private static int payCashIndex = 0;
@@ -53,8 +54,9 @@ public final class CarPark extends AbstractModel implements TimeInterface {
     private static int totalPassholderIndex = 0;
     private static int totalReservationIndex = 0;
     private static int totalMinutes;
-
     private static int inMinutes;
+
+    // hashmap with all the locations for the cars
     private static HashMap<Location, Car> carLocationMap;
 
     /**
@@ -593,14 +595,30 @@ public final class CarPark extends AbstractModel implements TimeInterface {
         super.notifyViews();
     }
 
+    /**
+     * Method to get the time object from the car park model.
+     *
+     * @return Time object with current time information
+     */
     public Time getTime() {
         return time;
     }
 
+    /**
+     * Method to set the total amount of minutes that the cars together
+     * have to calculate the expected revenue
+     *
+     * @param totalMinutes int to set the total minutes
+     */
     public static void setTotalMinutes(int totalMinutes) {
         CarPark.totalMinutes = totalMinutes;
     }
 
+    /**
+     * Get the reservation object from the car park model
+     *
+     * @return Reservation object with the reservations info
+     */
     public Reservations getReservations() {
         return reservations;
     }

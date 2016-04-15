@@ -31,6 +31,9 @@ public class AboutView extends JPanel {
     private JLabel githubLabel;
 
 
+    /**
+     * Constructor for the About view which shows some information about the application
+     */
     public AboutView() {
         // using absolute positioning so we set the layout to null
         setLayout(null);
@@ -130,7 +133,7 @@ public class AboutView extends JPanel {
     /**
      * Method to open a URL external in a browser
      *
-     * @param uri URI that should be opened
+     * @param url URI that should be opened
      */
     public static void openWebpage(URL url) {
         try {
